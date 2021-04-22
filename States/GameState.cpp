@@ -26,7 +26,7 @@ void GameState::render(sf::RenderTarget *target) {
 }
 
 void GameState::endState() {
-std::cout << "Ending Gamestate" << std::endl;
+    std::cout << "Ending Gamestate" << std::endl;
 }
 
 
