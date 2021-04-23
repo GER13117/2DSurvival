@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(RPGTutorial)
+project(2DSurvival)
 set(CMAKE_CXX_STANDARD 20)
 add_executable(RPGTutorial src/main.cpp src/Game.cpp src/Game.h States/State.cpp States/State.h States/GameState.cpp States/GameState.h Entities/Entity.cpp Entities/Entity.h States/MainMenuState.cpp States/MainMenuState.h ResourceFiles/Button.cpp ResourceFiles/Button.h)
 include_directories(/usr/local/include)
