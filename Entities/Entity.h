@@ -6,6 +6,9 @@
 #include "SFML/Window.hpp"
 #include "SFML/Audio.hpp"
 #include "SFML/Network.hpp"
+
+#include <ctime>
+#include <cstdlib>
 #include <vector>
 #include <fstream>
 #include <sstream>

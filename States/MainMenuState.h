@@ -6,6 +6,7 @@
 #define MAINMENUSTATE_H
 
 #include "GameState.h"
+#include "../ResourceFiles/Button.h"
 
 class MainMenuState:
         public State{
@@ -13,7 +14,13 @@ class MainMenuState:
 private:
     //Variables
     sf::RectangleShape background;
+    //Fonts
+    sf::Font arial;
+    sf::Font commando;
+    //Buttons
+    Button *gamestate_btn;
     //Functions
+    void initFonts();
     void initKeybinds();
 public:
     MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys);
