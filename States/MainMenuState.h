@@ -43,7 +43,7 @@ public:
 
     void renderButtons(sf::RenderTarget *target = nullptr);
 
-    void render(sf::RenderTarget *target = NULL);
+    void render(sf::RenderTarget *target = nullptr);
 
 };
 

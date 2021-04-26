@@ -5,7 +5,7 @@
 #include "Button.h"
 
 Button::Button(float x, float y, float width, float height,
-               sf::Font *font, unsigned int fontSize, std::string textString,
+               sf::Font *font, unsigned int fontSize, const std::string& textString,
                sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor) {
     this->buttonState = BTN_IDLE;
 

@@ -38,7 +38,7 @@ public:
 
     virtual void update(const float &dt) = 0;
 
-    virtual void render(sf::RenderTarget *target = NULL) = 0;
+    virtual void render(sf::RenderTarget *target = nullptr) = 0;
 };
 
 #endif

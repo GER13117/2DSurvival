@@ -8,8 +8,8 @@ void GameState::initKeybinds() {
     std::ifstream ifs("../cfg/gamestate_keybinds.ini");
 
     if (ifs.is_open()) {
-        std::string key = "";
-        std::string key2 = "";
+        std::string key;
+        std::string key2;
         while (ifs >> key >> key2) {
             this->keybinds[key] = this->supportedKeys->at(key2);
         }

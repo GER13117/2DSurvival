@@ -8,7 +8,7 @@ void MainMenuState::initFonts() {
         throw ("ERROR::MAINMENUSTATE::COULD NOT LOAD ARIAL FONT");
     }
     if (!this->commando.loadFromFile("../Fonts/commando.ttf")) {
-        throw ("ERROR::MAINMENUSTATE::COULD NOT LOAD COMMANDO FONT");
+        throw ("ERROR::MAINMENUSTATE::COULD NOT LOAD COMMANDO FONT"); //TODO: Wie kann man Strings als Error schmeißen
     }
 }
 

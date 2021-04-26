@@ -32,7 +32,7 @@ private:
 
 public:
     Button(float x, float y, float width, float height,
-           sf::Font *font, unsigned int fontSize, std::string text,
+           sf::Font *font, unsigned int fontSize, const std::string& text,
            sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
 
     virtual ~Button();
@@ -41,7 +41,7 @@ public:
     bool isPressed() const;
 
     //Functions
-    void update(const sf::Vector2f mousePos);
+    void update(sf::Vector2f mousePos);
 
     void render(sf::RenderTarget *target);
 
