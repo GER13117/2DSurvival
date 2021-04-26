@@ -5,22 +5,40 @@
 
 //Static Functions
 //Initializers
+void Game::initVariables() {
+    this->window = nullptr;
+    this->fullscreen = false;
+    this->dt = 0.f;
+}
+
+
 void Game::initWindow() {
     std::ifstream ifs("../cfg/window.ini");
-    sf::VideoMode window_bounds(800, 600);
+    this->videoModes = sf::VideoMode::getFullscreenModes();
+
     std::string title = "NONE";
-    unsigned framerate_limit = 120;
-    bool vertical_sync_enabled = false;
+    sf::VideoMode windowBounds = sf::VideoMode::getDesktopMode();
+    unsigned framerateLimit = 120;
+    bool verticalSyncEnabled = false;
+    unsigned anitaliasingLevel = 0;
     if (ifs.is_open()) {
         std::getline(ifs, title);
-        ifs >> window_bounds.width >> window_bounds.height;
-        ifs >> framerate_limit;
-        ifs >> vertical_sync_enabled;
+        ifs >> windowBounds.width >> windowBounds.height;
+        ifs >> this->fullscreen;
+        ifs >> framerateLimit;
+        ifs >> verticalSyncEnabled;
+        ifs >> anitaliasingLevel;
     }
     ifs.close();
-    this->window = new sf::RenderWindow(window_bounds, title);
-    this->window->setFramerateLimit(framerate_limit);
-    this->window->setVerticalSyncEnabled(vertical_sync_enabled);
+    this->windowSettings.antialiasingLevel = anitaliasingLevel;
+    if (this->fullscreen) {
+        this->window = new sf::RenderWindow(windowBounds, title, sf::Style::Fullscreen, windowSettings);
+    } else {
+        this->window = new sf::RenderWindow(windowBounds, title, sf::Style::Titlebar | sf::Style::Close,
+                                            windowSettings);
+    }
+    this->window->setFramerateLimit(framerateLimit);
+    this->window->setVerticalSyncEnabled(verticalSyncEnabled);
 }
 
 void Game::initKeys() {
