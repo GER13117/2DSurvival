@@ -28,7 +28,7 @@ void Game::initKeys() {
     std::ifstream ifs("../cfg/supported_keys.ini");
 
     if (ifs.is_open()) {
-        std::string key = "";
+        std::string key;
         int key_value;
         while (ifs >> key >> key_value) {
             this->supportedKeys[key] = key_value;
@@ -43,7 +43,7 @@ void Game::initKeys() {
 }
 
 void Game::initStates() {
-    this->states.push(new MainMenuState(this->window, &this->supportedKeys));
+    this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
 }
 
 //Constructor/Destructor

@@ -14,7 +14,7 @@ private:
     //Functions
     void initKeybinds();
 public:
-    GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys);
+    GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State*> *states);
 
     virtual ~GameState();
 
@@ -25,7 +25,7 @@ public:
 
     void update(const float &dt);
 
-    void render(sf::RenderTarget *target = nullptr);
+    void render(sf::RenderTarget *target = NULL);
 };
 
 #endif

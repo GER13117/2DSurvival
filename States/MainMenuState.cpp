@@ -13,7 +13,7 @@ void MainMenuState::initFonts() {
 }
 
 void MainMenuState::initKeybinds() {
-    std::ifstream ifs("../cfg/gamestate_keybinds.ini");
+    std::ifstream ifs("../cfg/mainmenustate_keybinds.ini");
     if (ifs.is_open()) {
         std::string key;
         std::string key2;
@@ -33,8 +33,8 @@ void MainMenuState::initButtons() {
                                              sf::Color::Red, sf::Color::Green, sf::Color::Cyan);
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys)
-        : State(window, supportedKeys) {
+MainMenuState::MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State*> *states)
+        : State(window, supportedKeys, states) {
     this->initFonts();
     this->initKeybinds();
     this->initButtons();
@@ -59,8 +59,8 @@ void MainMenuState::updateButtons() {
     }
     //New Game
     if (this->buttons["GAME_STATE"]->isPressed()){
-        std::cout << "Doesnt work yet snitches" << std::endl << "Will look like: " << std::endl << "this->states.push(new GameState(this->window, &this->supportedKeys))";
-        //this->states.push(new GameState(this->window, &this->supportedKeys));
+        //std::cout << "Doesnt work yet snitches" << std::endl << "Will look like: " << std::endl << "this->states.push(new GameState(this->window, &this->supportedKeys))";
+        this->states->push(new GameState(this->window, this->supportedKeys, this->states));
     }
 
     //Quit Game
