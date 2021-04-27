@@ -1,7 +1,7 @@
 //
 // Created by okke on 23.04.21.
 //
-#include "MainMenuState.h"
+#include "include/MainMenuState.h"
 
 void MainMenuState::initFonts() {
     if (!this->arial.loadFromFile("../Fonts/arial.ttf")) {
@@ -25,10 +25,12 @@ void MainMenuState::initKeybinds() {
 }
 
 void MainMenuState::initButtons() {
-    this->buttons["GAME_STATE"] = new Button(100.f, 100.f, 150, 50,
+    this->centerWidth = (static_cast<float>(window->getSize().x)) / 2.f;
+    this->centerHeight = (static_cast<float>(window->getSize().y)) / 2.f;
+    this->buttons["GAME_STATE"] = new Button(centerWidth, centerHeight-100, 250, 50,
                                              &this->commando, 20, "New Game",
                                              sf::Color::Red, sf::Color::Green, sf::Color::Cyan);
-    this->buttons["EXIT_STATE"] = new Button(100.f, 300.f, 150, 50,
+    this->buttons["EXIT_STATE"] = new Button(centerWidth, centerHeight+100, 250, 50,
                                              &this->commando, 20, "Quit",
                                              sf::Color::Red, sf::Color::Green, sf::Color::Cyan);
 }

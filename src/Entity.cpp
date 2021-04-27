@@ -1,7 +1,7 @@
 //
 // Created by okke on 22.04.21.
 //
-#include "Entity.h"
+#include "include/Entity.h"
 
 Entity::Entity() {
     this->shape.setSize(sf::Vector2f(50.f, 50.f));

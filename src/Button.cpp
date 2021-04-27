@@ -2,15 +2,16 @@
 // Created by okke on 23.04.21.
 //
 
-#include "Button.h"
+#include "include/Button.h"
 
 Button::Button(float x, float y, float width, float height,
-               sf::Font *font, unsigned int fontSize, const std::string& textString,
+               sf::Font *font, unsigned int fontSize, const std::string &textString,
                sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor) {
     this->buttonState = BTN_IDLE;
+    this->shape.setSize(sf::Vector2f(width, height));
+    this->shape.setOrigin(shape.getSize().x / 2.f, shape.getSize().y / 2.f);
 
     this->shape.setPosition(sf::Vector2f(x, y));
-    this->shape.setSize(sf::Vector2f(width, height));
 
     this->font = font;
 
@@ -22,8 +23,8 @@ Button::Button(float x, float y, float width, float height,
     this->text.setOrigin(textRect.left + textRect.width / 2.f,
                          textRect.top + textRect.height / 2.f);
     this->text.setPosition(
-            this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f),
-            this->shape.getPosition().y + (this->shape.getGlobalBounds().height / 2.f)
+            this->shape.getPosition().x,
+            this->shape.getPosition().y
     );
 
     this->idleColor = idleColor;

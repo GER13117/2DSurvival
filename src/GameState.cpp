@@ -1,7 +1,7 @@
 //
 // Created by okke on 22.04.21.
 //
-#include "GameState.h"
+#include "include/GameState.h"
 
 void GameState::initKeybinds() {
 

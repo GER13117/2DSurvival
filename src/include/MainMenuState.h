@@ -6,13 +6,15 @@
 #define MAINMENUSTATE_H
 
 #include "GameState.h"
-#include "../src/Button.h"
+#include "Button.h"
 
 class MainMenuState :
         public State {
 
 private:
     //Variables
+    float centerWidth;
+    float centerHeight;
     sf::RectangleShape background;
     //Fonts
     sf::Font arial;

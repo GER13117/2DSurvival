@@ -4,7 +4,7 @@
 #ifndef STATE_H
 #define STATE_H
 
-#include "../Entities/Entity.h"
+#include "Entity.h"
 
 class State {
 protected:

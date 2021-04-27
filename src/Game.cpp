@@ -1,7 +1,7 @@
 //
 // Created by okke on 22.04.21.
 //
-#include "Game.h"
+#include "include/Game.h"
 
 //Static Functions
 //Initializers
