@@ -3,12 +3,24 @@
 //
 #include "include/MainMenuState.h"
 
-void MainMenuState::initFonts() {
-    if (!this->arial.loadFromFile("../Fonts/arial.ttf")) {
-        throw ("ERROR::MAINMENUSTATE::COULD NOT LOAD ARIAL FONT");
+void MainMenuState::initVariables() {
+
+}
+
+void MainMenuState::initBackground() {
+    this->background.setSize(static_cast<sf::Vector2f>(this->window->getSize()));
+    if (!this->bgTexture.loadFromFile("../res/Pictures/Backgrounds/bgplaceholder.png")) {
+        throw std::string("ERROR:MAINMENUSTATE::Could not load bgplaceholder.png");
     }
-    if (!this->commando.loadFromFile("../Fonts/commando.ttf")) {
-        throw ("ERROR::MAINMENUSTATE::COULD NOT LOAD COMMANDO FONT"); //TODO: Wie kann man Strings als Error schmeißen
+    this->background.setTexture(&this->bgTexture);
+}
+
+void MainMenuState::initFonts() {
+    if (!this->arial.loadFromFile("../res/Fonts/arial.ttf")) {
+        throw std::string("ERROR::MAINMENUSTATE::COULD NOT LOAD ARIAL FONT");
+    }
+    if (!this->commando.loadFromFile("../res/Fonts/commando.ttf")) {
+        throw std::string("ERROR::MAINMENUSTATE::COULD NOT LOAD COMMANDO FONT");
     }
 }
 
@@ -27,21 +39,27 @@ void MainMenuState::initKeybinds() {
 void MainMenuState::initButtons() {
     this->centerWidth = (static_cast<float>(window->getSize().x)) / 2.f;
     this->centerHeight = (static_cast<float>(window->getSize().y)) / 2.f;
-    this->buttons["GAME_STATE"] = new Button(centerWidth, centerHeight-100, 250, 50,
+    this->buttons["GAME_STATE"] = new Button(centerWidth, centerHeight - 100, 250, 50,
                                              &this->commando, 20, "New Game",
                                              sf::Color::Red, sf::Color::Green, sf::Color::Cyan);
-    this->buttons["EXIT_STATE"] = new Button(centerWidth, centerHeight+100, 250, 50,
+
+    this->buttons["SETTINGS"] = new Button(centerWidth, centerHeight + 100, 250, 50,
+                                           &this->commando, 20, "Settings",
+                                           sf::Color::Red, sf::Color::Green, sf::Color::Cyan);
+
+    this->buttons["EXIT_STATE"] = new Button(centerWidth, centerHeight + 300, 250, 50,
                                              &this->commando, 20, "Quit",
                                              sf::Color::Red, sf::Color::Green, sf::Color::Cyan);
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State*> *states)
+MainMenuState::MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys,
+                             std::stack<State *> *states)
         : State(window, supportedKeys, states) {
+    this->initVariables();
+    this->initBackground();
     this->initFonts();
     this->initKeybinds();
     this->initButtons();
-    this->background.setSize(static_cast<sf::Vector2f> (window->getSize()));
-    this->background.setFillColor(sf::Color::Blue);
 }
 
 MainMenuState::~MainMenuState() {
@@ -60,14 +78,17 @@ void MainMenuState::updateButtons() {
         it.second->update(this->mousePosView);
     }
     //New Game
-    if (this->buttons["GAME_STATE"]->isPressed()){
-        //std::cout << "Doesnt work yet snitches" << std::endl << "Will look like: " << std::endl << "this->states.push(new GameState(this->window, &this->supportedKeys))";
+    if (this->buttons["GAME_STATE"]->isPressed()) {
         this->states->push(new GameState(this->window, this->supportedKeys, this->states));
     }
 
     //Quit Game
-    if (this->buttons["EXIT_STATE"]->isPressed()){
+    if (this->buttons["EXIT_STATE"]->isPressed()) {
         this->quit = true;
+    }
+
+    if (this->buttons["SETTINGS"]->isPressed()) {
+        std::cout << "In Production" << std::endl;
     }
 }
 
