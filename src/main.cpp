@@ -18,3 +18,4 @@ int main() {
 //TODO: Musik
 //TODO: Settings
 //TODO: Fonts
+//TODO: Resize Images to Player
