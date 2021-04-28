@@ -22,7 +22,8 @@ void GameState::initKeybinds() {
 }
 
 void GameState::initTextures() {
-    this->textures["PLAYER_IDLE"].loadFromFile("../res/Pictures/Entities/Player/test.png");
+    if (!this->textures["PLAYER_IDLE"].loadFromFile("../res/Pictures/Entities/Player/test.png"))
+        throw std::string("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TEST.PNG");
 }
 
 void GameState::initPLayers() {
