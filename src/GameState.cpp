@@ -83,7 +83,7 @@ void GameState::update(const float &dt) {
     this->updateMousePositions();
     this->updateInput(dt);
     this->player->update(dt);
-    this->updateView(dt);
+    //this->updateView(dt);
 }
 
 void GameState::render(sf::RenderTarget *target) {
