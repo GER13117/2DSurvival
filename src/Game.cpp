@@ -107,12 +107,11 @@ void Game::update() {
             this->states.pop();
         }
     }
-        //Ending Application
+    //Ending Application
     else {
         this->endApplication();
         this->window->close();
     }
-
 }
 
 void Game::render() {

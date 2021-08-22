@@ -35,6 +35,7 @@ public:
     virtual ~Game();
 
     //Functions
+
     //Regular
     void endApplication();
 

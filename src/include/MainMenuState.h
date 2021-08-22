@@ -22,10 +22,13 @@ private:
     sf::Font commando;
 
     //Buttons
-    std::map<std::string, Button*> buttons;
+    std::map<std::string, Button *> buttons;
+
     //Functions
     void initVariables();
+
     void initBackground();
+
     void initFonts();
 
     void initKeybinds();
@@ -33,7 +36,7 @@ private:
     void initButtons();
 
 public:
-    MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State*> *states);
+    MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states);
 
     virtual ~MainMenuState();
 
@@ -49,6 +52,4 @@ public:
     void render(sf::RenderTarget *target = nullptr);
 
 };
-
-
 #endif

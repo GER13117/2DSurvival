@@ -19,7 +19,7 @@
 
 class MovementComponent {
 private:
-    sf::Sprite& sprite;
+    sf::Sprite &sprite;
 
     float acceleration;
     float deceleration;
@@ -27,18 +27,14 @@ private:
 
     sf::Vector2f velocity;
 
-
-
     //Initializers
 
-
 public:
-    MovementComponent(sf::Sprite& sprite, float maxVelocity, float acceleration, float deceleration);
+    MovementComponent(sf::Sprite &sprite, float maxVelocity, float acceleration, float deceleration);
 
     virtual ~MovementComponent();
 
     //accessors
-
     const sf::Vector2f &getVelocity() const;
 
     //functions
@@ -46,6 +42,5 @@ public:
 
     void update(const float &dt);
 };
-
 
 #endif //INC_2DSURVIVAL_MOVEMENTCOMPONENT_H

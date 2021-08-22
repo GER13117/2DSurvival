@@ -4,13 +4,13 @@
 #include "include/GameState.h"
 
 void GameState::initRenderTexture() {
-    renderTexture.create(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height); //TODO: Get size of the window
+    renderTexture.create(this->window->getSize().x, this->window->getSize().y);
     this->renderSprite.setTexture(this->renderTexture.getTexture());
 
 }
 
 void GameState::initView() {
-    this->view.setSize(1920.f, 1080.f);
+    this->view.setSize(this->window->getSize().x/2, this->window->getSize().y/2);
     this->view.setCenter(sf::Vector2f{0.f, 0.f});
 }
 
@@ -27,19 +27,19 @@ void GameState::initKeybinds() {
     }
     ifs.close();
 /*
-    //Degug REMOVE
     for (auto i: this->keybinds) {
         std::cout << i.first << " " << i.second << std::endl;
     }*/
 }
 
 void GameState::initTextures() {
-    if (!this->textures["PLAYER_IDLE"].loadFromFile("../res/Pictures/Entities/Player/test.png"))
+    if (!this->textures["PLAYER_IDLE"].loadFromFile("../resources/Pictures/Entities/Player/test.png"))
         throw std::string("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TEST.PNG");
 }
 
 void GameState::initPLayers() {
     this->player = new Player(0, 0, this->textures["PLAYER_IDLE"]);
+    this->dumbPlayer = new Player(100, 100, this->textures["PLAYER_IDLE"]); //Only for testing purposes, REMOVE RENDER
 }
 
 
@@ -75,7 +75,7 @@ void GameState::updateInput(const float &dt) {
 }
 
 void GameState::updateView(const float &dt) {
-    //this->view.setCenter(std::floor(this->player->getPosition().x), std::floor(this->player->getPosition().y)); //TODO: Fix "wobble"
+    this->view.setCenter(this->player->getPosition().x, this->player->getPosition().y);
 }
 
 void GameState::update(const float &dt) {
@@ -94,6 +94,7 @@ void GameState::render(sf::RenderTarget *target) {
 
     //Sachen die gemalt werden sollen
     this->player->render(this->renderTexture);
+    this->dumbPlayer->render(this->renderTexture);
 
     this->renderTexture.display();
     target->draw(this->renderSprite);
