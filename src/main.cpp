@@ -19,3 +19,4 @@ int main() {
 //TODO: Settings
 //TODO: Fonts
 //TODO: Resize Images to Player
+//TODO: Fix movement

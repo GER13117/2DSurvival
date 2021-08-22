@@ -15,6 +15,7 @@
 #include <stack>
 #include <map>
 #include <iostream>
+#include <cmath>
 
 #ifndef ENTITY_H
 #define ENTITY_H
@@ -22,6 +23,7 @@
 class Entity {
 private:
     void initVariables();
+
 protected:
     sf::Texture *texture;
     sf::Sprite *sprite;
@@ -37,11 +39,13 @@ public:
     //Functions
     virtual void setPosition(const float x, const float y);
 
+    virtual const sf::Vector2f &getPosition() const;
+
     virtual void move(const float &dt, const float x, const float y);
 
     virtual void update(const float &dt);
 
-    virtual void render(sf::RenderTarget *target);
+    virtual void render(sf::RenderTarget &target);
 
 };
 

@@ -9,9 +9,14 @@
 class GameState :
         public State {
 private:
+    sf::View view;
+    sf::RenderTexture renderTexture;
+    sf::Sprite renderSprite;
     Player *player;
 
     //Functions
+    void initView();
+    void initRenderTexture(); //Rename??
     void initKeybinds();
     void initTextures();
     void initPLayers();
@@ -22,6 +27,8 @@ public:
 
     //Functions
     void updateInput(const float &dt);
+
+    void updateView(const float &dt);
 
     void update(const float &dt);
 

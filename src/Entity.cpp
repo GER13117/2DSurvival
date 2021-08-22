@@ -30,6 +30,10 @@ void Entity::setPosition(const float x, const float y) {
     }
 }
 
+const sf::Vector2f &Entity::getPosition() const {
+    return this->sprite->getPosition();
+}
+
 void Entity::move(const float &dt, const float dir_x, const float dir_y) {
     if (this->sprite) {
         this->sprite->move(dir_x * this->movementSpeed * dt, dir_y * this->movementSpeed * dt);
@@ -39,8 +43,10 @@ void Entity::move(const float &dt, const float dir_x, const float dir_y) {
 void Entity::update(const float &dt) {
 }
 
-void Entity::render(sf::RenderTarget *target) {
+void Entity::render(sf::RenderTarget &target) {
     if (this->sprite) {
-        target->draw(*this->sprite);
+        target.draw(*this->sprite);
     }
 }
+
+

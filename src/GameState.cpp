@@ -2,6 +2,19 @@
 // Created by okke on 22.04.21.
 //
 #include "include/GameState.h"
+
+void GameState::initRenderTexture() {
+    renderTexture.create(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height); //TODO: Get size of the window
+    this->renderSprite.setTexture(this->renderTexture.getTexture());
+
+}
+
+void GameState::initView() {
+    //this->view.reset(sf::FloatRect(0.f, 0.f, 300.f, 200.f));
+    this->view.setSize(sf::Vector2f{static_cast<float>(sf::VideoMode::getDesktopMode().width)/2.f, static_cast<float>(sf::VideoMode::getDesktopMode().height)/2.f});
+    this->view.setCenter(sf::Vector2f{0.f, 0.f});
+}
+
 void GameState::initKeybinds() {
 
     std::ifstream ifs("../cfg/gamestate_keybinds.ini");
@@ -27,12 +40,14 @@ void GameState::initTextures() {
 }
 
 void GameState::initPLayers() {
-    this->player = new Player(0,0, &this->textures["PLAYER_IDLE"]);
+    this->player = new Player(0, 0, &this->textures["PLAYER_IDLE"]);
 }
 
 
-GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State*> *states)
+GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states)
         : State(window, supportedKeys, states) {
+    this->initRenderTexture();
+    this->initView();
     this->initKeybinds();
     this->initTextures();
     this->initPLayers();
@@ -60,15 +75,27 @@ void GameState::updateInput(const float &dt) {
     }
 }
 
+void GameState::updateView(const float &dt) {
+    //this->view.setCenter(std::floor(this->player->getPosition().x), std::floor(this->player->getPosition().y)); //TODO: Fix "wobble"
+}
+
 void GameState::update(const float &dt) {
     this->updateMousePositions();
     this->updateInput(dt);
     this->player->update(dt);
+    this->updateView(dt);
 }
 
 void GameState::render(sf::RenderTarget *target) {
     if (!target) {
         target = this->window;
     }
-    this->player->render(target);
+    this->renderTexture.clear(sf::Color::Green);
+    this->renderTexture.setView(this->view);
+
+    //Sachen die gemalt werden sollen
+    this->player->render(this->renderTexture);
+
+    this->renderTexture.display();
+    target->draw(this->renderSprite);
 }
