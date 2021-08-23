@@ -14,9 +14,34 @@ const sf::Vector2f &MovementComponent::getVelocity() const {
 }
 
 //functions
-const bool MovementComponent::isIdle() const {
-    if (this->velocity.x == 0.f && this->velocity.y == 0.f)
-        return true;
+const bool MovementComponent::getState(const short unsigned state) const {
+    switch (state) {
+        case IDLE:
+            if (this->velocity.x == 0.f && this->velocity.y == 0.f)
+                return true;
+            break;
+        case MOVING:
+            if (this->velocity.x != 0.f || this->velocity.y != 0.f)
+                return true;
+            break;
+        case MOVING_LEFT:
+            if (this->velocity.x < 0.f)
+                return true;
+            break;
+        case MOVING_RIGHT:
+            if (this->velocity.x > 0.f)
+                return true;
+            break;
+        case MOVING_UP:
+            if (this->velocity.y < 0.f)
+                return true;
+            break;
+        case MOVING_DOWN:
+            if (this->velocity.y > 0.f)
+                return true;
+            break;
+    }
+
     return false;
 }
 
@@ -81,3 +106,5 @@ void MovementComponent::update(const float &dt) {
     //Final move
     this->sprite.move(this->velocity * dt); //uses velocity
 }
+
+
