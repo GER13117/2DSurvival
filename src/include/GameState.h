@@ -13,7 +13,6 @@ private:
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
     Player *player;
-    Player *dumbPlayer; //Test
 
     //Functions
     void initView();

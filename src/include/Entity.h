@@ -2,6 +2,7 @@
 // Created by okke on 22.04.21.
 //
 #include "MovementComponent.h"
+#include "AnimationComponent.h"
 
 #ifndef ENTITY_H
 #define ENTITY_H
@@ -13,6 +14,7 @@ private:
 protected:
     sf::Sprite sprite;
     MovementComponent *movementComponent;
+    AnimationComponent *animationComponent;
 public:
     Entity();
 
@@ -23,6 +25,8 @@ public:
 
     void createMovementComponent(const float maxVelocity, const float acceleration,
                                  const float deceleration);
+    void createAnimationComponent(sf::Texture &texture_sheet);
+
 
     //Functions
     virtual void setPosition(const float x, const float y);

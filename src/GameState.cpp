@@ -33,13 +33,12 @@ void GameState::initKeybinds() {
 }
 
 void GameState::initTextures() {
-    if (!this->textures["PLAYER_IDLE"].loadFromFile("../resources/Pictures/Entities/Player/test.png"))
-        throw std::string("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TEST.PNG");
+    if (!this->textures["PLAYER_SHEET"].loadFromFile("../resources/Pictures/Entities/Player/testSpriteSheet.png"))
+        throw "ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TEST.PNG";
 }
 
 void GameState::initPLayers() {
-    this->player = new Player(0, 0, this->textures["PLAYER_IDLE"]);
-    this->dumbPlayer = new Player(100, 100, this->textures["PLAYER_IDLE"]); //Only for testing purposes, REMOVE RENDER
+    this->player = new Player(0, 0, this->textures["PLAYER_SHEET"]);
 }
 
 
@@ -94,7 +93,6 @@ void GameState::render(sf::RenderTarget *target) {
 
     //Sachen die gemalt werden sollen
     this->player->render(this->renderTexture);
-    this->dumbPlayer->render(this->renderTexture);
 
     this->renderTexture.display();
     target->draw(this->renderSprite);

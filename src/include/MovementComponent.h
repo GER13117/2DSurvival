@@ -38,6 +38,8 @@ public:
     const sf::Vector2f &getVelocity() const;
 
     //functions
+    const bool isIdle() const;
+
     void move(const float dir_x, const float dir_y, const float &dt);
 
     void update(const float &dt);
