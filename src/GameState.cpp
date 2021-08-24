@@ -41,7 +41,6 @@ void GameState::initPLayers() {
     this->player = new Player(0, 0, this->textures["PLAYER_SHEET"]);
 }
 
-
 GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states)
         : State(window, supportedKeys, states) {
     this->initRenderTexture();
@@ -88,7 +87,7 @@ void GameState::render(sf::RenderTarget *target) {
     if (!target) {
         target = this->window;
     }
-    this->renderTexture.clear(sf::Color::Green);
+    this->renderTexture.clear(sf::Color::Yellow);
     this->renderTexture.setView(this->view);
 
     //Sachen die gemalt werden sollen
