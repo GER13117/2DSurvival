@@ -7,7 +7,7 @@ int main() {
 }
 
 //TODO: Keypresstiming
-//TODO: View / Camera on Player
+//TODO: Camera on Player
 //TODO: Map
     //TODO: Infinite
     //TODO: Procedural
@@ -20,3 +20,4 @@ int main() {
 //TODO: Fonts
 //TODO: Resize Images to Player
 //TODO: Fix diagonal movement (wahrscheinlich mit vektoren)
+//TODO: Think about how to use the Collision system

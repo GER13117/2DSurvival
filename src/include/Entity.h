@@ -7,6 +7,7 @@
 #include "HitboxComponent.h"
 #include "MovementComponent.h"
 #include "AnimationComponent.h"
+#include "Collision.h"
 
 
 class Entity {
