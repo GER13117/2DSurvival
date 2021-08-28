@@ -4,4 +4,11 @@
 
 #include "include/TileMap.h"
 
-TileMap::TileMap() {}
+TileMap::TileMap::TileMap(float tile_size_x, float _tile_size_y, sf::Texture &texture_sheet) {
+
+}
+
+TileMap::~TileMap() {
+
+}
+

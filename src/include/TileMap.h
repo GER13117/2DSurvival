@@ -6,21 +6,21 @@
 #define INC_2DSURVIVAL_TILEMAP_H
 
 #include "Tile.h"
-
+#include "SimplexNoise.h"
 
 class TileMap {
 private:
-    sf::Vector2f size;
+    sf::Vector2f tileSize;
+    Tile *tile;
 public:
-    TileMap();
+    TileMap(float tile_size_x, float _tile_size_y, sf::Texture &texture_sheet);
+
+    void update();
+
+    void render();
 
     virtual ~TileMap();
 
 };
-
-TileMap::~TileMap() {
-
-}
-
 
 #endif //INC_2DSURVIVAL_TILEMAP_H
