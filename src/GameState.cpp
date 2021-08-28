@@ -37,6 +37,10 @@ void GameState::initTextures() {
         throw "ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TEST.PNG";
 }
 
+void GameState::initTilemap() {
+    this->tile = new Tile(72, 72, 36, 36, sf::Color::Red);
+}
+
 void GameState::initPLayers() {
     this->player = new Player(0, 0, this->textures["PLAYER_SHEET"]);
 }
@@ -47,6 +51,7 @@ GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *suppo
     this->initView();
     this->initKeybinds();
     this->initTextures();
+    this->initTilemap();
     this->initPLayers();
 }
 
@@ -91,6 +96,7 @@ void GameState::render(sf::RenderTarget *target) {
     this->renderTexture.setView(this->view);
 
     //Sachen die gemalt werden sollen
+    this->tile->render(this->renderTexture);
     this->player->render(this->renderTexture);
 
     this->renderTexture.display();
