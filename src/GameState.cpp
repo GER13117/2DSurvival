@@ -12,6 +12,7 @@ void GameState::initRenderTexture() {
 void GameState::initView() {
     this->view.setSize(this->window->getSize().x/2, this->window->getSize().y/2);
     this->view.setCenter(sf::Vector2f{0.f, 0.f});
+    std::cout << "x: " <<window->getSize().x << " y:  " << window->getSize().y << std::endl; //Debugging because on laptop not the full display is used
 }
 
 void GameState::initKeybinds() {
@@ -38,7 +39,7 @@ void GameState::initTextures() {
 }
 
 void GameState::initTilemap() {
-    this->tile = new Tile(72, 72, 36, 36, sf::Color::Red);
+    this->tileMap = new TileMap(36.f, 36.f);
 }
 
 void GameState::initPLayers() {
@@ -57,6 +58,7 @@ GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *suppo
 
 GameState::~GameState() {
     delete this->player;
+    delete this->tileMap;
 }
 
 void GameState::updateInput(const float &dt) {
@@ -96,7 +98,7 @@ void GameState::render(sf::RenderTarget *target) {
     this->renderTexture.setView(this->view);
 
     //Sachen die gemalt werden sollen
-    this->tile->render(this->renderTexture);
+    this->tileMap->render(this->renderTexture);
     this->player->render(this->renderTexture);
 
     this->renderTexture.display();

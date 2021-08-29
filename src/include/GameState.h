@@ -6,6 +6,7 @@
 
 #include "State.h"
 #include "Tile.h"
+#include "TileMap.h"
 
 class GameState :
         public State {
@@ -14,17 +15,23 @@ private:
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
     Player *player;
-    Tile *tile;
+    TileMap *tileMap;
 
     //Functions
     void initView();
+
     void initRenderTexture(); //Rename??
+
     void initKeybinds();
+
     void initTextures();
+
     void initTilemap();
+
     void initPLayers();
+
 public:
-    GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State*> *states);
+    GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states);
 
     virtual ~GameState();
 

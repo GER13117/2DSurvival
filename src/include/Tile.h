@@ -32,17 +32,15 @@ private:
 
 public:
     Tile(float x, float y, float width, float height,
-           sf::Color tileColor);
+         sf::Color tileColor);
 
     virtual ~Tile();
 
     //Accessors
-
+    sf::RectangleShape getShape();
 
     //Functions
     void update();
-
-    void render(sf::RenderTarget &target);
 };
 
 

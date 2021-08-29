@@ -3,7 +3,7 @@
 int main() {
     Game game;
     game.run();
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 //TODO: Keypresstiming
@@ -18,6 +18,5 @@ int main() {
 //TODO: Musik
 //TODO: Settings
 //TODO: Fonts
-//TODO: Resize Images to Player
 //TODO: Fix diagonal movement (wahrscheinlich mit vektoren)
 //TODO: Think about how to use the Collision system
