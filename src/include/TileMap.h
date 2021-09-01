@@ -18,9 +18,9 @@ private:
     sf::Texture textureSheet;
     Tile *tile;
 public:
-    TileMap(float tile_size_x, float tile_size_y);
+    TileMap(int tile_size_x, int tile_size_y);
 
-    static sf::Color tileColor(int x, int y);
+    static sf::Color tileColor(float noise);
 
     void update();
 

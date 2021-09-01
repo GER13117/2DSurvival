@@ -9,8 +9,8 @@ Tile::Tile(float x, float y, float width, float height, sf::Color tileColor) {
     this->shape.setSize(sf::Vector2f(width, height));
     this->shape.setPosition(sf::Vector2f(x, y));
     this->shape.setFillColor(this->tileColor);
-    this->shape.setOutlineThickness(2.f);
-    this->shape.setOutlineColor(sf::Color::Black);
+//    this->shape.setOutlineThickness(2.f);
+//    this->shape.setOutlineColor(sf::Color::Black);
 }
 
 Tile::~Tile() {
