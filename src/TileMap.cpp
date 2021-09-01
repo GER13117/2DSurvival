@@ -9,21 +9,20 @@ TileMap::TileMap(float tile_size_x, float _tile_size_y, sf::Texture &texture_she
     this->tile = new Tile(72, 72, 36, 36, sf::Color::Red);
 }*/
 
-TileMap::TileMap(int tile_size_x, int tile_size_y) {
-    float scale = 400.f;
-    float offset_z = 0.05f;
-    float lacunarity = 1.99f;
-    float persistance = 0.5f;
-    const SimplexNoise simplex(0.1f / scale, 0.5f, lacunarity,
+TileMap::TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x,
+                 uint8_t max_tiles_y) {
+    this->playerPosition = player_position;
+    this->tileSizeX = tile_size_x;
+    this->tileSizeY = tile_size_y;
+    this->maxTilesX = max_tiles_x;
+    this->maxTilesY = max_tiles_y;
+    this->scale = 400.f;
+    this->offsetZ = 0.05f;
+    this->lacunarity = 1.99f;
+    this->persistance = 0.5f;
+    simplex = new SimplexNoise(0.1f / scale, 0.5f, lacunarity,
                                persistance); // Amplitude of 0.5 for the 1st octave : sum ~1.0f
-    const int octaves = static_cast<int>(3 + std::log(scale)); // Estimate number of octaves needed for the scale
-    for (int x = 0; x < 100 * tile_size_x; x += tile_size_x) {
-        for (int y = 0; y < tile_size_y * 100; y += tile_size_y) {
-            const float noise = simplex.fractal(octaves, (float)x, (float)y) + offset_z;
-            this->tile = new Tile((float)x, (float)y, (float)tile_size_x, (float)tile_size_y, tileColor(noise));
-            this->tiles.push_back(this->tile);
-        }
-    }
+    this->octaves = static_cast<int>(3 + std::log(scale)); // Estimate number of octaves needed for the scale
 }
 
 
@@ -55,12 +54,24 @@ sf::Color TileMap::tileColor(
     //return sf::Color::Green;
 }
 
-void TileMap::update() { //check if a tile is outside the render region
-
+void TileMap::update(sf::Vector2f player_position) { //check if a tile is outside the render region
+    for (int x = 0; x < maxTilesX * tileSizeX; x += tileSizeX) {
+        for (int y = 0; y < maxTilesY * tileSizeY; y += tileSizeY) { //TODO: Das Spiel malt jetzt immer wieder neue Tiles obwohl es nicht nötig ist --> gucken ob an einer bestimmten Stelle schon ein Tiles ist, wenn ja nicht neu zeichnen.
+            noise = simplex->fractal(octaves, (float) x, (float) y) + offsetZ; //TODO: Wenn die Tiles außerhalb das Bildschirms sind, sollen sie nicht mehr gezeichnet und aus dem Vector der Tiles gelöscht werden.
+            this->tile = new Tile((float) x, (float) y, (float) tileSizeX, (float) tileSizeY, tileColor(noise));
+            this->tiles.push_back(this->tile);
+        }
+    }
+    /*for (int i = 0; i <= this->tiles.size(); i++) {
+        if (this->tiles[i]->getShape().getPosition().x - player_position.x > tileSizeX * maxTilesX &&
+                this->tiles[i]->getShape().getPosition().y - player_position.y > tileSizeY * maxTilesY) {
+            this->tiles.erase(this->tiles.begin() + i);
+        }
+    }*/
 }
 
 void TileMap::render(sf::RenderTarget &target) {
-    for (auto &e : this->tiles) {
+    for (auto &e: this->tiles) {
         target.draw(e->getShape());
     }
 }

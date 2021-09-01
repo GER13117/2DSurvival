@@ -40,7 +40,7 @@ void GameState::initTextures() {
 }
 
 void GameState::initTilemap() {
-    this->tileMap = new TileMap(36, 36);
+    this->tileMap = new TileMap(36, 36, sf::Vector2f(0.f, 0.f), 46, 30);
 }
 
 void GameState::initPLayers() {
@@ -87,6 +87,7 @@ void GameState::updateView(const float &dt) {
 void GameState::update(const float &dt) {
     this->updateMousePositions();
     this->updateInput(dt);
+    this->tileMap->update(player->getPosition());
     this->player->update(dt);
     this->updateView(dt);
 }
