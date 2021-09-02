@@ -17,7 +17,7 @@ private:
     sf::Vector2f tileSize;
     sf::Texture textureSheet;
     Tile *tile;
-    sf::Vector2f playerPosition;
+    sf::Vector2i offset;
     int tileSizeX;
     int tileSizeY;
     float scale = 400.f;

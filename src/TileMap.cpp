@@ -11,7 +11,7 @@ TileMap::TileMap(float tile_size_x, float _tile_size_y, sf::Texture &texture_she
 
 TileMap::TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x,
                  uint8_t max_tiles_y) {
-    this->playerPosition = player_position;
+    this->offset = {0,0};
     this->tileSizeX = tile_size_x;
     this->tileSizeY = tile_size_y;
     this->maxTilesX = max_tiles_x;
@@ -55,13 +55,19 @@ sf::Color TileMap::tileColor(
 }
 
 void TileMap::update(sf::Vector2f player_position) { //check if a tile is outside the render region
-    for (int x = 0; x < maxTilesX * tileSizeX; x += tileSizeX) {
-        for (int y = 0; y < maxTilesY * tileSizeY; y += tileSizeY) { //TODO: Das Spiel malt jetzt immer wieder neue Tiles obwohl es nicht nötig ist --> gucken ob an einer bestimmten Stelle schon ein Tiles ist, wenn ja nicht neu zeichnen.
-            noise = simplex->fractal(octaves, (float) x, (float) y) + offsetZ; //TODO: Wenn die Tiles außerhalb das Bildschirms sind, sollen sie nicht mehr gezeichnet und aus dem Vector der Tiles gelöscht werden.
-            this->tile = new Tile((float) x, (float) y, (float) tileSizeX, (float) tileSizeY, tileColor(noise));
+    offset.x = ((int)(player_position.x / 36) * 36);
+    offset.y = ((int)(player_position.y / 36) * 36);
+
+    for (int x = offset.x - maxTilesX * tileSizeX ; x  < maxTilesX * tileSizeX + offset.x; x += tileSizeX) {
+        for (int y = offset.y - maxTilesY * tileSizeY; y < maxTilesY * tileSizeY + offset.y; y += tileSizeY) {
+            noise = simplex->fractal(octaves, (float) x , (float) y) + offsetZ;
+            this->tile = new Tile((float) x , (float) y, (float) tileSizeX, (float) tileSizeY, tileColor(noise));
             this->tiles.push_back(this->tile);
         }
     }
+    //TODO: Das Spiel malt jetzt immer wieder neue Tiles obwohl es nicht nötig ist --> gucken ob an einer bestimmten Stelle schon ein Tiles ist, wenn ja nicht neu zeichnen.
+    //TODO: Wenn die Tiles außerhalb das Bildschirms sind, sollen sie nicht mehr gezeichnet und aus dem Vector der Tiles gelöscht werden.
+    std::cout << tiles.size() << std::endl;
     /*for (int i = 0; i <= this->tiles.size(); i++) {
         if (this->tiles[i]->getShape().getPosition().x - player_position.x > tileSizeX * maxTilesX &&
                 this->tiles[i]->getShape().getPosition().y - player_position.y > tileSizeY * maxTilesY) {

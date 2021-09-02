@@ -40,7 +40,7 @@ void GameState::initTextures() {
 }
 
 void GameState::initTilemap() {
-    this->tileMap = new TileMap(36, 36, sf::Vector2f(0.f, 0.f), 46, 30);
+    this->tileMap = new TileMap(36, 36, sf::Vector2f(0.f, 0.f), 5, 5);
 }
 
 void GameState::initPLayers() {
