@@ -10,10 +10,11 @@ void GameState::initRenderTexture() {
 }
 
 void GameState::initView() {
-    this->view.setSize(this->window->getSize().x/2, this->window->getSize().y/2);
+    this->view.setSize(this->window->getSize().x / 2, this->window->getSize().y / 2);
     this->view.setCenter(sf::Vector2f{0.f, 0.f});
     //this->view.setRotation(45.f);
-    std::cout << "x: " <<window->getSize().x << " y:  " << window->getSize().y << std::endl; //Debugging because on laptop not the full display is used
+    std::cout << "x: " << window->getSize().x << " y:  " << window->getSize().y
+              << std::endl; //Debugging because on laptop not the full display is used
 }
 
 void GameState::initKeybinds() {
@@ -40,7 +41,10 @@ void GameState::initTextures() {
 }
 
 void GameState::initTilemap() {
-    this->tileMap = new TileMap(36, 36, sf::Vector2f(0.f, 0.f), 5, 5);
+    uint8_t tileSize = 36;
+    auto maxTilesX = (uint8_t) (this->view.getSize().x / tileSize);
+    auto maxTilesY = (uint8_t) (this->view.getSize().y / tileSize);
+    this->tileMap = new TileMap(tileSize, tileSize, sf::Vector2f(0.f, 0.f), maxTilesX, maxTilesY);
 }
 
 void GameState::initPLayers() {
