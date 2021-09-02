@@ -69,7 +69,7 @@ void TileMap::update(sf::Vector2f player_position) { //check if a tile is outsid
             this->tiles.push_back(this->tile);
         }
     }
-    std::cout << tiles.size() << std::endl;
+    //std::cout << tiles.size() << std::endl;
 }
 
 void TileMap::render(sf::RenderTarget &target) {
