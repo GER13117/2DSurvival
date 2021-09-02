@@ -30,10 +30,11 @@ TileMap::~TileMap() {
 
 }
 
-sf::Color TileMap::tileColor(
-        float noise) {  //Will return a texture instead of a color later on, and use the noise to determine the texture
+//TODO: return textures instead
+//TODO: create Spritesheet
+//TODO: include AnimationComponent
+sf::Color TileMap::tileColor(float noise) {
     //sf::Color(255, 255, 255); // white: snow
-
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
