@@ -12,8 +12,8 @@ HitboxComponent::HitboxComponent(sf::Sprite &sprite,
     this->hitBox.setPosition(this->sprite.getPosition().x + offset_x, this->sprite.getPosition().y + offset_y);
     this->hitBox.setSize(sf::Vector2f(width, height));
     this->hitBox.setFillColor(sf::Color::Transparent);
-    this->hitBox.setOutlineThickness(1.f);
-    this->hitBox.setOutlineColor(sf::Color::Magenta);
+    //this->hitBox.setOutlineThickness(1.f);
+    //this->hitBox.setOutlineColor(sf::Color::Magenta);
 }
 
 HitboxComponent::~HitboxComponent() {
