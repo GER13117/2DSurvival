@@ -41,8 +41,8 @@ void GameState::initTextures() {
 }
 
 void GameState::initTilemap() {
-    uint8_t tileSize = 36;
-    auto maxTilesX = (uint8_t) (this->view.getSize().x / tileSize) / 2 + 2;
+    uint8_t tileSize = 16;
+    auto maxTilesX = (uint8_t) (this->view.getSize().x / tileSize) / 2 + 3;
     auto maxTilesY = (uint8_t) (this->view.getSize().y / tileSize) / 2 + 2;
     this->tileMap = new TileMap(tileSize, tileSize, sf::Vector2f(0.f, 0.f), maxTilesX, maxTilesY);
 }

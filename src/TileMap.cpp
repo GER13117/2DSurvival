@@ -55,8 +55,8 @@ sf::Color TileMap::tileColor(float noise) {
 }
 
 void TileMap::update(sf::Vector2f player_position) { //check if a tile is outside the render region
-    offset.x = ((int) (player_position.x / 36) * 36);
-    offset.y = ((int) (player_position.y / 36) * 36);
+    offset.x = ((int) (player_position.x / tileSizeX) * tileSizeX);
+    offset.y = ((int) (player_position.y / tileSizeY) * tileSizeY);
     for (auto e: tiles) {
         delete e;
     }
@@ -69,7 +69,7 @@ void TileMap::update(sf::Vector2f player_position) { //check if a tile is outsid
             this->tiles.push_back(this->tile);
         }
     }
-    std::cout << tiles.size() << std::endl;
+    //std::cout << tiles.size() << std::endl;
 }
 
 void TileMap::render(sf::RenderTarget &target) {
