@@ -6,17 +6,17 @@ int main() {
     return EXIT_SUCCESS;
 }
 
-//TODO: Keypresstiming
-//TODO: Camera on Player
+//TODO: Art (BG, Texturing)--> Pixelart? Colors?
 //TODO: Map
-    //TODO: Infinite
-    //TODO: Procedural
-    //TODO: Seedsystem(damit man wieder wohin zurückgehen kann und die map nicht konstant gerendert werden muss + Noise (Biome, Städte, Wege)
-//TODO: NPCs (AI System etc.)
-//TODO: Spielziel: Crafting, Mining, PVP, Exploring
-//TODO: Art (BG, Texturing)
-//TODO: Musik
+    //TODO: Flora (Trees, Bushes, Gras)
+    //TODO: Ways, Villages
+//TODO: Think about how to use the Collision system
+//TODO: Fix diagonal movement (wahrscheinlich mit vektoren)
+//TODO: HUD --> Minimap, Pausemenu
+//TODO: Spielziel: Crafting, Mining, PVP, Exploring, Healthsystem
+//TODO: Music
 //TODO: Settings
 //TODO: Fonts
-//TODO: Fix diagonal movement (wahrscheinlich mit vektoren)
-//TODO: Think about how to use the Collision system
+//TODO: Keypresstiming
+
+//TODO: NPCs (AI System etc.)
