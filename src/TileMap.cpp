@@ -77,4 +77,3 @@ void TileMap::render(sf::RenderTarget &target) {
         target.draw(e->getShape());
     }
 }
-
