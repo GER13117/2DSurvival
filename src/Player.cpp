@@ -10,9 +10,11 @@ void Player::initVariables() {
 }
 
 void Player::initComponents() {
-
+    this->networkComponent = nullptr;
 }
-
+void Player::createNetworkComponent() {
+    this->networkComponent = new NetworkComponent;
+}
 //Constructor / Destructor
 Player::Player(float x, float y, sf::Texture &texture_sheet) {
     this->initVariables();
@@ -31,7 +33,7 @@ Player::Player(float x, float y, sf::Texture &texture_sheet) {
 }
 
 Player::~Player() {
-
+    this->networkComponent;
 }
 
 void Player::update(const float &dt) {
@@ -48,6 +50,5 @@ void Player::update(const float &dt) {
         this->animationComponent->play("IDLE_FRONT", dt);
     }
     this->hitboxComponent->update();
+    this->networkComponent->sendPosition(this->getPosition());
 }
-
-

@@ -15,7 +15,7 @@ add_executable(2DSurvival src/main.cpp
         src/Collision.cpp src/include/Collision.h
         src/Tile.cpp src/include/Tile.h
         src/TileMap.cpp src/include/TileMap.h
-        src/SimplexNoise.cpp src/include/SimplexNoise.h)
+        src/SimplexNoise.cpp src/include/SimplexNoise.h src/NetworkComponent.cpp src/include/NetworkComponent.h)
 include_directories(headers /usr/local/include C:/SFML/include)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
