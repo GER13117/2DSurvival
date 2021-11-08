@@ -33,12 +33,11 @@ private:
     void sendText();
 
 public:
-    void sendPosition(sf::Vector2f pos);
+    static void sendPosition(sf::Vector2f pos);
 
     NetworkComponent();
 
     virtual ~NetworkComponent();
-
 };
 
 #endif //INC_2DSURVIVAL_NETWORKCOMPONENT_H

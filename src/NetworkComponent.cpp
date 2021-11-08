@@ -2,6 +2,7 @@
 // Created by okke on 08.11.21.
 //
 
+#include <adoint_backcompat.h>
 #include "include/NetworkComponent.h"
 
 void NetworkComponent::initVariables() {
@@ -63,19 +64,12 @@ void NetworkComponent::sendText() {
 void NetworkComponent::sendPosition(sf::Vector2f pos) {
     const sf::IpAddress ServerIp = sf::IpAddress::LocalHost;
     const unsigned short ServerPort = 55000;
-
     auto socket = sf::UdpSocket{};
-
     auto packet = sf::Packet{};
-
-    //std::cout << "Ready to send messages...\n";
     packet << pos;
 
     if (socket.send(packet, ServerIp, ServerPort) == sf::Socket::Done) {
-        //std::cout << "== Sending (" << ServerIp.toString() << ":" << ServerPort << ") ==\n";
-        //std::cout << pos.x << " " << pos.y << "\n";
     } else {
-        //std::cerr << "Error sending to " << ServerIp.toString() << ":" << ServerPort << "\n";
         sf::sleep(sf::milliseconds(100));
     }
 }
@@ -88,4 +82,3 @@ NetworkComponent::NetworkComponent() {
 NetworkComponent::~NetworkComponent() {
 
 }
-
