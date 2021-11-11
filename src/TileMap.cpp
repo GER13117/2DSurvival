@@ -16,7 +16,7 @@ TileMap::TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position,
     this->tileSizeY = tile_size_y;
     this->maxTilesX = max_tiles_x;
     this->maxTilesY = max_tiles_y;
-    this->scale = 400.f;
+    this->scale = 800.f;
     this->offsetZ = 0.05f;
     this->lacunarity = 1.99f;
     this->persistance = 0.5f;
