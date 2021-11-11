@@ -78,7 +78,7 @@ void MainMenuState::updateButtons() {
     }
     //New Game
     if (this->buttons["GAME_STATE"]->isPressed()) {
-        this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+        this->states->push(new GameState(this->window, this->supportedKeys, this->states, this->arial));
     }
 
     //Quit Game

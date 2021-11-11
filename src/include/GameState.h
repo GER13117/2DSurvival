@@ -16,9 +16,16 @@ private:
     sf::Sprite renderSprite;
     Player *player;
     TileMap *tileMap;
+    float fps;
+    sf::Text fpsText;
+    sf::Font font;
 
     //Functions
     void initView();
+
+    void initFonts();
+
+    void initFPS();
 
     void initRenderTexture(); //Rename??
 
@@ -31,7 +38,7 @@ private:
     void initPLayers();
 
 public:
-    GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states);
+    GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states, sf::Font commando);
 
     virtual ~GameState();
 

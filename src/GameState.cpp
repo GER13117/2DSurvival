@@ -51,14 +51,16 @@ void GameState::initPLayers() {
     this->player = new Player(0, 0, this->textures["PLAYER_SHEET"]);
 }
 
-GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states)
+GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states, sf::Font commando)
         : State(window, supportedKeys, states) {
+    this->font = commando;
     this->initRenderTexture();
     this->initView();
     this->initKeybinds();
     this->initTextures();
     this->initTilemap();
     this->initPLayers();
+    this->initFPS();
 }
 
 GameState::~GameState() {
@@ -94,6 +96,7 @@ void GameState::update(const float &dt) {
     this->tileMap->update(player->getPosition());
     this->player->update(dt);
     this->updateView(dt);
+    this->fps = 1.f / dt;
 }
 
 void GameState::render(sf::RenderTarget *target) {
@@ -108,5 +111,13 @@ void GameState::render(sf::RenderTarget *target) {
     this->player->render(this->renderTexture);
 
     this->renderTexture.display();
+    this->fpsText.setString(std::to_string((int) fps));
     target->draw(this->renderSprite);
+    target->draw(this->fpsText);
+}
+
+void GameState::initFPS() {
+    this->fpsText.setFillColor(sf::Color::White);
+    this->fpsText.setCharacterSize(35);
+    this->fpsText.setFont(this->font);
 }

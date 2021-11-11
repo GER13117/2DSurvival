@@ -2,7 +2,6 @@
 // Created by okke on 08.11.21.
 //
 
-#include <adoint_backcompat.h>
 #include "include/NetworkComponent.h"
 
 void NetworkComponent::initVariables() {
