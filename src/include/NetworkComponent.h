@@ -1,18 +1,17 @@
 //
 // Created by okke on 08.11.21.
 //
-
 #ifndef INC_2DSURVIVAL_NETWORKCOMPONENT_H
 #define INC_2DSURVIVAL_NETWORKCOMPONENT_H
 
 #include <SFML/Network.hpp>
+
 #include <iostream>
 #include <csignal>
 #include <atomic>
 #include <string>
 
 using namespace std::string_literals;
-
 namespace {
     volatile std::atomic<bool> running = true;
 
@@ -25,7 +24,6 @@ namespace {
         Receive
     };
 }
-
 class NetworkComponent {
 private:
     void initVariables();

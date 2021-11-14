@@ -12,9 +12,11 @@ void Player::initVariables() {
 void Player::initComponents() {
     this->networkComponent = nullptr;
 }
+
 void Player::createNetworkComponent() {
     this->networkComponent = new NetworkComponent;
 }
+
 //Constructor / Destructor
 Player::Player(float x, float y, sf::Texture &texture_sheet) {
     this->initVariables();

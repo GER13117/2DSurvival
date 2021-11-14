@@ -19,7 +19,6 @@ namespace Collision {
         sf::Uint8 GetPixel(const sf::Uint8 *mask, const sf::Texture *tex, unsigned int x, unsigned int y) {
             if (x > tex->getSize().x || y > tex->getSize().y)
                 return 0;
-
             return mask[x + y * tex->getSize().x];
         }
 
@@ -31,20 +30,16 @@ namespace Collision {
                 mask = CreateMask(tex, img);
             } else
                 mask = pair->second;
-
             return mask;
         }
 
         sf::Uint8 *CreateMask(const sf::Texture *tex, const sf::Image &img) {
             sf::Uint8 *mask = new sf::Uint8[tex->getSize().y * tex->getSize().x];
-
             for (unsigned int y = 0; y < tex->getSize().y; y++) {
                 for (unsigned int x = 0; x < tex->getSize().x; x++)
                     mask[x + y * tex->getSize().x] = img.getPixel(x, y).a;
             }
-
             Bitmasks.insert(std::pair<const sf::Texture *, sf::Uint8 *>(tex, mask));
-
             return mask;
         }
 
@@ -58,7 +53,6 @@ namespace Collision {
         if (Object1.getGlobalBounds().contains(mousePosition.x, mousePosition.y)) {
             sf::IntRect O1SubRect = Object1.getTextureRect();
             sf::Uint8 *mask1 = Bitmasks.GetMask(Object1.getTexture());
-
             sf::Vector2f o1v = Object1.getInverseTransform().transformPoint(mousePosition.x, mousePosition.y);
             // Make sure pixels fall within the sprite's subrect
             if (o1v.x > 0 && o1v.y > 0 && o1v.x < O1SubRect.width && o1v.y < O1SubRect.height) {
@@ -76,28 +70,22 @@ namespace Collision {
         if (Object1.getGlobalBounds().intersects(Object2.getGlobalBounds(), Intersection)) {
             sf::IntRect O1SubRect = Object1.getTextureRect();
             sf::IntRect O2SubRect = Object2.getTextureRect();
-
             sf::Uint8 *mask1 = Bitmasks.GetMask(Object1.getTexture());
             sf::Uint8 *mask2 = Bitmasks.GetMask(Object2.getTexture());
-
             // Loop through our pixels
             for (int i = Intersection.left; i < Intersection.left + Intersection.width; i++) {
                 for (int j = Intersection.top; j < Intersection.top + Intersection.height; j++) {
-
                     sf::Vector2f o1v = Object1.getInverseTransform().transformPoint(i, j);
                     sf::Vector2f o2v = Object2.getInverseTransform().transformPoint(i, j);
-
                     // Make sure pixels fall within the sprite's subrect
                     if (o1v.x > 0 && o1v.y > 0 && o2v.x > 0 && o2v.y > 0 &&
                         o1v.x < O1SubRect.width && o1v.y < O1SubRect.height &&
                         o2v.x < O2SubRect.width && o2v.y < O2SubRect.height) {
-
                         if (Bitmasks.GetPixel(mask1, Object1.getTexture(), (int) (o1v.x) + O1SubRect.left,
                                               (int) (o1v.y) + O1SubRect.top) > AlphaLimit &&
                             Bitmasks.GetPixel(mask2, Object2.getTexture(), (int) (o2v.x) + O2SubRect.left,
                                               (int) (o2v.y) + O2SubRect.top) > AlphaLimit)
                             return true;
-
                     }
                 }
             }
@@ -111,7 +99,6 @@ namespace Collision {
             return false;
         if (!LoadInto.loadFromImage(img))
             return false;
-
         Bitmasks.CreateMask(&LoadInto, img);
         return true;
     }
@@ -132,9 +119,7 @@ namespace Collision {
         sf::Vector2f Obj2Size = GetSpriteSize(Object2);
         float Radius1 = (Obj1Size.x + Obj1Size.y) / 4;
         float Radius2 = (Obj2Size.x + Obj2Size.y) / 4;
-
         sf::Vector2f Distance = GetSpriteCenter(Object1) - GetSpriteCenter(Object2);
-
         return (Distance.x * Distance.x + Distance.y * Distance.y <= (Radius1 + Radius2) * (Radius1 + Radius2));
     }
 
@@ -161,7 +146,6 @@ namespace Collision {
             Max = Min;
             for (int j = 1; j < 4; j++) {
                 float Projection = (Points[j].x * Axis.x + Points[j].y * Axis.y);
-
                 if (Projection < Min)
                     Min = Projection;
                 if (Projection > Max)
@@ -173,7 +157,6 @@ namespace Collision {
     bool BoundingBoxTest(const sf::Sprite &Object1, const sf::Sprite &Object2) {
         OrientedBoundingBox OBB1(Object1);
         OrientedBoundingBox OBB2(Object2);
-
         // Create the four distinct axes that are perpendicular to the edges of the two rectangles
         sf::Vector2f Axes[4] = {
                 sf::Vector2f(OBB1.Points[1].x - OBB1.Points[0].x,
@@ -185,15 +168,12 @@ namespace Collision {
                 sf::Vector2f(OBB2.Points[0].x - OBB2.Points[1].x,
                              OBB2.Points[0].y - OBB2.Points[1].y)
         };
-
         for (int i = 0; i < 4; i++) // For each axis...
         {
             float MinOBB1, MaxOBB1, MinOBB2, MaxOBB2;
-
             // ... project the points of both OBBs onto the axis ...
             OBB1.ProjectOntoAxis(Axes[i], MinOBB1, MaxOBB1);
             OBB2.ProjectOntoAxis(Axes[i], MinOBB2, MaxOBB2);
-
             // ... and check whether the outermost projected points of both OBBs overlap.
             // If this is not the case, the Separating Axis Theorem states that there can be no collision between the rectangles
             if (!((MinOBB2 <= MaxOBB1) && (MaxOBB2 >= MinOBB1)))

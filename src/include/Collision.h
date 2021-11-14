@@ -86,4 +86,4 @@ namespace Collision {
     bool BoundingBoxTest(const sf::Sprite &Object1, const sf::Sprite &Object2);
 }
 
-#endif    /* COLLISION_H */
+#endif //COLLISION_H

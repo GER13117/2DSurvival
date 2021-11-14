@@ -1,13 +1,10 @@
 //
 // Created by okke on 08.11.21.
 //
-
 #include "include/NetworkComponent.h"
 
 void NetworkComponent::initVariables() {
-
     std::signal(SIGTERM, signal_handler);
-
     //ServerIp = sf::IpAddress::LocalHost; //MacbookPro IP
     //ServerPort = 55000;
 }
@@ -24,16 +21,13 @@ inline sf::Packet &operator>>(sf::Packet &packet, sf::Vector2f &p) {
 /*
 void NetworkComponent::sendText() {
     std::cout << "Ready to send messages...\n";
-
     auto state = CommunicationState::Send;
-
     while (running) {
         if (state == CommunicationState::Send) {
             auto message = ""s;
             std::getline(std::cin, message);
             auto packet = sf::Packet{};
             packet << message;
-
             if (socket.send(packet, ServerIp, ServerPort) == sf::Socket::Done) {
                 std::cout << "== Sending (" << ServerIp.toString() << ":" << ServerPort << ") ==\n";
                 std::cout << message << "\n";
@@ -56,28 +50,23 @@ void NetworkComponent::sendText() {
                 sf::sleep(sf::milliseconds(100));
             }
         }
-
     }
 }*/
-
 void NetworkComponent::sendPosition(sf::Vector2f pos) {
     const sf::IpAddress ServerIp = sf::IpAddress::LocalHost;
     const unsigned short ServerPort = 55000;
     auto socket = sf::UdpSocket{};
     auto packet = sf::Packet{};
     packet << pos;
-
     if (socket.send(packet, ServerIp, ServerPort) == sf::Socket::Done) {
     } else {
         sf::sleep(sf::milliseconds(100));
     }
 }
 
-
 NetworkComponent::NetworkComponent() {
     initVariables();
 }
 
 NetworkComponent::~NetworkComponent() {
-
 }

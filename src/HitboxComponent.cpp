@@ -1,7 +1,6 @@
 //
 // Created by Okke on 24.08.2021.
 //
-
 #include "include/HitboxComponent.h"
 
 HitboxComponent::HitboxComponent(sf::Sprite &sprite,
@@ -17,13 +16,11 @@ HitboxComponent::HitboxComponent(sf::Sprite &sprite,
 }
 
 HitboxComponent::~HitboxComponent() {
-
 }
 
 bool HitboxComponent::checkIntersect(const sf::FloatRect &frect) {
-        return this->hitBox.getGlobalBounds().intersects(frect);
+    return this->hitBox.getGlobalBounds().intersects(frect);
 }
-
 
 void HitboxComponent::update() {
     this->hitBox.setPosition(this->sprite.getPosition().x + this->offsetX,

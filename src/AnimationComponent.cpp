@@ -10,7 +10,7 @@ AnimationComponent::AnimationComponent(sf::Sprite &sprite, sf::Texture &texture_
 }
 
 AnimationComponent::~AnimationComponent() {
-    for (auto &i : this->animations) {
+    for (auto &i: this->animations) {
         delete i.second;
     }
 }

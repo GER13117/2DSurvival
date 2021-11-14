@@ -1,7 +1,6 @@
 //
 // Created by Okke on 24.08.2021.
 //
-
 #ifndef INC_2DSURVIVAL_HITBOXCOMPONENT_H
 #define INC_2DSURVIVAL_HITBOXCOMPONENT_H
 
@@ -14,7 +13,6 @@
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
-
 
 class HitboxComponent {
 private:
@@ -34,6 +32,5 @@ public:
 
     void render(sf::RenderTarget &target);
 };
-
 
 #endif //INC_2DSURVIVAL_HITBOXCOMPONENT_H

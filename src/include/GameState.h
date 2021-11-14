@@ -28,7 +28,6 @@ private:
     void initFPS();
 
     void initRenderTexture(); //Rename??
-
     void initKeybinds();
 
     void initTextures();
@@ -38,7 +37,8 @@ private:
     void initPLayers();
 
 public:
-    GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states, sf::Font commando);
+    GameState(sf::RenderWindow *window,
+              std::map<std::string, int> *supportedKeys, std::stack<State *> *states, sf::Font commando);
 
     virtual ~GameState();
 

@@ -53,7 +53,6 @@ void Entity::move(const float dir_x, const float dir_y, const float &dt) {
 }
 
 void Entity::update(const float &dt) {
-
 }
 
 void Entity::render(sf::RenderTarget &target) {

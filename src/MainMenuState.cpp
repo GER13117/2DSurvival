@@ -73,7 +73,7 @@ void MainMenuState::updateInput(const float &dt) {
 }
 
 void MainMenuState::updateButtons() {
-    for (auto &it : this->buttons) {
+    for (auto &it: this->buttons) {
         it.second->update(this->mousePosView);
     }
     //New Game
@@ -98,7 +98,7 @@ void MainMenuState::update(const float &dt) {
 }
 
 void MainMenuState::renderButtons(sf::RenderTarget &target) {
-    for (auto &it : this->buttons) {
+    for (auto &it: this->buttons) {
         it.second->render(target);
     }
 }

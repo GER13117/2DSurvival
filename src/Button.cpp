@@ -1,7 +1,6 @@
 //
 // Created by okke on 23.04.21.
 //
-
 #include "include/Button.h"
 
 Button::Button(float x, float y, float width, float height,
@@ -10,11 +9,8 @@ Button::Button(float x, float y, float width, float height,
     this->buttonState = BTN_IDLE;
     this->shape.setSize(sf::Vector2f(width, height));
     this->shape.setOrigin(shape.getSize().x / 2.f, shape.getSize().y / 2.f);
-
     this->shape.setPosition(sf::Vector2f(x, y));
-
     this->font = font;
-
     this->text.setFont(*this->font);
     this->text.setString(textString);
     this->text.setFillColor(sf::Color::White);
@@ -26,7 +22,6 @@ Button::Button(float x, float y, float width, float height,
             this->shape.getPosition().x,
             this->shape.getPosition().y
     );
-
     this->idleColor = idleColor;
     this->hoverColor = hoverColor;
     this->activeColor = activeColor;
@@ -34,7 +29,6 @@ Button::Button(float x, float y, float width, float height,
 }
 
 Button::~Button() {
-
 }
 
 //Accessors
@@ -72,7 +66,6 @@ void Button::update(const sf::Vector2f mousePos) {
             this->shape.setFillColor(sf::Color::Red);
             break;
     }
-
 }
 
 void Button::render(sf::RenderTarget &target) {

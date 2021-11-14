@@ -1,7 +1,6 @@
 //
 // Created by okke on 23.04.21.
 //
-
 #ifndef MAINMENUSTATE_H
 #define MAINMENUSTATE_H
 
@@ -10,7 +9,6 @@
 
 class MainMenuState :
         public State {
-
 private:
     //Variables
     sf::Texture bgTexture;
@@ -20,7 +18,6 @@ private:
     //Fonts
     sf::Font arial;
     sf::Font commando;
-
     //Buttons
     std::map<std::string, Button *> buttons;
 
@@ -50,7 +47,6 @@ public:
     void renderButtons(sf::RenderTarget &target);
 
     void render(sf::RenderTarget *target = nullptr);
-
 };
 
 #endif

@@ -1,7 +1,6 @@
 //
 // Created by Okke on 27.08.2021.
 //
-
 #include "include/Tile.h"
 
 Tile::Tile(float x, float y, float width, float height, sf::Color tileColor) {
@@ -14,13 +13,11 @@ Tile::Tile(float x, float y, float width, float height, sf::Color tileColor) {
 }
 
 Tile::~Tile() {
-
 }
 
 sf::RectangleShape Tile::getShape() {
     return this->shape;
 }
-
 
 void Tile::update() {
 }
