@@ -10,9 +10,8 @@ void GameState::initRenderTexture() {
 }
 
 void GameState::initView() {
-    this->view.setSize(this->window->getSize().x / 2, this->window->getSize().y / 2);
+    this->view.setSize((float) this->window->getSize().x / 2, (float) this->window->getSize().y / 2);
     this->view.setCenter(sf::Vector2f{0.f, 0.f});
-    //this->view.setRotation(45.f);
     std::cout << "x: " << window->getSize().x << " y:  " << window->getSize().y
               << std::endl; //Debugging because on laptop not the full display is used
 }
@@ -37,7 +36,7 @@ void GameState::initKeybinds() {
 
 void GameState::initTextures() {
     if (!this->textures["PLAYER_SHEET"].loadFromFile("../resources/Pictures/Entities/Player/testSpriteSheet.png"))
-        throw "ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TEST.PNG";
+        throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TEST.PNG");
 }
 
 void GameState::initTilemap() {

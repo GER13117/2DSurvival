@@ -10,17 +10,17 @@ void MainMenuState::initVariables() {
 void MainMenuState::initBackground() {
     this->background.setSize(static_cast<sf::Vector2f>(this->window->getSize()));
     if (!this->bgTexture.loadFromFile("../resources/Pictures/Backgrounds/bgplaceholder.png")) {
-        throw std::string("ERROR:MAINMENUSTATE::Could not load bgplaceholder.png");
+        throw std::runtime_error("ERROR:MAINMENUSTATE::Could not load bgplaceholder.png");
     }
     this->background.setTexture(&this->bgTexture);
 }
 
 void MainMenuState::initFonts() {
     if (!this->arial.loadFromFile("../resources/Fonts/arial.ttf")) {
-        throw std::string("ERROR::MAINMENUSTATE::COULD NOT LOAD ARIAL FONT");
+        throw std::runtime_error("ERROR::MAINMENUSTATE::COULD NOT LOAD ARIAL FONT");
     }
     if (!this->commando.loadFromFile("../resources/Fonts/commando.ttf")) {
-        throw std::string("ERROR::MAINMENUSTATE::COULD NOT LOAD COMMANDO FONT");
+        throw std::runtime_error("ERROR::MAINMENUSTATE::COULD NOT LOAD COMMANDO FONT");
     }
 }
 

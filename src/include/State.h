@@ -5,6 +5,7 @@
 #define STATE_H
 
 #include "Player.h"
+#include <stdexcept>
 
 class State {
 protected:

@@ -14,7 +14,7 @@ const sf::Vector2f &MovementComponent::getVelocity() const {
 }
 
 //functions
-const bool MovementComponent::getState(const short unsigned state) const {
+bool MovementComponent::getState(const short unsigned state) const {
     switch (state) {
         case IDLE:
             if (this->velocity.x == 0.f && this->velocity.y == 0.f)
