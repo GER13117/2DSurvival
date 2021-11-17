@@ -18,19 +18,20 @@ private:
     sf::Vector2i offset;
     int tileSizeX;
     int tileSizeY;
-    float scale = 400.f;
-    float offsetZ = 0.05f;
-    float lacunarity = 1.99f;
-    float persistance = 0.5f;
-    SimplexNoise *simplex;
+    float globalScale;
+    float grasScale;
+    float offsetZ;
+    float lacunarity;
+    float persistance;
+    SimplexNoise *globalSimplex;
+    SimplexNoise *grasSimplex;
     int octaves;
     uint8_t maxTilesX;
     uint8_t maxTilesY;
-    float noise;
 public:
     TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x, uint8_t max_tiles_y);
 
-    static sf::Color tileColor(float noise);
+    static sf::Color tileColor(float noise, float grasNoise);
 
     void update(sf::Vector2f player_position);
 
