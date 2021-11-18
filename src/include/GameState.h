@@ -14,9 +14,9 @@ private:
     sf::View view;
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
-    Player *player;
-    TileMap *tileMap;
-    float fps;
+    Player *player{};
+    TileMap *tileMap{};
+    float fps{};
     sf::Text fpsText;
     sf::Font font;
 
@@ -38,7 +38,7 @@ private:
 
 public:
     GameState(sf::RenderWindow *window,
-              std::map<std::string, int> *supportedKeys, std::stack<State *> *states, sf::Font commando);
+              std::map<std::string, int> *supportedKeys, std::stack<State *> *states, const sf::Font& commando);
 
     virtual ~GameState();
 

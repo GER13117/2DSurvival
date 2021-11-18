@@ -12,8 +12,8 @@ class MainMenuState :
 private:
     //Variables
     sf::Texture bgTexture;
-    float centerWidth;
-    float centerHeight;
+    float centerWidth{};
+    float centerHeight{};
     sf::RectangleShape background;
     //Fonts
     sf::Font arial;

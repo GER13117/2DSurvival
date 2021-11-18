@@ -21,7 +21,6 @@
 
 class Tile {
 private:
-    short unsigned buttonState;
     sf::RectangleShape shape;
     sf::Color tileColor; //TODO: Replace with texture
 public:

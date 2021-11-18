@@ -9,13 +9,13 @@
 class Game {
 private:
     //Variables
-    sf::RenderWindow *window;
-    sf::Event sfEvent;
+    sf::RenderWindow *window{};
+    sf::Event sfEvent{};
     std::vector<sf::VideoMode> videoModes;
     sf::ContextSettings windowSettings;
-    bool fullscreen;
+    bool fullscreen{};
     sf::Clock dtClock;
-    float dt;
+    float dt{};
     std::stack<State *> states;
     std::map<std::string, int> supportedKeys;
 

@@ -14,7 +14,7 @@ private:
     std::vector<Tile *> tiles;
     sf::Vector2f tileSize;
     sf::Texture textureSheet;
-    Tile *tile;
+    Tile *tile{};
     sf::Vector2i offset;
     int tileSizeX;
     int tileSizeY;

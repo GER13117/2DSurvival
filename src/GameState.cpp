@@ -41,8 +41,8 @@ void GameState::initTextures() {
 
 void GameState::initTilemap() {
     uint8_t tileSize = 16;
-    auto maxTilesX = (uint8_t)(this->view.getSize().x / tileSize) / 2 + 2;
-    auto maxTilesY = (uint8_t)(this->view.getSize().y / tileSize) / 2 + 3;
+    auto maxTilesX = (uint8_t) (this->view.getSize().x / tileSize) / 2 + 2;
+    auto maxTilesY = (uint8_t) (this->view.getSize().y / tileSize) / 2 + 3;
     this->tileMap = new TileMap(tileSize, tileSize, sf::Vector2f(0.f, 0.f), maxTilesX, maxTilesY);
 }
 
@@ -51,7 +51,7 @@ void GameState::initPLayers() {
 }
 
 GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states,
-                     sf::Font commando)
+                     const sf::Font &commando)
         : State(window, supportedKeys, states) {
     this->font = commando;
     this->initRenderTexture();

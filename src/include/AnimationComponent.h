@@ -75,11 +75,11 @@ public:
     virtual ~AnimationComponent();
 
     //Functions
-    void addAnimation(const std::string key,
+    void addAnimation(const std::string& key,
                       float animation_timer,
                       int start_frame_x, int start_frame_y, int frames_x, int frames_y, int width, int height);
 
-    void play(const std::string key, const float &dt);
+    void play(const std::string& key, const float &dt);
 };
 
 #endif //INC_2DSURVIVAL_ANIMATIONCOMPONENT_H

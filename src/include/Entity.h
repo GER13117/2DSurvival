@@ -16,9 +16,9 @@ private:
 
 protected:
     sf::Sprite sprite;
-    HitboxComponent *hitboxComponent;
-    MovementComponent *movementComponent;
-    AnimationComponent *animationComponent;
+    HitboxComponent *hitboxComponent{};
+    MovementComponent *movementComponent{};
+    AnimationComponent *animationComponent{};
 public:
     Entity();
 
