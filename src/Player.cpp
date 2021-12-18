@@ -10,14 +10,16 @@ void Player::initVariables() {
 }
 
 void Player::initComponents() {
-    this->networkComponent = nullptr;
-}
-
-void Player::createNetworkComponent() {
     this->networkComponent = new NetworkComponent;
 }
 
-//Constructor / Destructor
+
+/**
+ * Constructor of the player
+ * @param x starting x-position
+ * @param y starting y-position
+ * @param texture_sheet spritesheet used for the player
+ */
 Player::Player(float x, float y, sf::Texture &texture_sheet) {
     this->initVariables();
 
@@ -34,10 +36,12 @@ Player::Player(float x, float y, sf::Texture &texture_sheet) {
     this->animationComponent->addAnimation("IDLE_FRONT", 15.f, 0, 0, 0, 0, 32, 48); //Test animation
 }
 
-Player::~Player() {
-    this->networkComponent;
-}
+Player::~Player() {}
 
+/**
+ * updates the shown texture and position of the player
+ * @param dt delta time
+ */
 void Player::update(const float &dt) {
     this->movementComponent->update(dt);
     if (this->movementComponent->getState(movement_states::MOVING_UP)) {
@@ -52,5 +56,4 @@ void Player::update(const float &dt) {
         this->animationComponent->play("IDLE_FRONT", dt);
     }
     this->hitboxComponent->update();
-    this->networkComponent->sendPosition(this->getPosition());
 }

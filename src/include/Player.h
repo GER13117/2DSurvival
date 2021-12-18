@@ -21,8 +21,6 @@ private:
 public:
     Player(float x, float y, sf::Texture &texture_sheet);
 
-    void createNetworkComponent();
-
     virtual ~Player();
 
     //Functions

@@ -75,6 +75,7 @@ sf::Color TileMap::tileColor(float noise, float grasNoise) {
 
 
 //TODO: make code more beautiful
+//TODO: maybe only update the map if the player is moving?
 /**
  * removes and appends tiles from the tiles vector by checking if its position is within the screen.
  * @param player_position positon of the player, is used to calculate the offset from 0,0 rounded by the size of a tile.

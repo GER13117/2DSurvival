@@ -5,6 +5,7 @@ int main() {
     game.run();
     return EXIT_SUCCESS;
 }
+//TODO: Add docs
 
 //TODO: Art (BG, Texturing)--> Pixelart? Colors?
 //TODO: Map
@@ -12,11 +13,11 @@ int main() {
     //TODO: Ways, Villages
 //TODO: Think about how to use the Collision system
 //TODO: Fix diagonal movement (wahrscheinlich mit vektoren)
-//TODO: HUD --> Minimap, Pausemenu
+//TODO: HUD --> Minimap, Pausenmenu
 //TODO: Spielziel: Crafting, Mining, PVP, Exploring, Healthsystem
 //TODO: Music
 //TODO: Settings
 //TODO: Fonts
-//TODO: Keypresstiming
+//TODO: Keypresstiming?
 
 //TODO: NPCs (AI System etc.)
