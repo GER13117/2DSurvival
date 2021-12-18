@@ -12,6 +12,7 @@ class TileMap {
 private:
     //std::map<std::string, Tile *> tiles;
     std::vector<Tile *> tiles;
+    std::vector<Tile*>::iterator it;
     sf::Vector2f tileSize;
     sf::Texture textureSheet;
     Tile *tile{};
@@ -28,6 +29,8 @@ private:
     int octaves;
     uint8_t maxTilesX;
     uint8_t maxTilesY;
+    float tileX;
+    float tileY;
 public:
     TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x, uint8_t max_tiles_y);
 

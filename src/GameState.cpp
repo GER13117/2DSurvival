@@ -103,7 +103,7 @@ void GameState::render(sf::RenderTarget *target) {
     if (!target) {
         target = this->window;
     }
-    this->renderTexture.clear(sf::Color::Yellow);
+    this->renderTexture.clear(sf::Color::Black);
     this->renderTexture.setView(this->view);
 
     //Sachen die gemalt werden sollen
