@@ -4,7 +4,8 @@
 #include "include/GameState.h"
 
 void GameState::initRenderTexture() {
-    renderTexture.create(this->window->getSize().x, this->window->getSize().y);
+    if (!renderTexture.create(this->window->getSize().x, this->window->getSize().y))
+        throw std::runtime_error("ERROR::GAMESTATE::INITRENDERTEXTURES::COULD NOT CREATE RENDERTEXTURE");
     this->renderSprite.setTexture(this->renderTexture.getTexture());
 
 }
@@ -49,7 +50,13 @@ void GameState::initTilemap() {
 void GameState::initPLayers() {
     this->player = new Player(0, 0, this->textures["PLAYER_SHEET"]);
 }
-
+/**
+ * Constructor of GameState. Calls the different init-funtions
+ * @param window pointer to the RenderWindow
+ * @param supportedKeys map of the supported keys (string, int)
+ * @param states stack of the different States (as pointers)
+ * @param commando commando font (will be replaced at some point)
+ */
 GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states,
                      const sf::Font &commando)
         : State(window, supportedKeys, states) {
@@ -62,12 +69,17 @@ GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *suppo
     this->initPLayers();
     this->initFPS();
 }
-
+/**
+ * Destructor of GameState
+ */
 GameState::~GameState() {
     delete this->player;
     delete this->tileMap;
 }
-
+/**
+ * updates the input and calls according functions
+ * @param dt Delta Time (time between the frames)
+ */
 void GameState::updateInput(const float &dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT")))) {
         this->player->move(-1.f, 0.f, dt);
@@ -85,17 +97,22 @@ void GameState::updateInput(const float &dt) {
         this->endState();
     }
 }
-
-void GameState::updateView(const float &dt) {
+/**
+ * centers the view (camera) on the player
+ */
+void GameState::updateView() {
     this->view.setCenter(sf::Vector2f{this->player->getPosition().x, this->player->getPosition().y});
 }
-
+/**
+ * calls the different update functions in GameState
+ * @param dt Delta Time (time between the frames)
+ */
 void GameState::update(const float &dt) {
     this->updateMousePositions();
     this->updateInput(dt);
     this->tileMap->update(player->getPosition());
     this->player->update(dt);
-    this->updateView(dt);
+    this->updateView();
     this->fps = 1.f / dt;
 }
 
@@ -115,7 +132,9 @@ void GameState::render(sf::RenderTarget *target) {
     target->draw(this->renderSprite);
     target->draw(this->fpsText);
 }
-
+/**
+ * initializes the font, color and size of the text that displays the fps
+ */
 void GameState::initFPS() {
     this->fpsText.setFillColor(sf::Color::White);
     this->fpsText.setCharacterSize(35);

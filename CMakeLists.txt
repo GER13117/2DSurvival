@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.20)
 project(2DSurvival)
 set(CMAKE_CXX_STANDARD 20)
 
@@ -25,16 +25,7 @@ add_subdirectory(libs/sfml)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
-
-
 target_link_libraries(${PROJECT_NAME} sfml-window)
 target_link_libraries(${PROJECT_NAME} sfml-graphics)
 target_link_libraries(${PROJECT_NAME} sfml-network)
 target_link_libraries(${PROJECT_NAME} sfml-audio)
-
-

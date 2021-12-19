@@ -45,7 +45,7 @@ public:
     //Functions
     void updateInput(const float &dt);
 
-    void updateView(const float &dt);
+    void updateView();
 
     void update(const float &dt);
 

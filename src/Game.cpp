@@ -5,13 +5,18 @@
 
 //Static Functions
 //Initializers
+/**
+ * initializes the different variables
+ */
 void Game::initVariables() {
     this->window = nullptr;
     this->fullscreen = false;
     this->dt = 0.f;
 }
 
-
+/**
+ * initializes the window
+ */
 void Game::initWindow() {
     std::ifstream ifs("../cfg/window.ini");
     this->videoModes = sf::VideoMode::getFullscreenModes();
@@ -41,9 +46,10 @@ void Game::initWindow() {
     this->window->setFramerateLimit(framerateLimit);
     this->window->setVerticalSyncEnabled(verticalSyncEnabled);
 }
-
+/**
+ * initializes the different keys (usefulness can be questioned, maybe?)
+ */
 void Game::initKeys() {
-
     std::ifstream ifs("../cfg/supported_keys.ini");
 
     if (ifs.is_open()) {
@@ -60,7 +66,9 @@ void Game::initKeys() {
         std::cout << i.first << " " << i.second << std::endl;
     }*/
 }
-
+/**
+ * initializes the first State shown to the user
+ */
 void Game::initStates() {
     this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
 }
