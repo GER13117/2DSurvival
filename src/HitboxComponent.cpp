@@ -8,7 +8,7 @@ HitboxComponent::HitboxComponent(sf::Sprite &sprite,
                                  float width, float height)
         : sprite(sprite),
           offsetX(offset_x), offsetY(offset_y) {
-    this->hitBox.setPosition(this->sprite.getPosition().x + offset_x, this->sprite.getPosition().y + offset_y);
+    this->hitBox.setPosition(sf::Vector2f {this->sprite.getPosition().x + offset_x, this->sprite.getPosition().y + offset_y});
     this->hitBox.setSize(sf::Vector2f(width, height));
     this->hitBox.setFillColor(sf::Color::Transparent);
     //this->hitBox.setOutlineThickness(1.f);
@@ -23,8 +23,8 @@ bool HitboxComponent::checkIntersect(const sf::FloatRect &frect) {
 }
 
 void HitboxComponent::update() {
-    this->hitBox.setPosition(this->sprite.getPosition().x + this->offsetX,
-                             this->sprite.getPosition().y + this->offsetY);
+    this->hitBox.setPosition(sf::Vector2f {this->sprite.getPosition().x + this->offsetX,
+                             this->sprite.getPosition().y + this->offsetY});
 }
 
 void HitboxComponent::render(sf::RenderTarget &target) {

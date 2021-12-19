@@ -87,7 +87,7 @@ void GameState::updateInput(const float &dt) {
 }
 
 void GameState::updateView(const float &dt) {
-    this->view.setCenter(this->player->getPosition().x, this->player->getPosition().y);
+    this->view.setCenter(sf::Vector2f{this->player->getPosition().x, this->player->getPosition().y});
 }
 
 void GameState::update(const float &dt) {

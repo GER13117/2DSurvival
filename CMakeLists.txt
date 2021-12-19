@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.17)
 project(2DSurvival)
 set(CMAKE_CXX_STANDARD 20)
-add_executable(2DSurvival src/main.cpp
+
+set(SOURCE_FILES
+        src/main.cpp
         src/Game.cpp src/include/Game.h
         src/State.cpp src/include/State.h
         src/GameState.cpp src/include/GameState.h
@@ -12,26 +14,27 @@ add_executable(2DSurvival src/main.cpp
         src/MovementComponent.cpp src/include/MovementComponent.h
         src/AnimationComponent.cpp src/include/AnimationComponent.h
         src/HitboxComponent.cpp src/include/HitboxComponent.h
-        src/Collision.cpp src/include/Collision.h
+        src/include/Collision.h
         src/Tile.cpp src/include/Tile.h
         src/TileMap.cpp src/include/TileMap.h
         src/SimplexNoise.cpp src/include/SimplexNoise.h
         src/NetworkComponent.cpp src/include/NetworkComponent.h)
-include_directories(headers /usr/local/include C:/SFML/include)
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
-find_package(SFML REQUIRED system window graphics network audio)
+set(BUILD_SHARED_LIBS FALSE)
+add_subdirectory(libs/sfml)
 
-if (SFML_FOUND)
-    include_directories(${SFML_INCLUDE_DIRS})
-    target_link_libraries(2DSurvival ${SFML_LIBRARIES})
-endif ()
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
 
 
-# Copy dlls to build
-if (WIN32)
-    file(GLOB BINARY_DEP_DLLS "${SFML_INCLUDE_DIR}/../bin/*.dll")
-    file(COPY ${BINARY_DEP_DLLS} DESTINATION ${CMAKE_BINARY_DIR})
-    file(GLOB MINGW_DEP_DLLS "C:/mingw64/bin/*.dll")
-    file(COPY ${MINGW_DEP_DLLS} DESTINATION ${CMAKE_BINARY_DIR})
-endif ()
+target_link_libraries(${PROJECT_NAME} sfml-window)
+target_link_libraries(${PROJECT_NAME} sfml-graphics)
+target_link_libraries(${PROJECT_NAME} sfml-network)
+target_link_libraries(${PROJECT_NAME} sfml-audio)
+
+

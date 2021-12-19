@@ -4,11 +4,12 @@
 #ifndef INC_2DSURVIVAL_TILE_H
 #define INC_2DSURVIVAL_TILE_H
 
-#include "SFML/System.hpp"
-#include "SFML/Graphics.hpp"
-#include "SFML/Window.hpp"
-#include "SFML/Audio.hpp"
-#include "SFML/Network.hpp"
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
+
 #include <ctime>
 #include <cstdlib>
 #include <vector>

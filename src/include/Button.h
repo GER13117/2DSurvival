@@ -4,10 +4,10 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "SFML/System.hpp"
-#include "SFML/Graphics.hpp"
-#include "SFML/Window.hpp"
-#include "SFML/Audio.hpp"
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
 
 #include <sstream>
 #include <ctime>

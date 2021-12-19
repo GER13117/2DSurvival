@@ -8,7 +8,7 @@ Button::Button(float x, float y, float width, float height,
                sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor) {
     this->buttonState = BTN_IDLE;
     this->shape.setSize(sf::Vector2f(width, height));
-    this->shape.setOrigin(shape.getSize().x / 2.f, shape.getSize().y / 2.f);
+    this->shape.setOrigin(shape.getSize() / 2.f);
     this->shape.setPosition(sf::Vector2f(x, y));
     this->font = font;
     this->text.setFont(*this->font);
@@ -16,12 +16,9 @@ Button::Button(float x, float y, float width, float height,
     this->text.setFillColor(sf::Color::White);
     this->text.setCharacterSize(fontSize);
     sf::FloatRect textRect = text.getLocalBounds();
-    this->text.setOrigin(textRect.left + textRect.width / 2.f,
-                         textRect.top + textRect.height / 2.f);
-    this->text.setPosition(
-            this->shape.getPosition().x,
-            this->shape.getPosition().y
-    );
+    this->text.setOrigin(sf::Vector2f{textRect.left + textRect.width / 2.f,
+                                      textRect.top + textRect.height / 2.f});
+    this->text.setPosition(this->shape.getPosition());
     this->idleColor = idleColor;
     this->hoverColor = hoverColor;
     this->activeColor = activeColor;
@@ -42,9 +39,7 @@ bool Button::isPressed() const {
 
 //Functions
 void Button::update(const sf::Vector2f mousePos) {
-    /*
-     * Updates the booleans for hover and press
-     */
+    //Updates the booleans for hover and press
     this->buttonState = BTN_IDLE;
     if (this->shape.getGlobalBounds().contains(mousePos)) {
         this->buttonState = BTN_HOVER;
