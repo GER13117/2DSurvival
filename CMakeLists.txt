@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.20)
 project(2DSurvival)
 set(CMAKE_CXX_STANDARD 20)
 
-set(SOURCE_FILES
+set(BUILD_SHARED_LIBS FALSE)
+add_subdirectory(libs/sfml)
+
+add_executable(${PROJECT_NAME}
         src/main.cpp
         src/Game.cpp src/include/Game.h
         src/State.cpp src/include/State.h
@@ -18,12 +21,8 @@ set(SOURCE_FILES
         src/Tile.cpp src/include/Tile.h
         src/TileMap.cpp src/include/TileMap.h
         src/SimplexNoise.cpp src/include/SimplexNoise.h
-        src/NetworkComponent.cpp src/include/NetworkComponent.h)
-
-set(BUILD_SHARED_LIBS FALSE)
-add_subdirectory(libs/sfml)
-
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+        src/NetworkComponent.cpp src/include/NetworkComponent.h
+        src/PauseMenu.cpp src/include/PauseMenu.h)
 
 target_link_libraries(${PROJECT_NAME} sfml-window)
 target_link_libraries(${PROJECT_NAME} sfml-graphics)

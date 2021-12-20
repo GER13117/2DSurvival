@@ -20,20 +20,20 @@ void Player::initComponents() {
  * @param y starting y-position
  * @param texture_sheet spritesheet used for the player
  */
-Player::Player(float x, float y, sf::Texture &texture_sheet) {
+Player::Player(float x, float y, int width, int height, sf::Texture &texture_sheet) {
     this->initVariables();
 
     this->setPosition(x, y);
 
-    this->createHitboxComponent(this->sprite, 0.f, 0.f, 32, 48);
+    this->createHitboxComponent(this->sprite, 0.f, 0.f, width, height);
     this->createMovementComponent(200.f, 1700.f, 600.f);
     this->createAnimationComponent(texture_sheet);
 
-    this->animationComponent->addAnimation("WALK_DOWN", 15.f, 0, 0, 3, 0, 32, 48); //Test animation
-    this->animationComponent->addAnimation("WALK_LEFT", 15.f, 0, 1, 3, 1, 32, 48); //Test animation
-    this->animationComponent->addAnimation("WALK_RIGHT", 15.f, 0, 2, 3, 2, 32, 48); //Test animation
-    this->animationComponent->addAnimation("WALK_UP", 15.f, 0, 3, 3, 3, 32, 48); //Test animation
-    this->animationComponent->addAnimation("IDLE_FRONT", 15.f, 0, 0, 0, 0, 32, 48); //Test animation
+    this->animationComponent->addAnimation("WALK_DOWN", 15.f, 0, 0, 3, 0, width, height); //Test animation
+    this->animationComponent->addAnimation("WALK_LEFT", 15.f, 0, 1, 3, 1, width, height); //Test animation
+    this->animationComponent->addAnimation("WALK_RIGHT", 15.f, 0, 2, 3, 2, width, height); //Test animation
+    this->animationComponent->addAnimation("WALK_UP", 15.f, 0, 3, 3, 3, width, height); //Test animation
+    this->animationComponent->addAnimation("IDLE_FRONT", 15.f, 0, 0, 0, 0, width, height); //Test animation
 }
 
 Player::~Player() {}

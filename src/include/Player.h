@@ -19,7 +19,7 @@ private:
     void initComponents();
 
 public:
-    Player(float x, float y, sf::Texture &texture_sheet);
+    Player(float x, float y, int width, int height, sf::Texture &texture_sheet);
 
     virtual ~Player();
 

@@ -85,7 +85,7 @@ void TileMap::update(sf::Vector2f player_position) {
     offset.y = ((int) (player_position.y / (float) tileSizeY) * tileSizeY);
 
     for (it = tiles.begin(); it != tiles.end();) {
-        if ((*it)->getShape().getPosition().x + tileSizeX > offset.x + maxTilesX * tileSizeX) {
+        if ((*it)->getShape().getPosition().x > offset.x + maxTilesX * tileSizeX) { //Rechts vom Monitor
             tileX = (*it)->getShape().getPosition().x - (2 * maxTilesX * tileSizeX);
             tileY = (*it)->getShape().getPosition().y;
             tiles.push_back(new Tile(tileX, tileY, tileSizeX, tileSizeY,
@@ -95,7 +95,7 @@ void TileMap::update(sf::Vector2f player_position) {
                                              offsetZ)));
             delete *it;
             it = tiles.erase(it);
-        } else if ((*it)->getShape().getPosition().x < offset.x - maxTilesX * tileSizeX) {
+        } else if ((*it)->getShape().getPosition().x < offset.x - maxTilesX * tileSizeX) { //Links vom Monitor
             tileX = (*it)->getShape().getPosition().x + (2 * maxTilesX * tileSizeX);
             tileY = (*it)->getShape().getPosition().y;
             tiles.push_back(new Tile(tileX, tileY, tileSizeX, tileSizeY,
@@ -105,7 +105,7 @@ void TileMap::update(sf::Vector2f player_position) {
                                              offsetZ)));
             delete *it;
             it = tiles.erase(it);
-        } else if ((*it)->getShape().getPosition().y + tileSizeY > offset.y + maxTilesY * tileSizeY) {
+        } if ((*it)->getShape().getPosition().y + tileSizeX > offset.y + maxTilesY * tileSizeY) { //Über dem Monitor
             tileX = (*it)->getShape().getPosition().x;
             tileY = (*it)->getShape().getPosition().y - (2 * maxTilesY * tileSizeY);
             tiles.push_back(new Tile(tileX, tileY, tileSizeX, tileSizeY,
@@ -115,7 +115,7 @@ void TileMap::update(sf::Vector2f player_position) {
                                              offsetZ)));
             delete *it;
             it = tiles.erase(it);
-        } else if ((*it)->getShape().getPosition().y < offset.y - maxTilesY * tileSizeY) {
+        } else if ((*it)->getShape().getPosition().y < offset.y - maxTilesY * tileSizeY) { //Unter dem Monitor
             tileX = (*it)->getShape().getPosition().x;
             tileY = (*it)->getShape().getPosition().y + (2 * maxTilesY * tileSizeY);
             tiles.push_back(new Tile(tileX, tileY, tileSizeX, tileSizeY,

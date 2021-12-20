@@ -7,15 +7,20 @@
 #include "State.h"
 #include "Tile.h"
 #include "TileMap.h"
-
+#include "PauseMenu.h"
 class GameState :
         public State {
 private:
+    float playerWidth;
+    float playerHeight;
+    bool showPauseMenu = false;
     sf::View view;
+    sf::RectangleShape testRect;
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
-    Player *player{};
-    TileMap *tileMap{};
+    PauseMenu *pauseMenu;
+    Player *player;
+    TileMap *tileMap;
     float fps{};
     sf::Text fpsText;
     sf::Font font;
@@ -23,11 +28,12 @@ private:
     //Functions
     void initView();
 
-    void initFonts();
+    void initPauseMenu();
 
     void initFPS();
 
     void initRenderTexture(); //Rename??
+
     void initKeybinds();
 
     void initTextures();

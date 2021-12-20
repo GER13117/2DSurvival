@@ -18,7 +18,6 @@ void GameState::initView() {
 }
 
 void GameState::initKeybinds() {
-
     std::ifstream ifs("../cfg/gamestate_keybinds.ini");
 
     if (ifs.is_open()) {
@@ -42,14 +41,22 @@ void GameState::initTextures() {
 
 void GameState::initTilemap() {
     uint8_t tileSize = 16;
-    auto maxTilesX = (uint8_t) (this->view.getSize().x / tileSize) / 2 + 2;
-    auto maxTilesY = (uint8_t) (this->view.getSize().y / tileSize) / 2 + 3;
+    auto maxTilesX = (uint8_t) (this->view.getSize().x / (float) tileSize) / 2 + 3;
+    auto maxTilesY = (uint8_t) (this->view.getSize().y / (float) tileSize) / 2 + 4;
     this->tileMap = new TileMap(tileSize, tileSize, sf::Vector2f(0.f, 0.f), maxTilesX, maxTilesY);
 }
 
 void GameState::initPLayers() {
-    this->player = new Player(0, 0, this->textures["PLAYER_SHEET"]);
+    playerWidth = 32;
+    playerHeight = 48;
+    this->player = new Player(0, 0, (int) playerWidth, (int) playerHeight, this->textures["PLAYER_SHEET"]);
 }
+
+void GameState::initPauseMenu() {
+    sf::Vector2f size = {200.f, 200.f};
+    this->pauseMenu = new PauseMenu({this->window->getSize().x / 2.f - size.x / 2.f, this->window->getSize().y / 2.f - size.y / 2.f}, size);
+}
+
 /**
  * Constructor of GameState. Calls the different init-funtions
  * @param window pointer to the RenderWindow
@@ -67,6 +74,7 @@ GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *suppo
     this->initTextures();
     this->initTilemap();
     this->initPLayers();
+    this->initPauseMenu();
     this->initFPS();
 }
 /**
@@ -75,6 +83,7 @@ GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *suppo
 GameState::~GameState() {
     delete this->player;
     delete this->tileMap;
+    delete this->pauseMenu;
 }
 /**
  * updates the input and calls according functions
@@ -93,7 +102,8 @@ void GameState::updateInput(const float &dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))) {
         this->player->move(0.f, -1.f, dt);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE")))) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("PAUSE_MENU")))) {
+        showPauseMenu = true; //Used to open the PauseMenu
         this->endState();
     }
 }
@@ -101,7 +111,7 @@ void GameState::updateInput(const float &dt) {
  * centers the view (camera) on the player
  */
 void GameState::updateView() {
-    this->view.setCenter(sf::Vector2f{this->player->getPosition().x, this->player->getPosition().y});
+    this->view.setCenter(sf::Vector2f{this->player->getPosition().x + playerWidth / 2, this->player->getPosition().y + playerHeight / 2});
 }
 /**
  * calls the different update functions in GameState
@@ -110,7 +120,7 @@ void GameState::updateView() {
 void GameState::update(const float &dt) {
     this->updateMousePositions();
     this->updateInput(dt);
-    this->tileMap->update(player->getPosition());
+    this->tileMap->update(this->player->getPosition());
     this->player->update(dt);
     this->updateView();
     this->fps = 1.f / dt;
@@ -129,8 +139,13 @@ void GameState::render(sf::RenderTarget *target) {
 
     this->renderTexture.display();
     this->fpsText.setString(std::to_string((int) fps));
+
     target->draw(this->renderSprite);
     target->draw(this->fpsText);
+
+    if (showPauseMenu) {
+        pauseMenu->render(*target);
+    }
 }
 /**
  * initializes the font, color and size of the text that displays the fps
