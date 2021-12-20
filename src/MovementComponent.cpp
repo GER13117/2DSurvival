@@ -39,6 +39,10 @@ bool MovementComponent::getState(const short unsigned state) const {
             if (this->velocity.y > 0.f)
                 return true;
             break;
+        default:
+            if (this->velocity.x == 0.f && this->velocity.y == 0.f)
+                return true;
+            break;
     }
     return false;
 }
@@ -49,6 +53,48 @@ void MovementComponent::move(const float dir_x, const float dir_y, const float &
 }
 
 void MovementComponent::update(const float &dt) {
+    if (this->velocity.x != 0.f && this->velocity.y != 0.f) {
+        if (this->velocity.x > 0.f) {
+            //maxVelocity-check
+            if (this->velocity.x > maxVelocity / 1.414) {
+                this->velocity.x = this->maxVelocity / 1.414;
+            }
+            //deceleration-check
+            this->velocity.x -= deceleration * dt;
+            if (this->velocity.x < 0.f) {
+                this->velocity.x = 0.f;
+            }
+        } else if (this->velocity.x < 0.f) {
+            //maxVelocity-check
+            if (this->velocity.x < -maxVelocity / 1.414) {
+                this->velocity.x = -this->maxVelocity / 1.414;
+            }
+            this->velocity.x += deceleration * dt;
+            if (this->velocity.x > 0.f) {
+                this->velocity.x = 0.f;
+            }
+        }
+        if (this->velocity.y > 0.f) {
+            //maxVelocity-check
+            if (this->velocity.y > maxVelocity / 1.414) {
+                this->velocity.y = this->maxVelocity / 1.414;
+            }
+            //deceleration-check
+            this->velocity.y -= deceleration * dt;
+            if (this->velocity.y < 0.f) {
+                this->velocity.y = 0.f;
+            }
+        } else if (this->velocity.y < 0.f) {
+            //maxVelocity-check
+            if (this->velocity.y < -maxVelocity / 1.414) {
+                this->velocity.y = -this->maxVelocity / 1.414;
+            }
+            this->velocity.y += deceleration * dt;
+            if (this->velocity.y > 0.f) {
+                this->velocity.y = 0.f;
+            }
+        }
+    }
     if (this->velocity.x > 0.f) {
         //maxVelocity-check
         if (this->velocity.x > maxVelocity) {
@@ -92,4 +138,3 @@ void MovementComponent::update(const float &dt) {
     //Final move
     this->sprite.move(this->velocity * dt); //uses velocity
 }
-
