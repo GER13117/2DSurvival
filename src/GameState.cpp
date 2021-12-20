@@ -15,9 +15,9 @@ void GameState::initView() {
     this->view.setSize(this->window->getSize().x * height / this->window->getSize().y, height);
     this->view.setCenter(sf::Vector2f{0.f, 0.f});
     std::cout << "x: " << window->getSize().x << " y:  " << window->getSize().y
-              << std::endl; //Debugging because on laptop not the full display is used
+              << std::endl; //Debugging because on macBook Pro wrong display resolution is used
     std::cout << "x: " << view.getSize().x << " y:  " << view.getSize().y << " ratio: " << height / this->window->getSize().y
-              << std::endl; //Debugging because on laptop not the full display is used
+              << std::endl; //Debugging to check if the view gets made correctly
 }
 
 void GameState::initKeybinds() {
