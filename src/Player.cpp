@@ -46,12 +46,12 @@ void Player::update(const float &dt) {
     this->movementComponent->update(dt);
     if (this->movementComponent->getState(movement_states::MOVING_UP)) {
         this->animationComponent->play("WALK_UP", dt);
+    } else if (this->movementComponent->getState(movement_states::MOVING_DOWN)) {
+        this->animationComponent->play("WALK_DOWN", dt);
     } else if (this->movementComponent->getState(movement_states::MOVING_LEFT)) {
         this->animationComponent->play("WALK_LEFT", dt);
     } else if (this->movementComponent->getState(movement_states::MOVING_RIGHT)) {
         this->animationComponent->play("WALK_RIGHT", dt);
-    } else if (this->movementComponent->getState(movement_states::MOVING_DOWN)) {
-        this->animationComponent->play("WALK_DOWN", dt);
     } else if (this->movementComponent->getState(movement_states::IDLE)) {
         this->animationComponent->play("IDLE_FRONT", dt);
     }

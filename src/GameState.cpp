@@ -16,7 +16,8 @@ void GameState::initView() {
     this->view.setCenter(sf::Vector2f{0.f, 0.f});
     std::cout << "x: " << window->getSize().x << " y:  " << window->getSize().y
               << std::endl; //Debugging because on macBook Pro wrong display resolution is used
-    std::cout << "x: " << view.getSize().x << " y:  " << view.getSize().y << " ratio: " << height / this->window->getSize().y
+    std::cout << "x: " << view.getSize().x << " y:  " << view.getSize().y << " ratio: "
+              << height / this->window->getSize().y
               << std::endl; //Debugging to check if the view gets made correctly
 }
 
@@ -57,7 +58,8 @@ void GameState::initPLayers() {
 
 void GameState::initPauseMenu() {
     sf::Vector2f size = {200.f, 200.f};
-    this->pauseMenu = new PauseMenu({this->window->getSize().x / 2.f - size.x / 2.f, this->window->getSize().y / 2.f - size.y / 2.f}, size);
+    this->pauseMenu = new PauseMenu(
+            {this->window->getSize().x / 2.f - size.x / 2.f, this->window->getSize().y / 2.f - size.y / 2.f}, size);
 }
 
 /**
@@ -80,6 +82,7 @@ GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *suppo
     this->initPauseMenu();
     this->initInfoText();
 }
+
 /**
  * Destructor of GameState
  */
@@ -88,6 +91,7 @@ GameState::~GameState() {
     delete this->tileMap;
     delete this->pauseMenu;
 }
+
 /**
  * updates the input and calls according functions
  * @param dt Delta Time (time between the frames)
@@ -110,12 +114,15 @@ void GameState::updateInput(const float &dt) {
         this->endState();
     }
 }
+
 /**
  * centers the view (camera) on the player
  */
 void GameState::updateView() {
-    this->view.setCenter(sf::Vector2f{this->player->getPosition().x + playerWidth / 2, this->player->getPosition().y + playerHeight / 2});
+    this->view.setCenter(sf::Vector2f{this->player->getPosition().x + playerWidth / 2,
+                                      this->player->getPosition().y + playerHeight / 2});
 }
+
 /**
  * calls the different update functions in GameState
  * @param dt Delta Time (time between the frames)
@@ -128,7 +135,8 @@ void GameState::update(const float &dt) {
     this->updateView();
     this->fps = 1.f / dt;
     this->fpsText.setString(std::to_string((int) fps));
-    this->playerPos.setString("x: " + std::to_string(this->player->getPosition().x) +" y: " + std::to_string(this->player->getPosition().y));
+    this->playerPos.setString("x: " + std::to_string(this->player->getPosition().x) + " y: " +
+                              std::to_string(this->player->getPosition().y));
 }
 
 void GameState::render(sf::RenderTarget *target) {
@@ -152,6 +160,7 @@ void GameState::render(sf::RenderTarget *target) {
         pauseMenu->render(*target);
     }
 }
+
 /**
  * initializes the font, color and size of the text that displays the info-text
  */
