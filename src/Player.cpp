@@ -29,11 +29,11 @@ Player::Player(float x, float y, int width, int height, sf::Texture &texture_she
     this->createMovementComponent(200.f, 1700.f, 600.f);
     this->createAnimationComponent(texture_sheet);
 
-    this->animationComponent->addAnimation("WALK_DOWN", 15.f, 0, 0, 3, 0, width, height); //Test animation
-    this->animationComponent->addAnimation("WALK_LEFT", 15.f, 0, 1, 3, 1, width, height); //Test animation
-    this->animationComponent->addAnimation("WALK_RIGHT", 15.f, 0, 2, 3, 2, width, height); //Test animation
-    this->animationComponent->addAnimation("WALK_UP", 15.f, 0, 3, 3, 3, width, height); //Test animation
-    this->animationComponent->addAnimation("IDLE_FRONT", 15.f, 0, 0, 0, 0, width, height); //Test animation
+    this->animationComponent->addAnimation("WALK_DOWN", 10.f, 0, 0, 3, 0, width, height); //Test animation
+    this->animationComponent->addAnimation("WALK_LEFT", 10.f, 0, 1, 3, 1, width, height); //Test animation
+    this->animationComponent->addAnimation("WALK_RIGHT", 10.f, 0, 2, 3, 2, width, height); //Test animation
+    this->animationComponent->addAnimation("WALK_UP", 10.f, 0, 3, 3, 3, width, height); //Test animation
+    this->animationComponent->addAnimation("IDLE_FRONT", 10.f, 0, 0, 0, 0, width, height); //Test animation
 }
 
 Player::~Player() {}

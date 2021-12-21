@@ -78,7 +78,7 @@ GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *suppo
     this->initTilemap();
     this->initPLayers();
     this->initPauseMenu();
-    this->initFPS();
+    this->initInfoText();
 }
 /**
  * Destructor of GameState
@@ -127,6 +127,8 @@ void GameState::update(const float &dt) {
     this->player->update(dt);
     this->updateView();
     this->fps = 1.f / dt;
+    this->fpsText.setString(std::to_string((int) fps));
+    this->playerPos.setString("x: " + std::to_string(this->player->getPosition().x) +" y: " + std::to_string(this->player->getPosition().y));
 }
 
 void GameState::render(sf::RenderTarget *target) {
@@ -141,20 +143,25 @@ void GameState::render(sf::RenderTarget *target) {
     this->player->render(this->renderTexture);
 
     this->renderTexture.display();
-    this->fpsText.setString(std::to_string((int) fps));
 
     target->draw(this->renderSprite);
     target->draw(this->fpsText);
+    target->draw(this->playerPos);
 
     if (showPauseMenu) {
         pauseMenu->render(*target);
     }
 }
 /**
- * initializes the font, color and size of the text that displays the fps
+ * initializes the font, color and size of the text that displays the info-text
  */
-void GameState::initFPS() {
+void GameState::initInfoText() {
     this->fpsText.setFillColor(sf::Color::White);
-    this->fpsText.setCharacterSize(35);
+    this->fpsText.setCharacterSize(12);
     this->fpsText.setFont(this->font);
+    this->fpsText.setPosition({10.f, 10.f});
+    this->playerPos.setFillColor(sf::Color::White);
+    this->playerPos.setCharacterSize(12);
+    this->playerPos.setFont(this->font);
+    this->playerPos.setPosition({10.f, 25.f});
 }

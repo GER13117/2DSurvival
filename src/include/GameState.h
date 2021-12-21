@@ -23,6 +23,7 @@ private:
     TileMap *tileMap;
     float fps{};
     sf::Text fpsText;
+    sf::Text playerPos;
     sf::Font font;
 
     //Functions
@@ -30,7 +31,7 @@ private:
 
     void initPauseMenu();
 
-    void initFPS();
+    void initInfoText();
 
     void initRenderTexture(); //Rename??
 
