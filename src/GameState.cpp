@@ -116,9 +116,13 @@ void GameState::updateInput(const float &dt) {
     }
     if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         tileMap->createPlayerStructure(
-                {static_cast<float>(static_cast<int>((mousePosView.x * viewWindowRatio + player->getPosition().x - this->view.getSize().x / 2 + (float) tileSize) / (float)tileSize) * tileSize),
-                 static_cast<float>(static_cast<int>((mousePosView.y * viewWindowRatio + player->getPosition().y - this->view.getSize().y / 2 + (float) tileSize) / (float) tileSize) * tileSize)}, {16, 16},
-                sf::Color::Red);
+                {static_cast<float>(static_cast<int>((mousePosView.x * viewWindowRatio + player->getPosition().x -
+                                                      this->view.getSize().x / 2 + (float) tileSize) /
+                                                     (float) tileSize) * tileSize),
+                 static_cast<float>(static_cast<int>((mousePosView.y * viewWindowRatio + player->getPosition().y -
+                                                      this->view.getSize().y / 2 + (float) tileSize) /
+                                                     (float) tileSize) * tileSize)}, {16, 16},
+                sf::Color(139, 69, 19));
 }
 
 /**

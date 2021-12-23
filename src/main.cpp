@@ -5,11 +5,15 @@ int main() {
     game.run();
     return EXIT_SUCCESS;
 }
+//TODO: Add Biomesystem: Humidity and Temperature as parameters for different biomes
+
 //TODO: Add docs
 
 //TODO: Art (BG, Texturing) --> Pixelart Colors?
     //TODO: Block / Materialsystem
 // TODO: Inventory: Technical, Art: Hotbar, Maininventory etc.
+
+//TODO: Rivers (Perlin Worms)
 
 //TODO: Collisions
 
