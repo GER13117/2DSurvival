@@ -26,10 +26,8 @@ TileMap::TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position,
      */
     for (int x = offset.x - maxTilesX * tileSizeX; x < maxTilesX * tileSizeX + offset.x; x += tileSizeX) {
         for (int y = offset.y - maxTilesY * tileSizeY; y < maxTilesY * tileSizeY + offset.y; y += tileSizeY) {
-            this->tile = new Tile((float) x,
-                                  (float) y,
-                                  (float) tileSizeX,
-                                  (float) tileSizeY,
+            this->tile = new Tile(sf::Vector2f {(float) x, (float) y},
+                                  sf::Vector2f {(float) tileSizeX,(float) tileSizeY},
                                   tileColor(
                                           this->globalSimplex->fractal(octaves, (float) x, (float) y) + offsetZ,
                                           this->grasSimplex->fractal(octaves, (float) x + 9129834.f,
@@ -41,7 +39,14 @@ TileMap::TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position,
 
 
 TileMap::~TileMap() {
-
+    for (auto e: tiles) {
+        delete e;
+    }
+    this->tiles.clear();
+    for (auto e: structures) {
+        delete e;
+    }
+    this->structures.clear();
 }
 
 //TODO: return textures instead
@@ -71,8 +76,25 @@ sf::Color TileMap::tileColor(float noise, float grasNoise) {
         return {179, 179, 179}; // grey: rocks
     }
 }
+/**
+ * Creates a Tile / Object with different parameters given by the player
+ * @param pos Position of the Structure / Object
+ * @param size Size of the Structure
+ * @param color Color of the Structure (Will be replaced by Texture)
+ */
+void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2f size, sf::Color color) {
+    //TODO: Structures will have hitboxes, other than regular tiles
+    //TODO: Datastructure for procedural structures (That can be deleted)
+    bool blockExists = false;
+    for(auto e : structures) {
+        if (e->getShape().getPosition() == pos) //When there are multiple blocks it also has to be checked, if it's the same block
+            blockExists = true;
+    }
+    if (!blockExists)
+        structures.push_back(new Tile(pos, size, color));
 
-
+    blockExists = false;
+}
 
 //TODO: make code more beautiful
 //TODO: maybe only update the map if the player is moving?
@@ -88,7 +110,7 @@ void TileMap::update(sf::Vector2f player_position) {
         if ((*it)->getShape().getPosition().x > offset.x + maxTilesX * tileSizeX) { //Rechts vom Monitor
             tileX = (*it)->getShape().getPosition().x - (2 * maxTilesX * tileSizeX);
             tileY = (*it)->getShape().getPosition().y;
-            tiles.push_back(new Tile(tileX, tileY, tileSizeX, tileSizeY,
+            tiles.push_back(new Tile(sf::Vector2f (tileX, tileY), sf::Vector2f (tileSizeX, tileSizeY),
                                      tileColor(
                                              this->globalSimplex->fractal(octaves, tileX, tileY) + offsetZ,
                                              this->grasSimplex->fractal(octaves, tileX + 9129834.f, tileY + 1208012.f) +
@@ -98,17 +120,18 @@ void TileMap::update(sf::Vector2f player_position) {
         } else if ((*it)->getShape().getPosition().x < offset.x - maxTilesX * tileSizeX) { //Links vom Monitor
             tileX = (*it)->getShape().getPosition().x + (2 * maxTilesX * tileSizeX);
             tileY = (*it)->getShape().getPosition().y;
-            tiles.push_back(new Tile(tileX, tileY, tileSizeX, tileSizeY,
+            tiles.push_back(new Tile(sf::Vector2f (tileX, tileY), sf::Vector2f (tileSizeX, tileSizeY),
                                      tileColor(
                                              this->globalSimplex->fractal(octaves, tileX, tileY) + offsetZ,
                                              this->grasSimplex->fractal(octaves, tileX + 9129834.f, tileY + 1208012.f) +
                                              offsetZ)));
             delete *it;
             it = tiles.erase(it);
-        } if ((*it)->getShape().getPosition().y + tileSizeX > offset.y + maxTilesY * tileSizeY) { //Über dem Monitor
+        }
+        if ((*it)->getShape().getPosition().y + tileSizeX > offset.y + maxTilesY * tileSizeY) { //Über dem Monitor
             tileX = (*it)->getShape().getPosition().x;
             tileY = (*it)->getShape().getPosition().y - (2 * maxTilesY * tileSizeY);
-            tiles.push_back(new Tile(tileX, tileY, tileSizeX, tileSizeY,
+            tiles.push_back(new Tile(sf::Vector2f (tileX, tileY), sf::Vector2f (tileSizeX, tileSizeY),
                                      tileColor(
                                              this->globalSimplex->fractal(octaves, tileX, tileY) + offsetZ,
                                              this->grasSimplex->fractal(octaves, tileX + 9129834.f, tileY + 1208012.f) +
@@ -118,7 +141,7 @@ void TileMap::update(sf::Vector2f player_position) {
         } else if ((*it)->getShape().getPosition().y < offset.y - maxTilesY * tileSizeY) { //Unter dem Monitor
             tileX = (*it)->getShape().getPosition().x;
             tileY = (*it)->getShape().getPosition().y + (2 * maxTilesY * tileSizeY);
-            tiles.push_back(new Tile(tileX, tileY, tileSizeX, tileSizeY,
+            tiles.push_back(new Tile(sf::Vector2f (tileX, tileY), sf::Vector2f (tileSizeX, tileSizeY),
                                      tileColor(
                                              this->globalSimplex->fractal(octaves, tileX, tileY) + offsetZ,
                                              this->grasSimplex->fractal(octaves, tileX + 9129834.f, tileY + 1208012.f) +
@@ -149,6 +172,9 @@ void TileMap::update(sf::Vector2f player_position) {
 
 void TileMap::render(sf::RenderTarget &target) {
     for (auto &e: this->tiles) {
+        target.draw(e->getShape());
+    }
+    for (auto &e: this->structures) { //TODO: Only if visible
         target.draw(e->getShape());
     }
 }

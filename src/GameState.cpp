@@ -14,6 +14,7 @@ void GameState::initView() {
     float height = 900;
     this->view.setSize(this->window->getSize().x * height / this->window->getSize().y, height);
     this->view.setCenter(sf::Vector2f{0.f, 0.f});
+    this->viewWindowRatio = height / this->window->getSize().y;
     std::cout << "x: " << window->getSize().x << " y:  " << window->getSize().y
               << std::endl; //Debugging because on macBook Pro wrong display resolution is used
     std::cout << "x: " << view.getSize().x << " y:  " << view.getSize().y << " ratio: "
@@ -44,7 +45,7 @@ void GameState::initTextures() {
 }
 
 void GameState::initTilemap() {
-    uint8_t tileSize = 16;
+    tileSize = 16;
     auto maxTilesX = (uint8_t) (this->view.getSize().x / (float) tileSize) / 2 + 3;
     auto maxTilesY = (uint8_t) (this->view.getSize().y / (float) tileSize) / 2 + 4;
     this->tileMap = new TileMap(tileSize, tileSize, sf::Vector2f(0.f, 0.f), maxTilesX, maxTilesY);
@@ -113,6 +114,11 @@ void GameState::updateInput(const float &dt) {
         showPauseMenu = true; //Used to open the PauseMenu
         this->endState();
     }
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+        tileMap->createPlayerStructure(
+                {static_cast<float>(static_cast<int>((mousePosView.x * viewWindowRatio + player->getPosition().x - this->view.getSize().x / 2 + (float) tileSize) / (float)tileSize) * tileSize),
+                 static_cast<float>(static_cast<int>((mousePosView.y * viewWindowRatio + player->getPosition().y - this->view.getSize().y / 2 + (float) tileSize) / (float) tileSize) * tileSize)}, {16, 16},
+                sf::Color::Red);
 }
 
 /**

@@ -25,7 +25,7 @@ private:
     sf::RectangleShape shape;
     sf::Color tileColor; //TODO: Replace with texture
 public:
-    Tile(float x, float y, float width, float height,
+    Tile(sf::Vector2f pos, sf::Vector2f size,
          sf::Color tileColor);
 
     virtual ~Tile();

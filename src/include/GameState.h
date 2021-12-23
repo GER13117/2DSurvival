@@ -13,6 +13,8 @@ class GameState :
 private:
     float playerWidth;
     float playerHeight;
+    float viewWindowRatio;
+    uint8_t tileSize;
     bool showPauseMenu = false;
     sf::View view;
     sf::RectangleShape testRect;

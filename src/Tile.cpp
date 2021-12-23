@@ -3,10 +3,10 @@
 //
 #include "include/Tile.h"
 
-Tile::Tile(float x, float y, float width, float height, sf::Color tileColor) {
+Tile::Tile(sf::Vector2f pos, sf::Vector2f size, sf::Color tileColor) {
     this->tileColor = tileColor;
-    this->shape.setSize(sf::Vector2f(width, height));
-    this->shape.setPosition(sf::Vector2f(x, y));
+    this->shape.setSize(size);
+    this->shape.setPosition(pos);
     this->shape.setFillColor(this->tileColor);
 //    this->shape.setOutlineThickness(2.f);
 //    this->shape.setOutlineColor(sf::Color::Black);

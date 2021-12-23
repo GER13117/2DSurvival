@@ -5,15 +5,17 @@ int main() {
     game.run();
     return EXIT_SUCCESS;
 }
-//TODO: Ability to place blocks
 //TODO: Add docs
 
 //TODO: Art (BG, Texturing) --> Pixelart Colors?
+    //TODO: Block / Materialsystem
+// TODO: Inventory: Technical, Art: Hotbar, Maininventory etc.
+
+//TODO: Collisions
 
 //TODO: Map
     //TODO: Flora (Trees, Bushes, Gras) --> noise, seedsystem --> performance
     //TODO: Ways, Villages
-//TODO: Collisions
 //TODO: HUD --> Minimap, Pausenmenu
 //TODO: Spielziel: Crafting, Mining, PVP, Exploring, Healthsystem
 //TODO: Music
