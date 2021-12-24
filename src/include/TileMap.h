@@ -19,13 +19,17 @@ private:
     sf::Vector2i offset;
     int tileSizeX;
     int tileSizeY;
-    float globalScale;
+    float geologicalScale;
     float grasScale;
+    float temperatureScale;
+    float humidityScale;
     float offsetZ;
     float lacunarity;
     float persistance;
-    SimplexNoise *globalSimplex;
+    SimplexNoise *geologicalSimplex;
     SimplexNoise *grasSimplex;
+    SimplexNoise *temperature;
+    SimplexNoise *humidity;
     int octaves;
     uint8_t maxTilesX;
     uint8_t maxTilesY;
@@ -34,7 +38,7 @@ private:
 public:
     TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x, uint8_t max_tiles_y);
 
-    static sf::Color tileColor(float noise, float grasNoise);
+    static sf::Color tileColor(float noise, float textureVariationNoise, float temperature, float humidity);
 
     void createPlayerStructure(sf::Vector2f pos, sf::Vector2f size, sf::Color color);
 
