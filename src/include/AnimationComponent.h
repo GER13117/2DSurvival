@@ -35,9 +35,9 @@ private:
                 : sprite(sprite), textureSheet(texture_sheet),
                   animationTimer(animation_timer), width(width), height(height) {
             this->timer = 0.f;
-            this->startRect = sf::IntRect(start_frame_x * width, start_frame_y * height, width, height);
+            this->startRect = sf::IntRect(sf::Vector2i{start_frame_x * width, start_frame_y * height}, sf::Vector2i{width, height});
             this->currentRect = this->startRect;
-            this->endRect = sf::IntRect(frames_x * width, frames_y * height, width, height);
+            this->endRect = sf::IntRect(sf::Vector2i{frames_x * width, frames_y * height}, sf::Vector2i{width, height});
             this->sprite.setTexture(this->textureSheet, true);
             this->sprite.setTextureRect(this->startRect);
         }
@@ -75,11 +75,11 @@ public:
     virtual ~AnimationComponent();
 
     //Functions
-    void addAnimation(const std::string& key,
+    void addAnimation(const std::string &key,
                       float animation_timer,
                       int start_frame_x, int start_frame_y, int frames_x, int frames_y, int width, int height);
 
-    void play(const std::string& key, const float &dt);
+    void play(const std::string &key, const float &dt);
 };
 
 #endif //INC_2DSURVIVAL_ANIMATIONCOMPONENT_H
