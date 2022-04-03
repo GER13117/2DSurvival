@@ -58,6 +58,7 @@ TileMap::~TileMap() {
 //TODO: create Spritesheet
 //TODO: include AnimationComponent
 sf::Color TileMap::tileColor(float noise, float textureVariationNoise, float temperature, float humidity) {
+    //TODO: Fully implement this.
     if (humidity > 0.5f) {
         if (temperature > 0.5f) {
             //Regenwald
