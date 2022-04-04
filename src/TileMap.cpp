@@ -54,44 +54,8 @@ TileMap::~TileMap() {
     this->structures.clear();
 }
 
-//TODO: return textures instead
-//TODO: create Spritesheet
-//TODO: include AnimationComponent
-sf::Color TileMap::tileColor(float noise, float textureVariationNoise, float temperature, float humidity) {
-    //TODO: Fully implement this.
-    if (humidity > 0.5f) {
-        if (temperature > 0.5f) {
-            //Regenwald
-        } else {
-            //Sumpf
-        }
-    } else if (humidity > 0.f) {
-        if (temperature > 0.5f) {
-            //Saisonaler Wald
-        } else if (temperature > 0.f) {
-            //dichter Wald
-        } else {
-            //Taiga
-        }
-    } else if (humidity > -0.5f) {
-        if (temperature > 0.5f) {
-            //Savanne
-        } else if (temperature > 0.f) {
-            //Wald
-        } else if (temperature > -0.5f) {
-            //Taiga
-        } else {
-            //Tundra
-        }
-    } else {
-        if (temperature > 0.25f) {
-            //Wüste
-        } else if (temperature > -0.5f) {
-            //Graswüste
-        } else {
-            //Tundra
-        }
-    }
+sf::Color TileMap::rainForest(float noise, float textureVarNoise) {
+    std::cout << "rainForest" << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -100,21 +64,263 @@ sf::Color TileMap::tileColor(float noise, float textureVariationNoise, float tem
         return {69, 108, 118}; // blue: shallow water
     } else if (noise < 0.010f) {
         return {207, 209, 134}; // Beach
-    } else if (noise < 0.60f) { // grass
-        if (textureVariationNoise < 0.f)
+    } else {
+        if (textureVarNoise < 0.f)
             return {71, 117, 20};
-        else if (textureVariationNoise < 0.5f)
+        else if (textureVarNoise < 0.5f)
             return {94, 135, 50};
         else
             return {105, 138, 70};
-    } else if (noise < 0.700f) {
-        return {115, 128, 77}; // light green: veld
-    } else if (noise < 0.900f) {
-        return {153, 143, 92}; // brown: tundra
-    } else {
-        return {179, 179, 179}; // grey: rocks
     }
 }
+
+sf::Color TileMap::tundra(float noise, float textureVarNoise) {
+    std::cout << "Tundra" << std::endl;
+    if (noise < -0.500f) {
+        return {2, 43, 68}; // dark blue: deep water
+    } else if (noise < -0.10f) {
+        return {9, 62, 92}; // deep blue: water
+    } else if (noise < -0.060f) {
+        return {91, 130, 140}; // blue: shallow water
+    } else if (noise < 0.010f) {
+        return {224, 196, 150}; // Beach
+    } else if (noise < 0.8f) {
+        if (textureVarNoise < 0.f)
+            return {115, 106, 21};
+        else if (textureVarNoise < 0.3f)
+            return {155, 139, 0};
+        else if (textureVarNoise < 0.6f)
+            return {137, 115, 1};
+        else
+            return {88, 91, 7};
+    } else
+        return {107, 101, 89}; // TODO: Variation noise
+}
+
+sf::Color TileMap::swamp(float noise, float textureVarNoise) {
+    std::cout << "swamp" << std::endl;
+    if (noise < -0.500f) {
+        return {2, 43, 68}; // dark blue: deep water
+    } else if (noise < -0.10f) {
+        return {9, 62, 92}; // deep blue: water
+    } else if (noise < -0.060f) {
+        return {69, 108, 118}; // blue: shallow water
+    } else if (noise < 0.010f) {
+        return {207, 209, 134}; // Beach
+    } else {
+        if (textureVarNoise < 0.f)
+            return {71, 117, 20};
+        else if (textureVarNoise < 0.5f)
+            return {94, 135, 50};
+        else
+            return {105, 138, 70};
+    }
+}
+
+sf::Color TileMap::taiga(float noise, float textureVarNoise) {
+    std::cout << "taiga" << std::endl;
+    if (noise < -0.500f) {
+        return {55, 74, 110}; // dark blue: deep water
+    } else if (noise < -0.10f) {
+        return {113, 127, 153}; // deep blue: water
+    } else if (noise < -0.060f) {
+        return {141, 154, 179}; // blue: shallow water
+    } else if (noise < 0.010f) {
+        return {128, 125, 111}; // Beach
+    } else {
+        if (textureVarNoise < 0.f)
+            return {147, 140, 103};
+        else if (textureVarNoise < 0.3f)
+            return {153, 116, 78};
+        else if (textureVarNoise < 0.6f)
+            return {135, 119, 76};
+        else
+            return {177, 136, 91};
+    }
+}
+
+sf::Color TileMap::saisonalForest(float noise, float textureVarNoise) {
+    std::cout << "saisonal forest" << std::endl;
+    if (noise < -0.500f) {
+        return {2, 43, 68}; // dark blue: deep water
+    } else if (noise < -0.10f) {
+        return {9, 62, 92}; // deep blue: water
+    } else if (noise < -0.060f) {
+        return {69, 108, 118}; // blue: shallow water
+    } else if (noise < 0.010f) {
+        return {207, 209, 134}; // Beach
+    } else {
+        if (textureVarNoise < 0.f)
+            return {71, 117, 20};
+        else if (textureVarNoise < 0.5f)
+            return {94, 135, 50};
+        else
+            return {105, 138, 70};
+    }
+}
+
+sf::Color TileMap::thickForest(float noise, float textureVarNoise) {
+    std::cout << "Thick forest" << std::endl;
+    if (noise < -0.500f) {
+        return {2, 43, 68}; // dark blue: deep water
+    } else if (noise < -0.10f) {
+        return {9, 62, 92}; // deep blue: water
+    } else if (noise < -0.060f) {
+        return {69, 108, 118}; // blue: shallow water
+    } else if (noise < 0.010f) {
+        return {207, 209, 134}; // Beach
+    } else {
+        if (textureVarNoise < 0.f)
+            return {71, 117, 20};
+        else if (textureVarNoise < 0.5f)
+            return {94, 135, 50};
+        else
+            return {105, 138, 70};
+    }
+}
+
+sf::Color TileMap::forest(float noise, float textureVarNoise) {
+    std::cout << "forest" << std::endl;
+    if (noise < -0.500f) {
+        return {2, 43, 68}; // dark blue: deep water
+    } else if (noise < -0.10f) {
+        return {9, 62, 92}; // deep blue: water
+    } else if (noise < -0.060f) {
+        return {69, 108, 118}; // blue: shallow water
+    } else if (noise < 0.010f) {
+        return {207, 209, 134}; // Beach
+    } else {
+        if (textureVarNoise < 0.f)
+            return {71, 117, 20};
+        else if (textureVarNoise < 0.5f)
+            return {94, 135, 50};
+        else
+            return {105, 138, 70};
+    }
+}
+
+sf::Color TileMap::savanne(float noise, float textureVarNoise) {
+    std::cout << "savanne" << std::endl;
+    if (noise < -0.500f) {
+        return {2, 43, 68}; // dark blue: deep water
+    } else if (noise < -0.10f) {
+        return {9, 62, 92}; // deep blue: water
+    } else if (noise < -0.060f) {
+        return {69, 108, 118}; // blue: shallow water
+    } else if (noise < 0.010f) {
+        return {207, 209, 134}; // Beach
+    } else {
+        if (textureVarNoise < 0.f)
+            return {71, 117, 20};
+        else if (textureVarNoise < 0.5f)
+            return {94, 135, 50};
+        else
+            return {105, 138, 70};
+    }
+}
+
+sf::Color TileMap::desert(float noise, float textureVarNoise) {
+    std::cout << "dersert" << std::endl;
+    if (noise < -0.500f) {
+        return {2, 43, 68}; // dark blue: deep water
+    } else if (noise < -0.10f) {
+        return {9, 62, 92}; // deep blue: water
+    } else if (noise < -0.060f) {
+        return {69, 108, 118}; // blue: shallow water
+    } else if (noise < 0.010f) {
+        return {207, 209, 134}; // Beach
+    } else {
+        if (textureVarNoise < 0.f)
+            return {71, 117, 20};
+        else if (textureVarNoise < 0.5f)
+            return {94, 135, 50};
+        else
+            return {105, 138, 70};
+    }
+}
+
+sf::Color TileMap::grasDesert(float noise, float textureVarNoise) {
+    std::cout << "gras desert " << std::endl;
+    if (noise < -0.500f) {
+        return {2, 43, 68}; // dark blue: deep water
+    } else if (noise < -0.10f) {
+        return {9, 62, 92}; // deep blue: water
+    } else if (noise < -0.060f) {
+        return {69, 108, 118}; // blue: shallow water
+    } else if (noise < 0.010f) {
+        return {207, 209, 134}; // Beach
+    } else {
+        if (textureVarNoise < 0.f)
+            return {71, 117, 20};
+        else if (textureVarNoise < 0.5f)
+            return {94, 135, 50};
+        else
+            return {105, 138, 70};
+    }
+}
+
+
+//TODO: return textures instead
+//TODO: create Spritesheet
+//TODO: include AnimationComponent
+sf::Color TileMap::tileColor(float noise, float textureVariationNoise, float temperature, float humidity) {
+    //TODO: Fully implement this.
+    if (humidity >= 0.5f) {
+        if (temperature > 0.5f) {
+            return rainForest(noise, textureVariationNoise);
+        } else {
+            return swamp(noise, textureVariationNoise);
+        }
+    } else if (humidity >= 0.f) {
+        if (temperature > 0.5f) {
+            return saisonalForest(noise, textureVariationNoise);
+        } else if (temperature > 0.f) {
+            return thickForest(noise, textureVariationNoise);
+        } else {
+            return taiga(noise, textureVariationNoise);
+        }
+    } else if (humidity >= -0.5f) {
+        if (temperature > 0.5f) {
+            return savanne(noise, textureVariationNoise);
+        } else if (temperature > 0.f) {
+            return forest(noise, textureVariationNoise);
+        } else if (temperature > -0.5f) {
+            return taiga(noise, textureVariationNoise);
+        } else {
+            return tundra(noise, textureVariationNoise);
+        }
+    } else {
+        if (temperature > 0.25f) {
+            return desert(noise, textureVariationNoise);
+        } else if (temperature > -0.5f) {
+            return grasDesert(noise, textureVariationNoise);
+        } else {
+            return tundra(noise, textureVariationNoise);
+        }
+    }
+}
+/*if (noise < -0.500f) {
+    return {2, 43, 68}; // dark blue: deep water
+} else if (noise < -0.10f) {
+    return {9, 62, 92}; // deep blue: water
+} else if (noise < -0.060f) {
+    return {69, 108, 118}; // blue: shallow water
+} else if (noise < 0.010f) {
+    return {207, 209, 134}; // Beach
+} else if (noise < 0.60f) { // grass
+    if (textureVariationNoise < 0.f)
+        return {71, 117, 20};
+    else if (textureVariationNoise < 0.5f)
+        return {94, 135, 50};
+    else
+        return {105, 138, 70};
+} else if (noise < 0.700f) {
+    return {115, 128, 77}; // light green: veld
+} else if (noise < 0.900f) {
+    return {153, 143, 92}; // brown: tundra
+} else {
+    return {179, 179, 179}; // grey: rocks
+}*/
 
 /**
  * Creates a Tile / Object with different parameters given by the player

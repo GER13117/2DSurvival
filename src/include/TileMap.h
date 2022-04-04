@@ -10,6 +10,18 @@
 
 class TileMap {
 private:
+    static sf::Color tundra(float noise, float textureVarNoise);
+    static sf::Color rainForest(float noise, float textureVarNoise);
+    static sf::Color swamp(float noise, float textureVarNoise);
+    static sf::Color taiga(float noise, float textureVarNoise);
+    static sf::Color saisonalForest(float noise, float textureVarNoise);
+    static sf::Color thickForest(float noise, float textureVarNoise);
+    static sf::Color forest(float noise, float textureVarNoise);
+    static sf::Color savanne(float noise, float textureVarNoise);
+
+    static sf::Color desert(float noise, float textureVarNoise);
+    static sf::Color grasDesert(float noise, float textureVarNoise);
+
     std::vector<Tile *> tiles;
     std::vector<Tile *> structures; //built by the player
     std::vector<Tile*>::iterator it;
