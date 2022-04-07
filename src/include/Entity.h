@@ -7,6 +7,7 @@
 #include "HitboxComponent.h"
 #include "MovementComponent.h"
 #include "AnimationComponent.h"
+#include "Tile.h"
 
 #include "Collision.h"
 
@@ -39,7 +40,7 @@ public:
 
     virtual const sf::Vector2f &getPosition() const;
 
-    virtual void move(const float dir_x, const float dir_y, const float &dt);
+    virtual void move(const float dir_x, const float dir_y, const float &dt, const std::vector<Tile *>& structures);
 
     virtual void update(const float &dt);
 

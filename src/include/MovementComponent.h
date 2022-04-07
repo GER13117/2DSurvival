@@ -28,6 +28,8 @@ private:
     float deceleration;
     float maxVelocity{};
     sf::Vector2f velocity;
+
+    float sgn(float num);
     //Initializers
 public:
     MovementComponent(sf::Sprite &sprite, float maxVelocity, float acceleration, float deceleration);
@@ -38,9 +40,9 @@ public:
     const sf::Vector2f &getVelocity() const;
 
     //functions
-    bool getState(const short unsigned state) const;
+    bool getState(short unsigned state) const;
 
-    void move(const float dir_x, const float dir_y, const float &dt);
+    void move(bool collision, float dir_x, float dir_y, const float &dt);
 
     void update(const float &dt);
 };

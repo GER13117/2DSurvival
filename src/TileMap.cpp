@@ -54,6 +54,16 @@ TileMap::~TileMap() {
     this->structures.clear();
 }
 
+void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset, sf::Vector2f player_position) {
+    for (auto i: structures) {
+        if (i->getShape().getPosition().x > view_offset.x + maxTilesX * tileSizeX || i->getShape().getPosition().x < view_offset.x - maxTilesX * tileSizeX ||
+            i->getShape().getPosition().y > view_offset.y + maxTilesX * tileSizeX || i->getShape().getPosition().y < view_offset.y - maxTilesX * tileSizeX)
+            continue;
+        else
+            structuresInScreen.push_back(i);
+    }
+}
+
 sf::Color TileMap::rainForest(float noise, float textureVarNoise) {
     std::cout << "rainForest" << std::endl;
     if (noise < -0.500f) {
@@ -330,6 +340,8 @@ void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2f size, sf::Col
 void TileMap::update(sf::Vector2f player_position) {
     offset.x = ((int) (player_position.x / (float) tileSizeX) * tileSizeX);
     offset.y = ((int) (player_position.y / (float) tileSizeY) * tileSizeY);
+
+    getStructuresInScreenSpace(offset, player_position);
 
     for (it = tiles.begin(); it != tiles.end();) {
         if ((*it)->getShape().getPosition().x > offset.x + maxTilesX * tileSizeX) { //Rechts vom Monitor

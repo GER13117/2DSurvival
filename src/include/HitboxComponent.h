@@ -9,6 +9,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include "Tile.h"
 
 #include <ctime>
 #include <cstdlib>
@@ -26,7 +27,7 @@ public:
     virtual ~HitboxComponent();
 
     //functions
-    bool checkIntersect(const sf::FloatRect &frect);
+    bool checkStructureIntersect(const std::vector<Tile *>& structures);
 
     void update();
 

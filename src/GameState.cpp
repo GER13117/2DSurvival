@@ -99,16 +99,16 @@ GameState::~GameState() {
  */
 void GameState::updateInput(const float &dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT")))) {
-        this->player->move(-1.f, 0.f, dt);
+        this->player->move(-1.f, 0.f, dt, this->tileMap->structuresInScreen);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT")))) {
-        this->player->move(1.f, 0.f, dt);
+        this->player->move(1.f, 0.f, dt, this->tileMap->structuresInScreen);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) {
-        this->player->move(0.f, 1.f, dt);
+        this->player->move(0.f, 1.f, dt, this->tileMap->structuresInScreen);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))) {
-        this->player->move(0.f, -1.f, dt);
+        this->player->move(0.f, -1.f, dt, this->tileMap->structuresInScreen);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("PAUSE_MENU")))) {
         showPauseMenu = true; //Used to open the PauseMenu
