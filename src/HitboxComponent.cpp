@@ -19,7 +19,9 @@ HitboxComponent::~HitboxComponent() {
 }
 
 bool HitboxComponent::checkIntersect(const sf::FloatRect &frect) {
-    return this->hitBox.getGlobalBounds().contains(frect.getPosition()); //TODO: implement intersects function
+    if (std::nullopt == this->hitBox.getGlobalBounds().findIntersection(frect))
+        return false;
+    return true;
 }
 
 void HitboxComponent::update() {
