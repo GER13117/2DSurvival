@@ -28,6 +28,8 @@ private:
     float deceleration;
     float maxVelocity{};
     sf::Vector2f velocity;
+    float isqrt2;
+    static float Q_rsqrt(float number);
 
     float sgn(float num);
     //Initializers

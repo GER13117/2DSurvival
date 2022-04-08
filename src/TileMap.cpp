@@ -54,7 +54,7 @@ TileMap::~TileMap() {
     this->structures.clear();
 }
 
-void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset, sf::Vector2f player_position) {
+void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset, sf::Vector2f player_position) { //TODO: Fix memory leak
     for (auto i: structures) {
         if (i->getShape().getPosition().x > view_offset.x + maxTilesX * tileSizeX || i->getShape().getPosition().x < view_offset.x - maxTilesX * tileSizeX ||
             i->getShape().getPosition().y > view_offset.y + maxTilesX * tileSizeX || i->getShape().getPosition().y < view_offset.y - maxTilesX * tileSizeX)
@@ -321,8 +321,7 @@ void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2f size, sf::Col
     //TODO: Datastructure for procedural structures (That can be deleted)
     bool blockExists = false;
     for (auto e: structures) {
-        if (e->getShape().getPosition() ==
-            pos) //When there are multiple blocks it also has to be checked, if it's the same block
+        if (e->getShape().getPosition() == pos) //When there are multiple blocks it also has to be checked, if it's the same block
             blockExists = true;
     }
     if (!blockExists)
@@ -399,7 +398,7 @@ void TileMap::render(sf::RenderTarget &target) {
     for (auto &e: this->tiles) {
         target.draw(e->getShape());
     }
-    for (auto &e: this->structures) { //TODO: Only if visible
+    for (auto &e: this->structuresInScreen) { //TODO: Only if visible
         target.draw(e->getShape());
     }
 }

@@ -3,8 +3,27 @@
 //
 #include "include/MovementComponent.h"
 
+float MovementComponent::Q_rsqrt(float number)
+{
+    long i;
+    float x2, y;
+    const float threehalfs = 1.5F;
+
+    x2 = number * 0.5F;
+    y  = number;
+    i  = * ( long * ) &y;                       // evil floating point bit level hacking
+    i  = 0x5f3759df - ( i >> 1 );               // what the fuck? 
+    y  = * ( float * ) &i;
+    y  = y * ( threehalfs - ( x2 * y * y ) );   // 1st iteration
+//	y  = y * ( threehalfs - ( x2 * y * y ) );   // 2nd iteration, this can be removed
+
+    return y;
+}
+
 MovementComponent::MovementComponent(sf::Sprite &sprite, float maxVelocity, float acceleration, float deceleration)
-        : sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration) {}
+        : sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration) {
+    isqrt2 = Q_rsqrt(2.f);
+}
 
 MovementComponent::~MovementComponent() {}
 
@@ -60,8 +79,8 @@ void MovementComponent::update(const float &dt) {
     if (this->velocity.x != 0.f && this->velocity.y != 0.f) {
         if (this->velocity.x > 0.f) {
             //maxVelocity-check
-            if (this->velocity.x > maxVelocity / 1.414) {
-                this->velocity.x = this->maxVelocity / 1.414;
+            if (this->velocity.x > maxVelocity * isqrt2) {
+                this->velocity.x = this->maxVelocity * isqrt2;
             }
             //deceleration-check
             this->velocity.x -= deceleration * dt;
@@ -70,8 +89,8 @@ void MovementComponent::update(const float &dt) {
             }
         } else if (this->velocity.x < 0.f) {
             //maxVelocity-check
-            if (this->velocity.x < -maxVelocity / 1.414) {
-                this->velocity.x = -this->maxVelocity / 1.414;
+            if (this->velocity.x < -maxVelocity * isqrt2) {
+                this->velocity.x = -this->maxVelocity * isqrt2;
             }
             this->velocity.x += deceleration * dt;
             if (this->velocity.x > 0.f) {
@@ -80,8 +99,8 @@ void MovementComponent::update(const float &dt) {
         }
         if (this->velocity.y > 0.f) {
             //maxVelocity-check
-            if (this->velocity.y > maxVelocity / 1.414) {
-                this->velocity.y = this->maxVelocity / 1.414;
+            if (this->velocity.y > maxVelocity * isqrt2) {
+                this->velocity.y = this->maxVelocity * isqrt2;
             }
             //deceleration-check
             this->velocity.y -= deceleration * dt;
@@ -90,8 +109,8 @@ void MovementComponent::update(const float &dt) {
             }
         } else if (this->velocity.y < 0.f) {
             //maxVelocity-check
-            if (this->velocity.y < -maxVelocity / 1.414) {
-                this->velocity.y = -this->maxVelocity / 1.414;
+            if (this->velocity.y < -maxVelocity * isqrt2) {
+                this->velocity.y = -this->maxVelocity * isqrt2;
             }
             this->velocity.y += deceleration * dt;
             if (this->velocity.y > 0.f) {
