@@ -18,6 +18,7 @@ private:
     //Fonts
     sf::Font arial;
     sf::Font commando;
+    sf::Font wayfarer;
     //Buttons
     std::map<std::string, Button *> buttons;
 

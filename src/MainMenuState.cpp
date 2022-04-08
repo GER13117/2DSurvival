@@ -19,8 +19,12 @@ void MainMenuState::initFonts() {
     if (!this->arial.loadFromFile("../resources/Fonts/arial.ttf")) {
         throw std::runtime_error("ERROR::MAINMENUSTATE::COULD NOT LOAD ARIAL FONT");
     }
-    if (!this->commando.loadFromFile("../resources/Fonts/commando.ttf")) {
+    /*if (!this->commando.loadFromFile("../resources/Fonts/commando.ttf")) {
         throw std::runtime_error("ERROR::MAINMENUSTATE::COULD NOT LOAD COMMANDO FONT");
+    }*/
+
+    if (!this->wayfarer.loadFromFile("../resources/Fonts/wayfarer.ttf")) {
+        throw std::runtime_error("ERROR::MAINMENUSTATE::COULD NOT LOAD WAYFARER FONT");
     }
 }
 
@@ -40,15 +44,15 @@ void MainMenuState::initButtons() {
     this->centerWidth = (static_cast<float>(window->getSize().x)) / 2.f;
     this->centerHeight = (static_cast<float>(window->getSize().y)) / 2.f;
     this->buttons["GAME_STATE"] = new Button(centerWidth, centerHeight - 100, 250, 50,
-                                             &this->commando, 20, "New Game",
+                                             &this->wayfarer, 20, "New Game",
                                              sf::Color::Red, sf::Color::Green, sf::Color::Cyan);
 
     this->buttons["SETTINGS"] = new Button(centerWidth, centerHeight + 100, 250, 50,
-                                           &this->commando, 20, "Settings",
+                                           &this->wayfarer, 20, "Settings",
                                            sf::Color::Red, sf::Color::Green, sf::Color::Cyan);
 
     this->buttons["EXIT_STATE"] = new Button(centerWidth, centerHeight + 300, 250, 50,
-                                             &this->commando, 20, "Quit",
+                                             &this->wayfarer, 20, "Quit",
                                              sf::Color::Red, sf::Color::Green, sf::Color::Cyan);
 }
 
