@@ -5,6 +5,10 @@ int main() {
     game.run();
     return EXIT_SUCCESS;
 }
+//TODO: Collisions
+
+//TODO: Threads -> map and player update in different threads
+
 //TODO: Add Biomesystem: Humidity and Temperature as parameters for different biomes
 
 //TODO: Add docs
@@ -14,8 +18,6 @@ int main() {
 // TODO: Inventory: Technical, Art: Hotbar, Maininventory etc.
 
 //TODO: Rivers (Perlin Worms)
-
-//TODO: Collisions
 
 //TODO: Map
     //TODO: Flora (Trees, Bushes, Gras) --> noise, seedsystem --> performance

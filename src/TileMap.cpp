@@ -231,7 +231,7 @@ sf::Color TileMap::savanne(float noise, float textureVarNoise) {
 }
 
 sf::Color TileMap::desert(float noise, float textureVarNoise) {
-    std::cout << "dersert" << std::endl;
+    std::cout << "desert" << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -327,15 +327,24 @@ void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2f size, sf::Col
     }
     if (!blockExists)
         structures.push_back(new Tile(pos, size, color));
-
-    blockExists = false;
+}
+/**
+ * function containing all functionality to create a new procedural tile. Generatings things like seeds also get a lot easier
+ * @param pos of the tile
+ */
+void TileMap::spawnTile(sf::Vector2f pos) {
+    tiles.push_back(new Tile(pos, sf::Vector2f(tileSizeX, tileSizeY),
+                             tileColor(
+                                     this->geologicalSimplex->fractal(octaves, pos.x, pos.y) + offsetZ,
+                                     this->grasSimplex->fractal(octaves, pos.x + 9129834.f, pos.y + 1208012.f) + offsetZ,
+                                     this->temperature->fractal(octaves, pos.x, pos.y),
+                                     this->humidity->fractal(octaves, pos.x, pos.y))));
 }
 
-//TODO: make code more beautiful
 //TODO: maybe only update the map if the player is moving?
 /**
  * removes and appends tiles from the tiles vector by checking if its position is within the screen.
- * @param player_position positon of the player, is used to calculate the offset from 0,0 rounded by the size of a tile.
+ * @param player_position is used to calculate the offset from 0,0 rounded by the size of a tile.
  */
 void TileMap::update(sf::Vector2f player_position) {
     offset.x = ((int) (player_position.x / (float) tileSizeX) * tileSizeX);
@@ -345,48 +354,20 @@ void TileMap::update(sf::Vector2f player_position) {
 
     for (it = tiles.begin(); it != tiles.end();) {
         if ((*it)->getShape().getPosition().x > offset.x + maxTilesX * tileSizeX) { //Rechts vom Monitor
-            tileX = (*it)->getShape().getPosition().x - (2 * maxTilesX * tileSizeX);
-            tileY = (*it)->getShape().getPosition().y;
-            tiles.push_back(new Tile(sf::Vector2f(tileX, tileY), sf::Vector2f(tileSizeX, tileSizeY),
-                                     tileColor(
-                                             this->geologicalSimplex->fractal(octaves, tileX, tileY) + offsetZ,
-                                             this->grasSimplex->fractal(octaves, tileX + 9129834.f, tileY + 1208012.f) + offsetZ,
-                                             this->temperature->fractal(octaves, tileX, tileY),
-                                             this->humidity->fractal(octaves, tileX, tileY))));
+            spawnTile({(*it)->getShape().getPosition().x - (2 * maxTilesX * tileSizeX), (*it)->getShape().getPosition().y});
             delete *it;
             it = tiles.erase(it);
         } else if ((*it)->getShape().getPosition().x < offset.x - maxTilesX * tileSizeX) { //Links vom Monitor
-            tileX = (*it)->getShape().getPosition().x + (2 * maxTilesX * tileSizeX);
-            tileY = (*it)->getShape().getPosition().y;
-            tiles.push_back(new Tile(sf::Vector2f(tileX, tileY), sf::Vector2f(tileSizeX, tileSizeY),
-                                     tileColor(
-                                             this->geologicalSimplex->fractal(octaves, tileX, tileY) + offsetZ,
-                                             this->grasSimplex->fractal(octaves, tileX + 9129834.f, tileY + 1208012.f) + offsetZ,
-                                             this->temperature->fractal(octaves, tileX, tileY),
-                                             this->humidity->fractal(octaves, tileX, tileY))));
+            spawnTile({(*it)->getShape().getPosition().x + (2 * maxTilesX * tileSizeX), (*it)->getShape().getPosition().y});
             delete *it;
             it = tiles.erase(it);
         }
         if ((*it)->getShape().getPosition().y + tileSizeX > offset.y + maxTilesY * tileSizeY) { //Über dem Monitor
-            tileX = (*it)->getShape().getPosition().x;
-            tileY = (*it)->getShape().getPosition().y - (2 * maxTilesY * tileSizeY);
-            tiles.push_back(new Tile(sf::Vector2f(tileX, tileY), sf::Vector2f(tileSizeX, tileSizeY),
-                                     tileColor(
-                                             this->geologicalSimplex->fractal(octaves, tileX, tileY) + offsetZ,
-                                             this->grasSimplex->fractal(octaves, tileX + 9129834.f, tileY + 1208012.f) + offsetZ,
-                                             this->temperature->fractal(octaves, tileX, tileY),
-                                             this->humidity->fractal(octaves, tileX, tileY))));
+            spawnTile({(*it)->getShape().getPosition().x, (*it)->getShape().getPosition().y - (2 * maxTilesY * tileSizeY)});
             delete *it;
             it = tiles.erase(it);
         } else if ((*it)->getShape().getPosition().y < offset.y - maxTilesY * tileSizeY) { //Unter dem Monitor
-            tileX = (*it)->getShape().getPosition().x;
-            tileY = (*it)->getShape().getPosition().y + (2 * maxTilesY * tileSizeY);
-            tiles.push_back(new Tile(sf::Vector2f(tileX, tileY), sf::Vector2f(tileSizeX, tileSizeY),
-                                     tileColor(
-                                             this->geologicalSimplex->fractal(octaves, tileX, tileY) + offsetZ,
-                                             this->grasSimplex->fractal(octaves, tileX + 9129834.f, tileY + 1208012.f) + offsetZ,
-                                             this->temperature->fractal(octaves, tileX, tileY),
-                                             this->humidity->fractal(octaves, tileX, tileY))));
+            spawnTile({(*it)->getShape().getPosition().x, (*it)->getShape().getPosition().y + (2 * maxTilesY * tileSizeY)});
             delete *it;
             it = tiles.erase(it);
         } else {
@@ -399,7 +380,7 @@ void TileMap::render(sf::RenderTarget &target) {
     for (auto &e: this->tiles) {
         target.draw(e->getShape());
     }
-    for (auto &e: this->structuresInScreen) { //TODO: Only if visible
+    for (auto &e: this->structuresInScreen) {
         target.draw(e->getShape());
     }
 }

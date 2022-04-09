@@ -9,6 +9,8 @@
 
 class TileMap {
 private:
+    void spawnTile(sf::Vector2f pos);
+
     static sf::Color tundra(float noise, float textureVarNoise);
 
     static sf::Color rainForest(float noise, float textureVarNoise);
@@ -26,6 +28,8 @@ private:
     static sf::Color savanne(float noise, float textureVarNoise);
 
     static sf::Color desert(float noise, float textureVarNoise);
+
+    void getStructuresInScreenSpace(sf::Vector2i view_offset);
 
     static sf::Color grasDesert(float noise, float textureVarNoise);
 
@@ -56,8 +60,6 @@ private:
     float tileX;
     float tileY;
 public:
-    void getStructuresInScreenSpace(sf::Vector2i view_offset);
-
     TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x, uint8_t max_tiles_y);
 
     static sf::Color tileColor(float noise, float textureVariationNoise, float temperature, float humidity);
