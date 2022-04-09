@@ -56,7 +56,7 @@ private:
     float tileX;
     float tileY;
 public:
-    void getStructuresInScreenSpace(sf::Vector2i view_offset, sf::Vector2f player_position);
+    void getStructuresInScreenSpace(sf::Vector2i view_offset);
 
     TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x, uint8_t max_tiles_y);
 
