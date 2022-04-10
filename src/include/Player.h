@@ -24,7 +24,9 @@ public:
     virtual ~Player();
 
     //Functions
-    virtual void update(const float &dt);
+    void update(const float &dt) override;
+
+    void render(sf::RenderTarget &target, bool show_hitbox) override;
 };
 
 #endif //INC_2DSURVIVAL_PLAYER_H

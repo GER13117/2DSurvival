@@ -57,3 +57,10 @@ void Player::update(const float &dt) {
     }
     this->hitboxComponent->update();
 }
+
+void Player::render(sf::RenderTarget &target, const bool show_hitbox) {
+    target.draw(this->sprite);
+
+    if (this->hitboxComponent && show_hitbox)
+        this->hitboxComponent->render(target);
+}

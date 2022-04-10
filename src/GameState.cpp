@@ -44,6 +44,12 @@ void GameState::initTextures() {
         throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TEST.PNG");
 }
 
+void GameState::initShader() {
+    if (!coreShader.loadFromFile("../shaders/vertex_shader.vert", "../shaders/fragment_shader.frag"))
+        std::cout << "Could not load shader" << std::endl;
+}
+
+
 void GameState::initTilemap() {
     tileSize = 16;
     auto maxTilesX = (uint8_t) (this->view.getSize().x / (float) tileSize) / 2 + 3;
@@ -74,6 +80,7 @@ GameState::GameState(sf::RenderWindow *window, std::map<std::string, int> *suppo
                      const sf::Font &commando)
         : State(window, supportedKeys, states) {
     this->font = commando;
+    this->initShader();
     this->initRenderTexture();
     this->initView();
     this->initKeybinds();
@@ -158,7 +165,7 @@ void GameState::render(sf::RenderTarget *target) {
 
     //Sachen die gemalt werden sollen
     this->tileMap->render(this->renderTexture);
-    this->player->render(this->renderTexture);
+    this->player->render(this->renderTexture, false);
 
     this->renderTexture.display();
 

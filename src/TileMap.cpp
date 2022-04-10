@@ -66,7 +66,7 @@ void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset) {
 }
 
 sf::Color TileMap::rainForest(float noise, float textureVarNoise) {
-    std::cout << "rainForest" << std::endl;
+    //std::cout << "rainForest" << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -86,7 +86,7 @@ sf::Color TileMap::rainForest(float noise, float textureVarNoise) {
 }
 
 sf::Color TileMap::tundra(float noise, float textureVarNoise) {
-    std::cout << "Tundra" << std::endl;
+    //std::cout << "Tundra" << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -109,7 +109,7 @@ sf::Color TileMap::tundra(float noise, float textureVarNoise) {
 }
 
 sf::Color TileMap::swamp(float noise, float textureVarNoise) {
-    std::cout << "swamp" << std::endl;
+    //std::cout << "swamp" << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -129,7 +129,7 @@ sf::Color TileMap::swamp(float noise, float textureVarNoise) {
 }
 
 sf::Color TileMap::taiga(float noise, float textureVarNoise) {
-    std::cout << "taiga" << std::endl;
+    //std::cout << "taiga" << std::endl;
     if (noise < -0.500f) {
         return {55, 74, 110}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -151,7 +151,7 @@ sf::Color TileMap::taiga(float noise, float textureVarNoise) {
 }
 
 sf::Color TileMap::saisonalForest(float noise, float textureVarNoise) {
-    std::cout << "saisonal forest" << std::endl;
+    //std::cout << "saisonal forest" << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -171,7 +171,7 @@ sf::Color TileMap::saisonalForest(float noise, float textureVarNoise) {
 }
 
 sf::Color TileMap::thickForest(float noise, float textureVarNoise) {
-    std::cout << "Thick forest" << std::endl;
+    //std::cout << "Thick forest" << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -191,7 +191,7 @@ sf::Color TileMap::thickForest(float noise, float textureVarNoise) {
 }
 
 sf::Color TileMap::forest(float noise, float textureVarNoise) {
-    std::cout << "forest" << std::endl;
+    //std::cout << "forest" << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -211,7 +211,7 @@ sf::Color TileMap::forest(float noise, float textureVarNoise) {
 }
 
 sf::Color TileMap::savanne(float noise, float textureVarNoise) {
-    std::cout << "savanne" << std::endl;
+    //std::cout << "savanne" << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -231,7 +231,7 @@ sf::Color TileMap::savanne(float noise, float textureVarNoise) {
 }
 
 sf::Color TileMap::desert(float noise, float textureVarNoise) {
-    std::cout << "desert" << std::endl;
+    //std::cout << "desert" << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -251,7 +251,7 @@ sf::Color TileMap::desert(float noise, float textureVarNoise) {
 }
 
 sf::Color TileMap::grasDesert(float noise, float textureVarNoise) {
-    std::cout << "gras desert " << std::endl;
+    //std::cout << "gras desert " << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -328,6 +328,7 @@ void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2f size, sf::Col
     if (!blockExists)
         structures.push_back(new Tile(pos, size, color));
 }
+
 /**
  * function containing all functionality to create a new procedural tile. Generatings things like seeds also get a lot easier
  * @param pos of the tile

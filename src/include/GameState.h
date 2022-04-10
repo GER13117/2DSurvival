@@ -28,6 +28,8 @@ private:
     sf::Text playerPos;
     sf::Font font;
 
+    sf::Shader coreShader;
+
     //Functions
     void initView();
 
@@ -38,6 +40,8 @@ private:
     void initRenderTexture(); //Rename??
 
     void initKeybinds();
+
+    void initShader();
 
     void initTextures();
 

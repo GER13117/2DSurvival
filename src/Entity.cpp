@@ -52,12 +52,3 @@ void Entity::move(const float dir_x, const float dir_y, const float &dt, const s
         //this->movementComponent->move(false, - dir_x, - dir_y, dt);
     }
 }
-
-void Entity::update(const float &dt) {
-}
-
-void Entity::render(sf::RenderTarget &target) {
-    target.draw(this->sprite);
-    if (this->hitboxComponent)
-        this->hitboxComponent->render(target);
-}

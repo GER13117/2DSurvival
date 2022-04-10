@@ -1,9 +1,11 @@
-varying out vec4 vert_pos;
+#version 420
+
+out vec4 vert_pos;
 
 void main()
 {
     // transform the vertex position
-	vert_pos = gl_ModelViewProjectionMatrix * gl_Vertex;
+    vert_pos = gl_ModelViewProjectionMatrix * gl_Vertex;
     gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
 
     // transform the texture coordinates
