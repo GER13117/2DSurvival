@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.21)
 project(2DSurvival)
 set(CMAKE_CXX_STANDARD 20)
 
@@ -29,10 +29,7 @@ target_link_libraries(${PROJECT_NAME} sfml-graphics)
 target_link_libraries(${PROJECT_NAME} sfml-network)
 target_link_libraries(${PROJECT_NAME} sfml-audio)
 
-# Copies dlls to build. All SFML based libraries are built as static library (.a)
 if (WIN32)
-    file(GLOB BINARY_DEP_DLLS "${SFML_INCLUDE_DIR}/../bin/*.dll")
-    file(COPY ${BINARY_DEP_DLLS} DESTINATION ${CMAKE_BINARY_DIR})
     file(GLOB MINGW_DEP_DLLS "C:/msys64/mingw64/bin/*.dll")
     file(COPY ${MINGW_DEP_DLLS} DESTINATION ${CMAKE_BINARY_DIR})
 endif ()
