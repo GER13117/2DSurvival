@@ -64,7 +64,20 @@ void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset) {
             structuresInScreen.push_back(i);
     }
 }
-
+/*
+ * Terrain numbering scheme
+ * 0 = rain woods
+ * 1 = tundra
+ * 2 = swamp
+ * 3 = taiga
+ * 4 = seasonal woods
+ * 5 = forest
+ * 6 = woods
+ * 7 = savanne
+ * 8 = desert
+ * 9 = gras desert
+ */
+//0
 sf::Color TileMap::rainForest(float noise, float textureVarNoise) {
     //std::cout << "rainForest" << std::endl;
     if (noise < -0.500f) {
@@ -84,7 +97,7 @@ sf::Color TileMap::rainForest(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
-
+//1
 sf::Color TileMap::tundra(float noise, float textureVarNoise) {
     //std::cout << "Tundra" << std::endl;
     if (noise < -0.500f) {
@@ -107,7 +120,7 @@ sf::Color TileMap::tundra(float noise, float textureVarNoise) {
     } else
         return {107, 101, 89}; // TODO: Variation noise
 }
-
+//2
 sf::Color TileMap::swamp(float noise, float textureVarNoise) {
     //std::cout << "swamp" << std::endl;
     if (noise < -0.500f) {
@@ -127,7 +140,7 @@ sf::Color TileMap::swamp(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
-
+//3
 sf::Color TileMap::taiga(float noise, float textureVarNoise) {
     //std::cout << "taiga" << std::endl;
     if (noise < -0.500f) {
@@ -149,9 +162,9 @@ sf::Color TileMap::taiga(float noise, float textureVarNoise) {
             return {177, 136, 91};
     }
 }
-
-sf::Color TileMap::saisonalForest(float noise, float textureVarNoise) {
-    //std::cout << "saisonal forest" << std::endl;
+//4
+sf::Color TileMap::seasonalForest(float noise, float textureVarNoise) {
+    //std::cout << "seasonal forest" << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -169,29 +182,9 @@ sf::Color TileMap::saisonalForest(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
-
-sf::Color TileMap::thickForest(float noise, float textureVarNoise) {
-    //std::cout << "Thick forest" << std::endl;
-    if (noise < -0.500f) {
-        return {2, 43, 68}; // dark blue: deep water
-    } else if (noise < -0.10f) {
-        return {9, 62, 92}; // deep blue: water
-    } else if (noise < -0.060f) {
-        return {69, 108, 118}; // blue: shallow water
-    } else if (noise < 0.010f) {
-        return {207, 209, 134}; // Beach
-    } else {
-        if (textureVarNoise < 0.f)
-            return {71, 117, 20};
-        else if (textureVarNoise < 0.5f)
-            return {94, 135, 50};
-        else
-            return {105, 138, 70};
-    }
-}
-
+//5
 sf::Color TileMap::forest(float noise, float textureVarNoise) {
-    //std::cout << "forest" << std::endl;
+    //std::cout << "Thick woods" << std::endl;
     if (noise < -0.500f) {
         return {2, 43, 68}; // dark blue: deep water
     } else if (noise < -0.10f) {
@@ -209,7 +202,27 @@ sf::Color TileMap::forest(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
-
+//6
+sf::Color TileMap::woods(float noise, float textureVarNoise) {
+    //std::cout << "woods" << std::endl;
+    if (noise < -0.500f) {
+        return {2, 43, 68}; // dark blue: deep water
+    } else if (noise < -0.10f) {
+        return {9, 62, 92}; // deep blue: water
+    } else if (noise < -0.060f) {
+        return {69, 108, 118}; // blue: shallow water
+    } else if (noise < 0.010f) {
+        return {207, 209, 134}; // Beach
+    } else {
+        if (textureVarNoise < 0.f)
+            return {71, 117, 20};
+        else if (textureVarNoise < 0.5f)
+            return {94, 135, 50};
+        else
+            return {105, 138, 70};
+    }
+}
+//7
 sf::Color TileMap::savanne(float noise, float textureVarNoise) {
     //std::cout << "savanne" << std::endl;
     if (noise < -0.500f) {
@@ -229,7 +242,7 @@ sf::Color TileMap::savanne(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
-
+//8
 sf::Color TileMap::desert(float noise, float textureVarNoise) {
     //std::cout << "desert" << std::endl;
     if (noise < -0.500f) {
@@ -249,7 +262,7 @@ sf::Color TileMap::desert(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
-
+//9
 sf::Color TileMap::grasDesert(float noise, float textureVarNoise) {
     //std::cout << "gras desert " << std::endl;
     if (noise < -0.500f) {
@@ -284,9 +297,9 @@ sf::Color TileMap::tileColor(float noise, float textureVariationNoise, float tem
         }
     } else if (humidity >= 0.f) {
         if (temperature > 0.5f) {
-            return saisonalForest(noise, textureVariationNoise);
+            return seasonalForest(noise, textureVariationNoise);
         } else if (temperature > 0.f) {
-            return thickForest(noise, textureVariationNoise);
+            return forest(noise, textureVariationNoise);
         } else {
             return taiga(noise, textureVariationNoise);
         }
@@ -294,7 +307,7 @@ sf::Color TileMap::tileColor(float noise, float textureVariationNoise, float tem
         if (temperature > 0.5f) {
             return savanne(noise, textureVariationNoise);
         } else if (temperature > 0.f) {
-            return forest(noise, textureVariationNoise);
+            return woods(noise, textureVariationNoise);
         } else if (temperature > -0.5f) {
             return taiga(noise, textureVariationNoise);
         } else {
@@ -337,7 +350,7 @@ void TileMap::spawnTile(sf::Vector2f pos) {
     tiles.push_back(new Tile(pos, sf::Vector2f(tileSizeX, tileSizeY),
                              tileColor(
                                      this->geologicalSimplex->fractal(octaves, pos.x, pos.y) + offsetZ,
-                                     this->grasSimplex->fractal(octaves, pos.x + 9129834.f, pos.y + 1208012.f) + offsetZ,
+                                     this->grasSimplex->fractal(octaves, pos.x + 9129834.f, pos.y + 1208012.f) + offsetZ, //abitrary number to  offset the continent-noise and tex-variation, as they are the same just on a different scale
                                      this->temperature->fractal(octaves, pos.x, pos.y),
                                      this->humidity->fractal(octaves, pos.x, pos.y))));
 }

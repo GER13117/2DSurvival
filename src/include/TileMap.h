@@ -5,7 +5,7 @@
 #define INC_2DSURVIVAL_TILEMAP_H
 
 #include "Tile.h"
-#include "SimplexNoise.h"
+#include "../../libs/noise/SimplexNoise.h"
 
 class TileMap {
 private:
@@ -19,11 +19,11 @@ private:
 
     static sf::Color taiga(float noise, float textureVarNoise);
 
-    static sf::Color saisonalForest(float noise, float textureVarNoise);
-
-    static sf::Color thickForest(float noise, float textureVarNoise);
+    static sf::Color seasonalForest(float noise, float textureVarNoise);
 
     static sf::Color forest(float noise, float textureVarNoise);
+
+    static sf::Color woods(float noise, float textureVarNoise);
 
     static sf::Color savanne(float noise, float textureVarNoise);
 
@@ -57,8 +57,7 @@ private:
     int octaves;
     uint8_t maxTilesX;
     uint8_t maxTilesY;
-    float tileX;
-    float tileY;
+
 public:
     TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x, uint8_t max_tiles_y);
 
