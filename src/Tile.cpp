@@ -12,6 +12,13 @@ Tile::Tile(sf::Vector2f pos, sf::Vector2f size, sf::Color tileColor) {
 //    this->shape.setOutlineColor(sf::Color::Black);
 }
 
+Tile::Tile(sf::Vector2f pos, sf::Texture &texture_sheet, sf::Sprite &sprite, sf::IntRect &text_rect)
+        : pos(pos), textureSheet(texture_sheet), sprite(sprite), textureRect(text_rect) {
+    this->sprite.setTexture(textureSheet);
+    this->sprite.setTextureRect(textureRect);
+    this->sprite.setPosition(pos);
+}
+
 Tile::~Tile() {
 }
 
@@ -20,4 +27,8 @@ sf::RectangleShape Tile::getShape() {
 }
 
 void Tile::update() {
+}
+
+void Tile::render(sf::RenderTarget &target) {
+    target.draw(this->sprite);
 }

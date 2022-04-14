@@ -1,16 +1,20 @@
 //
 // Created by Okke on 27.08.2021.
 //
-
 #include "include/TileMap.h"
 
-TileMap::TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x,
-                 uint8_t max_tiles_y) {
-    this->offset = static_cast<sf::Vector2i>(player_position);
-    this->tileSizeX = tile_size_x;
-    this->tileSizeY = tile_size_y;
-    this->maxTilesX = max_tiles_x;
-    this->maxTilesY = max_tiles_y;
+
+//TODO: replace all functions returning sf::Color return a sf::IntRect instead
+//TODO: create Spritesheet
+//TODO: include AnimationComponent (MAYBE for water)
+
+TileMap::TileMap(sf::Texture &map_texture_sheet, int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x, uint8_t max_tiles_y)
+        : textureSheet(map_texture_sheet),
+          tileSizeX(tile_size_x), tileSizeY(tile_size_y),
+          offset(static_cast<sf::Vector2i>(player_position)),
+          maxTilesX(max_tiles_x), maxTilesY(max_tiles_y) {
+    this->sprite.setTexture(textureSheet);
+
     this->geologicalScale = 800.f; //Scale for generating continents
     this->grasScale = 70.f;
     this->temperatureScale = 2000.f;
@@ -97,6 +101,7 @@ sf::Color TileMap::rainForest(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
+
 //1
 sf::Color TileMap::tundra(float noise, float textureVarNoise) {
     //std::cout << "Tundra" << std::endl;
@@ -120,6 +125,7 @@ sf::Color TileMap::tundra(float noise, float textureVarNoise) {
     } else
         return {107, 101, 89}; // TODO: Variation noise
 }
+
 //2
 sf::Color TileMap::swamp(float noise, float textureVarNoise) {
     //std::cout << "swamp" << std::endl;
@@ -140,6 +146,7 @@ sf::Color TileMap::swamp(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
+
 //3
 sf::Color TileMap::taiga(float noise, float textureVarNoise) {
     //std::cout << "taiga" << std::endl;
@@ -162,6 +169,7 @@ sf::Color TileMap::taiga(float noise, float textureVarNoise) {
             return {177, 136, 91};
     }
 }
+
 //4
 sf::Color TileMap::seasonalForest(float noise, float textureVarNoise) {
     //std::cout << "seasonal forest" << std::endl;
@@ -182,6 +190,7 @@ sf::Color TileMap::seasonalForest(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
+
 //5
 sf::Color TileMap::forest(float noise, float textureVarNoise) {
     //std::cout << "Thick woods" << std::endl;
@@ -202,6 +211,7 @@ sf::Color TileMap::forest(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
+
 //6
 sf::Color TileMap::woods(float noise, float textureVarNoise) {
     //std::cout << "woods" << std::endl;
@@ -222,6 +232,7 @@ sf::Color TileMap::woods(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
+
 //7
 sf::Color TileMap::savanne(float noise, float textureVarNoise) {
     //std::cout << "savanne" << std::endl;
@@ -242,6 +253,7 @@ sf::Color TileMap::savanne(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
+
 //8
 sf::Color TileMap::desert(float noise, float textureVarNoise) {
     //std::cout << "desert" << std::endl;
@@ -262,6 +274,7 @@ sf::Color TileMap::desert(float noise, float textureVarNoise) {
             return {105, 138, 70};
     }
 }
+
 //9
 sf::Color TileMap::grasDesert(float noise, float textureVarNoise) {
     //std::cout << "gras desert " << std::endl;
@@ -283,10 +296,6 @@ sf::Color TileMap::grasDesert(float noise, float textureVarNoise) {
     }
 }
 
-
-//TODO: return textures instead
-//TODO: create Spritesheet
-//TODO: include AnimationComponent
 sf::Color TileMap::tileColor(float noise, float textureVariationNoise, float temperature, float humidity) {
     //TODO: Fully implement this.
     if (humidity >= 0.5f) {
@@ -350,7 +359,8 @@ void TileMap::spawnTile(sf::Vector2f pos) {
     tiles.push_back(new Tile(pos, sf::Vector2f(tileSizeX, tileSizeY),
                              tileColor(
                                      this->geologicalSimplex->fractal(octaves, pos.x, pos.y) + offsetZ,
-                                     this->grasSimplex->fractal(octaves, pos.x + 9129834.f, pos.y + 1208012.f) + offsetZ, //abitrary number to  offset the continent-noise and tex-variation, as they are the same just on a different scale
+                                     this->grasSimplex->fractal(octaves, pos.x + 9129834.f, pos.y + 1208012.f) +
+                                     offsetZ, //abitrary number to  offset the continent-noise and tex-variation, as they are the same just on a different scale
                                      this->temperature->fractal(octaves, pos.x, pos.y),
                                      this->humidity->fractal(octaves, pos.x, pos.y))));
 }

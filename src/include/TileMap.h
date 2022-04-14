@@ -29,16 +29,18 @@ private:
 
     static sf::Color desert(float noise, float textureVarNoise);
 
-    void getStructuresInScreenSpace(sf::Vector2i view_offset);
-
     static sf::Color grasDesert(float noise, float textureVarNoise);
+
+    void getStructuresInScreenSpace(sf::Vector2i view_offset);
 
     std::vector<Tile *> tiles;
     std::vector<Tile *> structures; //built by the player
     std::vector<Tile *>::iterator it;
 
     sf::Vector2f tileSize;
-    sf::Texture textureSheet;
+
+    sf::Texture &textureSheet;
+    sf::Sprite sprite;
     Tile *tile{};
     sf::Vector2i offset;
     int tileSizeX;
@@ -59,7 +61,8 @@ private:
     uint8_t maxTilesY;
 
 public:
-    TileMap(int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x, uint8_t max_tiles_y);
+    TileMap(sf::Texture &map_texture_sheet, int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x,
+            uint8_t max_tiles_y);
 
     static sf::Color tileColor(float noise, float textureVariationNoise, float temperature, float humidity);
 

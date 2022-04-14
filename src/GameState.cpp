@@ -41,7 +41,10 @@ void GameState::initKeybinds() {
 
 void GameState::initTextures() {
     if (!this->textures["PLAYER_SHEET"].loadFromFile("../resources/Pictures/Entities/Player/testSpriteSheet.png"))
-        throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TEST.PNG");
+        throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TestSpriteSheet.png");
+
+    if (!this->textures["TILEMAP_SHEET"].loadFromFile("../resorces/Pictures/TileSheets/TerrainSprite.png"))
+        throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TerrainSprite.png");
 }
 
 void GameState::initShader() {
@@ -54,7 +57,7 @@ void GameState::initTilemap() {
     tileSize = 16;
     auto maxTilesX = (uint8_t) (this->view.getSize().x / (float) tileSize) / 2 + 3;
     auto maxTilesY = (uint8_t) (this->view.getSize().y / (float) tileSize) / 2 + 4;
-    this->tileMap = new TileMap(tileSize, tileSize, sf::Vector2f(0.f, 0.f), maxTilesX, maxTilesY);
+    this->tileMap = new TileMap(this->textures["TILEMAP_SHEET"], tileSize, tileSize, sf::Vector2f(0.f, 0.f), maxTilesX, maxTilesY);
 }
 
 void GameState::initPLayers() {

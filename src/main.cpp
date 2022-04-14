@@ -7,7 +7,7 @@ int main() {
 }
 //TODO: Collisions
 
-//TODO: Threads -> map and player update in different threads
+//TODO: Threads -> maybe implement a form of a thread pool
 
 //TODO: Add Biomesystem: Humidity and Temperature as parameters for different biomes
 
