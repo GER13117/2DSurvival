@@ -12,7 +12,7 @@ Tile::Tile(sf::Vector2f pos, sf::Vector2f size, sf::Color tileColor) {
 //    this->shape.setOutlineColor(sf::Color::Black);
 }*/
 
-Tile::Tile(sf::Vector2f pos, sf::Texture &texture_sheet, sf::Sprite &sprite, sf::IntRect text_rect)
+Tile::Tile(sf::Vector2f pos, sf::Texture &texture_sheet, sf::IntRect text_rect)
         : textureSheet(texture_sheet), textureRect(text_rect) {
     this->sprite.setTexture(textureSheet);
     this->sprite.setTextureRect(textureRect);

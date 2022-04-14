@@ -19,9 +19,9 @@ private:
 
     void createTileMapStart();
 
-    sf::IntRect getTileRect(std::string terrain, float noise, float textureVarNoise);
+    sf::IntRect getTileRect(const std::string& terrain, float noise, float textureVarNoise);
 
-    sf::IntRect getTileTerrain(float noise, float textureVariationNoise, float temperature, float humidity);
+    sf::IntRect getTileTerrain(float noise, float textureVariationNoise, float fTemperature, float fHumidity);
 
     static sf::Color tundra(float noise, float textureVarNoise);
 
@@ -52,23 +52,22 @@ private:
     sf::Vector2f tileSize;
 
     sf::Texture &textureSheet;
-    sf::Sprite sprite;
     Tile *tile{};
     sf::Vector2i offset;
     int tileSizeX;
     int tileSizeY;
-    float geologicalScale;
-    float grasScale;
-    float temperatureScale;
-    float humidityScale;
-    float offsetZ;
-    float lacunarity;
-    float persistance;
-    SimplexNoise *geologicalSimplex;
-    SimplexNoise *grasSimplex;
-    SimplexNoise *temperature;
-    SimplexNoise *humidity;
-    int octaves;
+    float geologicalScale{};
+    float grasScale{};
+    float temperatureScale{};
+    float humidityScale{};
+    float offsetZ{};
+    float lacunarity{};
+    float persistance{};
+    SimplexNoise *geologicalSimplex{};
+    SimplexNoise *grasSimplex{};
+    SimplexNoise *temperature{};
+    SimplexNoise *humidity{};
+    int octaves{};
     uint8_t maxTilesX;
     uint8_t maxTilesY;
 

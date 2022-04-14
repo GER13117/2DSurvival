@@ -43,15 +43,7 @@ void TileMap::createTileMapStart() {
      */
     for (int x = offset.x - maxTilesX * tileSizeX; x < maxTilesX * tileSizeX + offset.x; x += tileSizeX) {
         for (int y = offset.y - maxTilesY * tileSizeY; y < maxTilesY * tileSizeY + offset.y; y += tileSizeY) {
-            this->tile = new Tile({(float) x, (float) y},
-                                  this->textureSheet,
-                                  this->sprite,
-                                  getTileTerrain(
-                                          this->geologicalSimplex->fractal(octaves, (float) x, (float) y) + offsetZ,
-                                          this->grasSimplex->fractal(octaves, (float) x + 9129834.f, (float) y + 1208012.f),
-                                          this->temperature->fractal(octaves, (float) x, (float) y),
-                                          this->humidity->fractal(octaves, (float) x, (float) y)));
-            this->tiles.push_back(this->tile);
+            spawnTile({(float) x, (float) y});
         }
     }
 }
@@ -61,7 +53,6 @@ TileMap::TileMap(sf::Texture &map_texture_sheet, int tile_size_x, int tile_size_
           tileSizeX(tile_size_x), tileSizeY(tile_size_y),
           offset(static_cast<sf::Vector2i>(player_position)),
           maxTilesX(max_tiles_x), maxTilesY(max_tiles_y) {
-    this->sprite.setTexture(textureSheet);
 
     this->initTerrainNumbers();
     this->initNoise();
@@ -78,6 +69,11 @@ TileMap::~TileMap() {
         delete e;
     }
     this->structures.clear();
+    delete geologicalSimplex;
+    delete grasSimplex;
+    delete temperature;
+    delete humidity;
+
 }
 
 void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset) {
@@ -106,7 +102,7 @@ void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset) {
  */
 
 
-sf::IntRect TileMap::getTileRect(std::string terrain, float noise, float textureVarNoise) {
+sf::IntRect TileMap::getTileRect(const std::string& terrain, float noise, float textureVarNoise) {
     int tileType;
     if (noise < -0.500f) {
         tileType = 9; // dark blue: deep water //TODO: Add tile to sprite sheet
@@ -137,35 +133,35 @@ sf::IntRect TileMap::getTileRect(std::string terrain, float noise, float texture
             {tileSizeX,            tileSizeY}};
 }
 
-sf::IntRect TileMap::getTileTerrain(float noise, float textureVariationNoise, float temperature, float humidity) {
-    if (humidity >= 0.5f) {
-        if (temperature > 0.5f) {
+sf::IntRect TileMap::getTileTerrain(float noise, float textureVariationNoise, float fTemperature, float fHumidity) {
+    if (fHumidity >= 0.5f) {
+        if (fTemperature > 0.5f) {
             return getTileRect("RAINFOREST", noise, textureVariationNoise);
         } else {
             return getTileRect("SWAMP", noise, textureVariationNoise);
         }
-    } else if (humidity >= 0.f) {
-        if (temperature > 0.5f) {
+    } else if (fHumidity >= 0.f) {
+        if (fTemperature > 0.5f) {
             return getTileRect("SEASONAL_FOREST", noise, textureVariationNoise);
-        } else if (temperature > 0.f) {
+        } else if (fTemperature > 0.f) {
             return getTileRect("FOREST", noise, textureVariationNoise);
         } else {
             return getTileRect("TAIGA", noise, textureVariationNoise);
         }
-    } else if (humidity >= -0.5f) {
-        if (temperature > 0.5f) {
+    } else if (fHumidity >= -0.5f) {
+        if (fTemperature > 0.5f) {
             return getTileRect("SAVANNE", noise, textureVariationNoise);
-        } else if (temperature > 0.f) {
+        } else if (fTemperature > 0.f) {
             return getTileRect("WOODS", noise, textureVariationNoise);
-        } else if (temperature > -0.5f) {
+        } else if (fTemperature > -0.5f) {
             return getTileRect("TAIGA", noise, textureVariationNoise);
         } else {
             return getTileRect("TUNDRA", noise, textureVariationNoise);
         }
     } else {
-        if (temperature > 0.25f) {
+        if (fTemperature > 0.25f) {
             return getTileRect("DESERT", noise, textureVariationNoise);
-        } else if (temperature > -0.5f) {
+        } else if (fTemperature > -0.5f) {
             return getTileRect("GRAS_DESERT", noise, textureVariationNoise);
         } else {
             return getTileRect("TUNDRA", noise, textureVariationNoise);
@@ -188,7 +184,7 @@ void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2f size, sf::Col
             blockExists = true;
     }
     if (!blockExists)
-        structures.push_back(new Tile(pos, this->textureSheet, this->sprite, {{0,0},{tileSizeX, tileSizeY}}));
+        structures.push_back(new Tile(pos, this->textureSheet, {{0,0},{tileSizeX, tileSizeY}}));
 }
 
 /**
@@ -196,7 +192,7 @@ void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2f size, sf::Col
  * @param pos of the tile
  */
 void TileMap::spawnTile(sf::Vector2f pos) {
-    tiles.push_back(new Tile(pos, this->textureSheet, this->sprite,
+    tiles.push_back(new Tile(pos, this->textureSheet,
                              getTileTerrain(
                                      this->geologicalSimplex->fractal(octaves, pos.x, pos.y) + offsetZ,
                                      this->grasSimplex->fractal(octaves, pos.x + 9129834.f, pos.y + 1208012.f) +

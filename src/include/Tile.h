@@ -31,7 +31,7 @@ private:
 public:
     //Tile(sf::Vector2f pos, sf::Vector2f size, sf::Color tileColor);
 
-    Tile(sf::Vector2f pos, sf::Texture &texture_sheet, sf::Sprite &sprite, sf::IntRect text_rect);
+    Tile(sf::Vector2f pos, sf::Texture &texture_sheet, sf::IntRect text_rect);
 
     virtual ~Tile();
 
