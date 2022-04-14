@@ -11,6 +11,18 @@ class TileMap {
 private:
     void spawnTile(sf::Vector2f pos);
 
+    std::map<std::string, int> terrainNumbers;
+
+    void initTerrainNumbers();
+
+    void initNoise();
+
+    void createTileMapStart();
+
+    sf::IntRect getTileRect(std::string terrain, float noise, float textureVarNoise);
+
+    sf::IntRect getTileTerrain(float noise, float textureVariationNoise, float temperature, float humidity);
+
     static sf::Color tundra(float noise, float textureVarNoise);
 
     static sf::Color rainForest(float noise, float textureVarNoise);

@@ -23,21 +23,22 @@
 class Tile {
 private:
     sf::RectangleShape shape;
-    sf::Color tileColor; //TODO: Replace with texture
-    sf::Sprite &sprite;
+    //sf::Color tileColor; //TODO: Replace with texture
+    sf::Sprite sprite;
     sf::Texture &textureSheet;
     sf::Vector2f pos;
-    sf::IntRect &textureRect;
+    sf::IntRect textureRect;
 public:
-    Tile(sf::Vector2f pos, sf::Vector2f size,
-         sf::Color tileColor);
+    //Tile(sf::Vector2f pos, sf::Vector2f size, sf::Color tileColor);
 
-    Tile(sf::Vector2f pos, sf::Texture &texture_sheet, sf::Sprite &sprite, sf::IntRect &text_rect);
+    Tile(sf::Vector2f pos, sf::Texture &texture_sheet, sf::Sprite &sprite, sf::IntRect text_rect);
 
     virtual ~Tile();
 
     //Accessors
-    sf::RectangleShape getShape();
+    //sf::RectangleShape getShape();
+    const sf::Vector2f &getPosition();
+    sf::FloatRect getGlobalBounds();
 
     //Functions
     void update();

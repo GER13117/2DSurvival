@@ -21,7 +21,7 @@ HitboxComponent::~HitboxComponent() {
 bool HitboxComponent::checkStructureIntersect(const std::vector<Tile *> &structures) {
     bool intersects = false;
     for (auto i: structures) {
-        if (std::nullopt == this->hitBox.getGlobalBounds().findIntersection(i->getShape().getGlobalBounds())) {
+        if (std::nullopt == this->hitBox.getGlobalBounds().findIntersection(i->getGlobalBounds())) {
             this->hitBox.setOutlineColor(sf::Color::Magenta);
         } else {
             this->hitBox.setOutlineColor(sf::Color::Red);
