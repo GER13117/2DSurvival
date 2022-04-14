@@ -131,8 +131,8 @@ void GameState::updateInput(const float &dt) {
                                                      (float) tileSize) * tileSize),
                  static_cast<float>(static_cast<int>((mousePosView.y * viewWindowRatio + player->getPosition().y -
                                                       this->view.getSize().y / 2 + (float) tileSize) /
-                                                     (float) tileSize) * tileSize)}, {16, 16},
-                sf::Color(139, 69, 19));
+                                                     (float) tileSize) * tileSize)},
+                                                     {16, 16});
 }
 
 /**

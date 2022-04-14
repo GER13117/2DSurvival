@@ -175,7 +175,7 @@ sf::IntRect TileMap::getTileTerrain(float noise, float textureVariationNoise, fl
  * @param size Size of the Structure
  * @param color Color of the Structure (Will be replaced by Texture)
  */
-void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2f size, sf::Color color) {
+void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2i size) {
     //TODO: Structures will have hitboxes, other than regular tiles
     //TODO: Datastructure for procedural structures (That can be deleted)
     bool blockExists = false;
@@ -184,7 +184,7 @@ void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2f size, sf::Col
             blockExists = true;
     }
     if (!blockExists)
-        structures.push_back(new Tile(pos, this->textureSheet, {{0,0},{tileSizeX, tileSizeY}}));
+        structures.push_back(new Tile(pos, this->textureSheet, {{0,0},size}));
 }
 
 /**
