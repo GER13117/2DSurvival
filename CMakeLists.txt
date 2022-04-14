@@ -22,7 +22,7 @@ add_executable(${PROJECT_NAME}
         src/TileMap.cpp src/include/TileMap.h
         libs/noise/SimplexNoise.cpp libs/noise/SimplexNoise.h
         src/NetworkComponent.cpp src/include/NetworkComponent.h
-        src/PauseMenu.cpp src/include/PauseMenu.h)
+        src/PauseMenu.cpp src/include/PauseMenu.h libs/threadpool/thread_pool.h)
 
 target_link_libraries(${PROJECT_NAME} sfml-window)
 target_link_libraries(${PROJECT_NAME} sfml-graphics)

@@ -8,9 +8,11 @@
 #include "Tile.h"
 #include "TileMap.h"
 #include "PauseMenu.h"
+#include "../../libs/threadpool/thread_pool.h"
 class GameState :
         public State {
 private:
+    thread_pool pool;
     float playerWidth;
     float playerHeight;
     float viewWindowRatio;

@@ -43,7 +43,7 @@ void GameState::initTextures() {
     if (!this->textures["PLAYER_SHEET"].loadFromFile("../resources/Pictures/Entities/Player/testSpriteSheet.png"))
         throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TestSpriteSheet.png");
 
-    if (!this->textures["TILEMAP_SHEET"].loadFromFile("../resorces/Pictures/TileSheets/TerrainSprite.png"))
+    if (!this->textures["TILEMAP_SHEET"].loadFromFile("../resources/Pictures/TileSheets/TerrainSprite.png"))
         throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TerrainSprite.png");
 }
 
@@ -157,6 +157,27 @@ void GameState::update(const float &dt) {
     this->fpsText.setString(std::to_string((int) fps));
     this->playerPos.setString("x: " + std::to_string(this->player->getPosition().x) + " y: " +
                               std::to_string(this->player->getPosition().y));
+
+    /*
+     * this->updateMousePositions();
+    this->updateInput(dt);
+    this->pool.push_task([this] {
+        this->tileMap->update(this->player->getPosition());
+    });
+    this->pool.push_task([this, &dt] {
+        this->player->update(dt);
+        this->updateView();
+    });
+
+    this->pool.push_task([this, &dt] {
+        this->fps = 1.f / dt;
+        this->fpsText.setString(std::to_string((int) fps));
+        this->playerPos.setString("x: " + std::to_string(this->player->getPosition().x) + " y: " +
+                                  std::to_string(this->player->getPosition().y));
+    });
+
+    pool.wait_for_tasks();
+     */
 }
 
 void GameState::render(sf::RenderTarget *target) {
