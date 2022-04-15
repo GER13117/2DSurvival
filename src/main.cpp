@@ -9,11 +9,8 @@ int main() {
 
 //TODO: Threads -> maybe implement a form of a thread pool
 
-//TODO: Add Biomesystem: Humidity and Temperature as parameters for different biomes
-
-//TODO: Add docs
-
 //TODO: Art (BG, Texturing) --> Pixelart Colors?
+    //TODO: Übergangstiles nutzen
     //TODO: Block / Materialsystem
 // TODO: Inventory: Technical, Art: Hotbar, Maininventory etc.
 
@@ -30,3 +27,5 @@ int main() {
 //TODO: Keypresstiming?
 
 //TODO: NPCs (AI System etc.)
+
+//TODO: Add docs

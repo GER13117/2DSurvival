@@ -34,6 +34,8 @@ void TileMap::initNoise() {
     this->grasSimplex = new SimplexNoise(0.1f / grasScale, 0.5f, lacunarity, persistance);
     this->humidity = new SimplexNoise(0.1f / humidityScale, 0.5f, lacunarity, persistance);
     this->temperature = new SimplexNoise(0.1f / temperatureScale, 2.f, lacunarity, persistance);
+    this->tileRotation = new SimplexNoise(0.1f / 0.0001f, 0.1f, lacunarity, persistance);
+
     this->octaves = static_cast<int>(3 + std::log(geologicalScale)); // Estimate number of octaves needed for the scale
 }
 
@@ -105,24 +107,40 @@ void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset) {
 sf::IntRect TileMap::getTileRect(const std::string& terrain, float noise, float textureVarNoise) {
     int tileType;
     if (noise < -0.500f) {
-        tileType = 9; // dark blue: deep water //TODO: Add tile to sprite sheet
+        tileType = 16; // dark blue: deep water //TODO: Add tile to sprite sheet
     } else if (noise < -0.10f) {
-        tileType = 9; // deep blue: water
+        tileType = 15; // deep blue: water
     } else if (noise < -0.060f) {
-        tileType = 8; // blue: shallow water
+        tileType = 14; // blue: shallow water
     } else if (noise < 0.010f) {
-        tileType = 0; // Beach
+        tileType = 13; // Beach
     } else if (noise < 0.8f) {
-        if (textureVarNoise < -0.6f)
+        if (textureVarNoise < -0.2f)
+            tileType = 0;
+        else if (textureVarNoise < -0.1f)
             tileType = 1;
-        else if (textureVarNoise < -0.2f)
+        else if (textureVarNoise < 0.0f)
             tileType = 2;
-        else if (textureVarNoise < 0.2f)
+        else if (textureVarNoise < 0.1f)
             tileType = 3;
-        else if (textureVarNoise < 0.6f)
+        else if (textureVarNoise < 0.2f)
             tileType = 4;
-        else
+        else if (textureVarNoise < 0.3f)
             tileType = 5;
+        else if (textureVarNoise < 0.4f)
+            tileType = 6;
+        else if (textureVarNoise < 0.5f)
+            tileType = 7;
+        else if (textureVarNoise < 0.6f)
+            tileType = 8;
+        else if (textureVarNoise < 0.7f)
+            tileType = 9;
+        else if (textureVarNoise < 0.8f)
+            tileType = 10;
+        else if (textureVarNoise < 0.9f)
+            tileType = 11;
+        else
+            tileType = 12;
     } else {
         if (textureVarNoise < 0.f)
             tileType = 6;
@@ -184,7 +202,7 @@ void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2i size) {
             blockExists = true;
     }
     if (!blockExists)
-        structures.push_back(new Tile(pos, this->textureSheet, {{0,0},size}));
+        structures.push_back(new Tile(pos, this->textureSheet, {{0,0}, size}, 0.f));
 }
 
 /**
@@ -196,9 +214,10 @@ void TileMap::spawnTile(sf::Vector2f pos) {
                              getTileTerrain(
                                      this->geologicalSimplex->fractal(octaves, pos.x, pos.y) + offsetZ,
                                      this->grasSimplex->fractal(octaves, pos.x + 9129834.f, pos.y + 1208012.f) +
-                                     offsetZ, //abitrary number to  offset the continent-noise and tex-variation, as they are the same just on a different scale
+                                     offsetZ, //arbitrary number to  offset the continent-noise and tex-variation, as they are the same just on a different scale
                                      this->temperature->fractal(octaves, pos.x, pos.y),
-                                     this->humidity->fractal(octaves, pos.x, pos.y))));
+                                     this->humidity->fractal(octaves, pos.x, pos.y)),
+                             (float) ((int) (((this->tileRotation->fractal(octaves, pos.x, pos.y) + 1) * 270) / 90)) * 90.f));
 }
 
 //TODO: maybe only update the map if the player is moving?

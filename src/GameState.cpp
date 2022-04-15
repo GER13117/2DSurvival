@@ -11,7 +11,7 @@ void GameState::initRenderTexture() {
 }
 
 void GameState::initView() {
-    float height = 900;
+    float height = 1080;
     this->view.setSize(this->window->getSize().x * height / this->window->getSize().y, height);
     this->view.setCenter(sf::Vector2f{0.f, 0.f});
     this->viewWindowRatio = height / this->window->getSize().y;
@@ -126,15 +126,15 @@ void GameState::updateInput(const float &dt) {
         showPauseMenu = true; //Used to open the PauseMenu
         this->endState();
     }
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) //TODO: The y position of the curser isn't correct when the y position of the player is positive
         tileMap->createPlayerStructure(
                 {static_cast<float>(static_cast<int>((mousePosView.x * viewWindowRatio + player->getPosition().x -
-                                                      this->view.getSize().x / 2 + (float) tileSize) /
+                                                      this->view.getSize().x / 2) /
                                                      (float) tileSize) * tileSize),
                  static_cast<float>(static_cast<int>((mousePosView.y * viewWindowRatio + player->getPosition().y -
-                                                      this->view.getSize().y / 2 + (float) tileSize) /
+                                                      this->view.getSize().y / 2) /
                                                      (float) tileSize) * tileSize)},
-                                                     {64, 64});
+                {64, 64});
 }
 
 /**

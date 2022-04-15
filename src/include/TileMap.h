@@ -49,6 +49,7 @@ private:
     SimplexNoise *grasSimplex{};
     SimplexNoise *temperature{};
     SimplexNoise *humidity{};
+    SimplexNoise *tileRotation{};
 
 public:
     TileMap(sf::Texture &map_texture_sheet, int tile_size_x, int tile_size_y, sf::Vector2f player_position, uint8_t max_tiles_x,
