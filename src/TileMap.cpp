@@ -101,7 +101,7 @@ void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset) {
  * 9 = gras desert
  */
 
-
+//TODO: CHANGE THESE NUMBERS ACCORDINGLY
 sf::IntRect TileMap::getTileRect(const std::string& terrain, float noise, float textureVarNoise) {
     int tileType;
     if (noise < -0.500f) {

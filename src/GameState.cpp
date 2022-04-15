@@ -43,8 +43,10 @@ void GameState::initTextures() {
     if (!this->textures["PLAYER_SHEET"].loadFromFile("../resources/Pictures/Entities/Player/testSpriteSheet.png"))
         throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TestSpriteSheet.png");
 
-    if (!this->textures["TILEMAP_SHEET"].loadFromFile("../resources/Pictures/TileSheets/TerrainSprite.png"))
-        throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TerrainSprite.png");
+    if (!this->textures["16PX_TILEMAP_SHEET"].loadFromFile("../resources/Pictures/TileSheets/16px_TerrainSprite.png"))
+        throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD 16px_TerrainSprite.png");
+    if (!this->textures["64PX_TILEMAP_SHEET"].loadFromFile("../resources/Pictures/TileSheets/64px_TerrainSprite.png"))
+        throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD 64px_TerrainSprite.png");
 }
 
 void GameState::initShader() {
@@ -54,10 +56,10 @@ void GameState::initShader() {
 
 
 void GameState::initTilemap() {
-    tileSize = 16;
+    tileSize = 64;
     auto maxTilesX = (uint8_t) (this->view.getSize().x / (float) tileSize) / 2 + 3;
     auto maxTilesY = (uint8_t) (this->view.getSize().y / (float) tileSize) / 2 + 4;
-    this->tileMap = new TileMap(this->textures["TILEMAP_SHEET"], tileSize, tileSize, sf::Vector2f(0.f, 0.f), maxTilesX, maxTilesY);
+    this->tileMap = new TileMap(this->textures["64PX_TILEMAP_SHEET"], tileSize, tileSize, sf::Vector2f(0.f, 0.f), maxTilesX, maxTilesY);
 }
 
 void GameState::initPLayers() {
@@ -132,7 +134,7 @@ void GameState::updateInput(const float &dt) {
                  static_cast<float>(static_cast<int>((mousePosView.y * viewWindowRatio + player->getPosition().y -
                                                       this->view.getSize().y / 2 + (float) tileSize) /
                                                      (float) tileSize) * tileSize)},
-                                                     {16, 16});
+                                                     {64, 64});
 }
 
 /**
