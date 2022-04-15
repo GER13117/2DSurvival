@@ -8,7 +8,6 @@ Tile::Tile(sf::Vector2f pos, sf::Texture &texture_sheet, sf::IntRect text_rect, 
     this->sprite.setTextureRect(textureRect);
     this->sprite.setPosition(pos);
     this->sprite.setOrigin(this->sprite.getLocalBounds().getSize()/2.f);
-    std::cout << rotation << std::endl;
     this->sprite.setRotation(sf::degrees(rotation));
     sf::Vector2f mirror;
     if ((int) pos.x % 2 == 0)

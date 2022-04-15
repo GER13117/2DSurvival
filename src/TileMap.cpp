@@ -108,11 +108,11 @@ sf::IntRect TileMap::getTileRect(const std::string& terrain, float noise, float 
     int tileType;
     if (noise < -0.500f) {
         tileType = 16; // dark blue: deep water //TODO: Add tile to sprite sheet
-    } else if (noise < -0.10f) {
+    } else if (noise < -0.20f) {
         tileType = 15; // deep blue: water
-    } else if (noise < -0.060f) {
+    } else if (noise < -0.10f) {
         tileType = 14; // blue: shallow water
-    } else if (noise < 0.010f) {
+    } else if (noise < 0.035f) {
         tileType = 13; // Beach
     } else if (noise < 0.8f) {
         if (textureVarNoise < -0.2f)
@@ -143,9 +143,9 @@ sf::IntRect TileMap::getTileRect(const std::string& terrain, float noise, float 
             tileType = 12;
     } else {
         if (textureVarNoise < 0.f)
-            tileType = 6;
+            tileType = 15;
         else
-            tileType = 7;
+            tileType = 15;
     }
     return {{tileType * tileSizeX, terrainNumbers[terrain] * tileSizeY},
             {tileSizeX,            tileSizeY}};
