@@ -12,13 +12,13 @@ void GameState::initRenderTexture() {
 
 void GameState::initView() {
     float height = 900;
-    this->view.setSize(this->window->getSize().x * height / this->window->getSize().y, height);
-    this->view.setCenter(sf::Vector2f{0.f, 0.f});
-    this->viewWindowRatio = height / this->window->getSize().y;
+    this->view.setSize((float) this->window->getSize().x * height / (float) this->window->getSize().y, height);
+    this->view.setCenter(sf::Vector2f{0.F, 0.F});
+    this->viewWindowRatio = height / (float) this->window->getSize().y;
     std::cout << "x: " << window->getSize().x << " y:  " << window->getSize().y
               << std::endl; //Debugging because on macBook Pro wrong display resolution is used
     std::cout << "x: " << view.getSize().x << " y:  " << view.getSize().y << " ratio: "
-              << height / this->window->getSize().y
+              << height / (float) this->window->getSize().y
               << std::endl; //Debugging to check if the view gets made correctly
 }
 
@@ -35,7 +35,7 @@ void GameState::initKeybinds() {
     ifs.close();
 /*
     for (auto i: this->keybinds) {
-        std::cout << i.first << " " << i.second << std::endl;
+        std::cout << i.First << " " << i.second << std::endl;
     }*/
 }
 
@@ -43,14 +43,12 @@ void GameState::initTextures() {
     if (!this->textures["PLAYER_SHEET"].loadFromFile("../resources/Pictures/Entities/Player/testSpriteSheet.png"))
         throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD TestSpriteSheet.png");
 
-    if (!this->textures["16PX_TILEMAP_SHEET"].loadFromFile("../resources/Pictures/TileSheets/16px_TerrainSprite.png"))
-        throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD 16px_TerrainSprite.png");
     if (!this->textures["64PX_TILEMAP_SHEET"].loadFromFile("../resources/Pictures/TileSheets/64px_TerrainSprite.png"))
         throw std::runtime_error("ERROR::GAMESTATE::INITTEXTURES::COULD NOT LOAD 64px_TerrainSprite.png");
 }
 
 void GameState::initShader() {
-    if (!coreShader.loadFromFile("../shaders/vertex_shader.vert", "../shaders/fragment_shader.frag"))
+    if (!coreShader.loadFromFile("../shaders/vertex_shader.vert", "../shaders/fragment_shader.Frag"))
         std::cout << "Could not load shader" << std::endl;
 }
 
@@ -59,19 +57,19 @@ void GameState::initTilemap() {
     tileSize = 64;
     auto maxTilesX = (uint8_t) (this->view.getSize().x / (float) tileSize) / 2 + 3;
     auto maxTilesY = (uint8_t) (this->view.getSize().y / (float) tileSize) / 2 + 4;
-    this->tileMap = new TileMap(this->textures["64PX_TILEMAP_SHEET"], tileSize, tileSize, sf::Vector2f(0.f, 0.f), maxTilesX, maxTilesY);
+    this->tileMap = new TileMap(this->textures["64PX_TILEMAP_SHEET"], tileSize, tileSize, sf::Vector2f(0.F, 0.F), maxTilesX, maxTilesY);
 }
 
 void GameState::initPLayers() {
-    playerWidth = 32;
-    playerHeight = 48;
+    this->playerWidth = 32;
+    this->playerHeight = 48;
     this->player = new Player(0, 0, (int) playerWidth, (int) playerHeight, this->textures["PLAYER_SHEET"]);
 }
 
 void GameState::initPauseMenu() {
-    sf::Vector2f size = {200.f, 200.f};
+    sf::Vector2f size = {200.F, 200.F};
     this->pauseMenu = new PauseMenu(
-            {this->window->getSize().x / 2.f - size.x / 2.f, this->window->getSize().y / 2.f - size.y / 2.f}, size);
+            {this->window->getSize().x / 2.F - size.x / 2.F, this->window->getSize().y / 2.F - size.y / 2.F}, size);
 }
 
 /**
@@ -111,22 +109,22 @@ GameState::~GameState() {
  */
 void GameState::updateInput(const float &dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT")))) {
-        this->player->move(-1.f, 0.f, dt);
+        this->player->move(-1.F, 0.F, dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT")))) {
-        this->player->move(1.f, 0.f, dt);
+        this->player->move(1.F, 0.F, dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) {
-        this->player->move(0.f, 1.f, dt);
+        this->player->move(0.F, 1.F, dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))) {
-        this->player->move(0.f, -1.f, dt);
+        this->player->move(0.F, -1.F, dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("PAUSE_MENU")))) {
         showPauseMenu = true; //Used to open the PauseMenu
         this->endState();
     }
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) //TODO: The y position of the curser isn't correct when the y position of the player is positive
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) { //TODO: The y position of the cursor isn't correct when the y position of the player is positive
         tileMap->createPlayerStructure(
                 {static_cast<float>(static_cast<int>((mousePosView.x * viewWindowRatio + player->getPosition().x -
                                                       this->view.getSize().x / 2) /
@@ -135,6 +133,7 @@ void GameState::updateInput(const float &dt) {
                                                       this->view.getSize().y / 2) /
                                                      (float) tileSize) * tileSize)},
                 {64, 64});
+    }
 }
 
 /**
@@ -153,9 +152,9 @@ void GameState::update(const float &dt) {
     this->updateMousePositions();
     this->updateInput(dt);
     this->tileMap->update(this->player->getPosition());
-    this->player->update(dt, this->tileMap->structuresInScreen);
+    this->player->update(dt, this->tileMap->getStructuresInScreen());
     this->updateView();
-    this->fps = 1.f / dt;
+    this->fps = 1.F / dt;
     this->fpsText.setString(std::to_string((int) fps));
     this->playerPos.setString("x: " + std::to_string(this->player->getPosition().x) + " y: " +
                               std::to_string(this->player->getPosition().y));
@@ -172,7 +171,7 @@ void GameState::update(const float &dt) {
     });
 
     this->pool.push_task([this, &dt] {
-        this->fps = 1.f / dt;
+        this->fps = 1.F / dt;
         this->fpsText.setString(std::to_string((int) fps));
         this->playerPos.setString("x: " + std::to_string(this->player->getPosition().x) + " y: " +
                                   std::to_string(this->player->getPosition().y));
@@ -211,9 +210,9 @@ void GameState::initInfoText() {
     this->fpsText.setFillColor(sf::Color::White);
     this->fpsText.setCharacterSize(12);
     this->fpsText.setFont(this->font);
-    this->fpsText.setPosition({10.f, 10.f});
+    this->fpsText.setPosition({10.F, 10.F});
     this->playerPos.setFillColor(sf::Color::White);
     this->playerPos.setCharacterSize(12);
     this->playerPos.setFont(this->font);
-    this->playerPos.setPosition({10.f, 25.f});
+    this->playerPos.setPosition({10.F, 25.F});
 }

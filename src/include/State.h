@@ -29,7 +29,7 @@ public:
 
     virtual ~State();
 
-    const bool &getQuit() const;
+    [[nodiscard]] const bool &getQuit() const;
 
     void endState();
 

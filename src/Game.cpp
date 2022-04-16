@@ -38,7 +38,7 @@ void Game::initWindow() {
     ifs.close();
     this->windowSettings.antialiasingLevel = anitaliasingLevel;
     if (this->fullscreen) {
-        this->window = new sf::RenderWindow(videoModes[0], title, sf::Style::Fullscreen, windowSettings); //TODO: Fix Resolution on macos
+        this->window = new sf::RenderWindow(videoModes[0], title, sf::Style::Fullscreen, windowSettings);
     } else {
         this->window = new sf::RenderWindow(windowBounds, title, sf::Style::Titlebar | sf::Style::Close,
                                             windowSettings);

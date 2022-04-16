@@ -40,6 +40,7 @@ Player::~Player() {}
 /**
  * updates the shown texture and position of the player
  * @param dt delta time
+ * @param structures in screen
  */
 void Player::update(const float &dt, const std::vector<Tile *> &structures) {
     this->movementComponent->update(dt, this->hitboxComponent->checkStructureIntersect(structures, this->movementComponent->getVelocity(), this->movementComponent->getInputDir(), dt));

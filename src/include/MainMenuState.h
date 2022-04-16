@@ -29,7 +29,7 @@ private:
 
     void initFonts();
 
-    void initKeybinds();
+    void initKeybinds() override;
 
     void initButtons();
 
@@ -39,11 +39,11 @@ public:
     virtual ~MainMenuState();
 
     //Functions
-    void updateInput(const float &dt);
+    void updateInput(const float &dt) override;
 
     void updateButtons();
 
-    void update(const float &dt);
+    void update(const float &dt) override;
 
     void renderButtons(sf::RenderTarget &target);
 

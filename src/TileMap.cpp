@@ -62,12 +62,12 @@ TileMap::TileMap(sf::Texture &map_texture_sheet, int tile_size_x, int tile_size_
 }
 
 TileMap::~TileMap() {
-    for (auto e: tiles) {
+    for (auto *e: tiles) {
         delete e;
     }
     this->tiles.clear();
 
-    for (auto e: structures) {
+    for (auto *e: structures) {
         delete e;
     }
     this->structures.clear();
@@ -80,12 +80,12 @@ TileMap::~TileMap() {
 
 void TileMap::findStructuresInScreenSpace(sf::Vector2i view_offset) {
     structuresInScreen.clear();
-    for (auto i: structures) {
+    for (auto *i: structures) {
         if (i->getPosition().x > view_offset.x + maxTilesX * tileSizeX || i->getPosition().x < view_offset.x - maxTilesX * tileSizeX ||
-            i->getPosition().y > view_offset.y + maxTilesX * tileSizeX || i->getPosition().y < view_offset.y - maxTilesX * tileSizeX)
+            i->getPosition().y > view_offset.y + maxTilesX * tileSizeX || i->getPosition().y < view_offset.y - maxTilesX * tileSizeX) {
             continue;
-        else
-            structuresInScreen.push_back(i);
+        }
+        structuresInScreen.push_back(i);
     }
 }
 
@@ -119,37 +119,39 @@ sf::IntRect TileMap::getTileRect(const std::string &terrain, float noise, float 
     } else if (noise < 0.035F) {
         tileType = 13; // Beach
     } else if (noise < 0.8F) {
-        if (textureVarNoise < -0.2F)
+        if (textureVarNoise < -0.2F) {
             tileType = 0;
-        else if (textureVarNoise < -0.1F)
+        } else if (textureVarNoise < -0.1F) {
             tileType = 1;
-        else if (textureVarNoise < 0.0F)
+        } else if (textureVarNoise < 0.0F) {
             tileType = 2;
-        else if (textureVarNoise < 0.1F)
+        } else if (textureVarNoise < 0.1F) {
             tileType = 3;
-        else if (textureVarNoise < 0.2F)
+        } else if (textureVarNoise < 0.2F) {
             tileType = 4;
-        else if (textureVarNoise < 0.3F)
+        } else if (textureVarNoise < 0.3F) {
             tileType = 5;
-        else if (textureVarNoise < 0.4F)
+        } else if (textureVarNoise < 0.4F) {
             tileType = 6;
-        else if (textureVarNoise < 0.5F)
+        } else if (textureVarNoise < 0.5F) {
             tileType = 7;
-        else if (textureVarNoise < 0.6F)
+        } else if (textureVarNoise < 0.6F) {
             tileType = 8;
-        else if (textureVarNoise < 0.7F)
+        } else if (textureVarNoise < 0.7F) {
             tileType = 9;
-        else if (textureVarNoise < 0.8F)
+        } else if (textureVarNoise < 0.8F) {
             tileType = 10;
-        else if (textureVarNoise < 0.9F)
+        } else if (textureVarNoise < 0.9F) {
             tileType = 11;
-        else
+        } else {
             tileType = 12;
+        }
     } else {
-        if (textureVarNoise < 0.F)
-            tileType = 15;
-        else
-            tileType = 15;
+        if (textureVarNoise < 0.F) {
+            tileType = 17;
+        } else {
+            tileType = 18;
+        }
     }
     return {{tileType * tileSizeX, terrainNumbers[terrain] * tileSizeY},
             {tileSizeX,            tileSizeY}};
@@ -195,7 +197,6 @@ sf::IntRect TileMap::getTileTerrain(float noise, float textureVariationNoise, fl
  * Creates a Tile / Object with different parameters given by the player
  * @param pos Position of the Structure / Object
  * @param size Size of the Structure
- * @param color Color of the Structure (Will be replaced by Texture)
  */
 void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2i size) {
     //TODO: Structures will have hitboxes, other than regular tiles
@@ -237,20 +238,20 @@ void TileMap::update(sf::Vector2f player_position) {
 
     for (it = tiles.begin(); it != tiles.end();) {
         if ((*it)->getPosition().x > offset.x + maxTilesX * tileSizeX) { //Rechts vom Monitor
-            spawnTile({(*it)->getPosition().x - (2 * maxTilesX * tileSizeX), (*it)->getPosition().y});
+            spawnTile({(*it)->getPosition().x - (float) (2 * maxTilesX * tileSizeX), (*it)->getPosition().y});
             delete *it;
             it = tiles.erase(it);
         } else if ((*it)->getPosition().x < offset.x - maxTilesX * tileSizeX) { //Links vom Monitor
-            spawnTile({(*it)->getPosition().x + (2 * maxTilesX * tileSizeX), (*it)->getPosition().y});
+            spawnTile({(*it)->getPosition().x + (float) (2 * maxTilesX * tileSizeX), (*it)->getPosition().y});
             delete *it;
             it = tiles.erase(it);
         }
         if ((*it)->getPosition().y + tileSizeX > offset.y + maxTilesY * tileSizeY) { //Über dem Monitor
-            spawnTile({(*it)->getPosition().x, (*it)->getPosition().y - (2 * maxTilesY * tileSizeY)});
+            spawnTile({(*it)->getPosition().x, (*it)->getPosition().y - (float) (2 * maxTilesY * tileSizeY)});
             delete *it;
             it = tiles.erase(it);
         } else if ((*it)->getPosition().y < offset.y - maxTilesY * tileSizeY) { //Unter dem Monitor
-            spawnTile({(*it)->getPosition().x, (*it)->getPosition().y + (2 * maxTilesY * tileSizeY)});
+            spawnTile({(*it)->getPosition().x, (*it)->getPosition().y + (float) (2 * maxTilesY * tileSizeY)});
             delete *it;
             it = tiles.erase(it);
         } else {

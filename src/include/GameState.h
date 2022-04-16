@@ -14,18 +14,18 @@ class GameState :
         public State {
 private:
     thread_pool pool;
-    float playerWidth;
-    float playerHeight;
-    float viewWindowRatio;
-    uint8_t tileSize;
+    float playerWidth{};
+    float playerHeight{};
+    float viewWindowRatio{};
+    uint8_t tileSize{};
     bool showPauseMenu = false;
     sf::View view;
     sf::RectangleShape testRect;
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
-    PauseMenu *pauseMenu;
-    Player *player;
-    TileMap *tileMap;
+    PauseMenu *pauseMenu{};
+    Player *player{};
+    TileMap *tileMap{};
     float fps{};
     sf::Text fpsText;
     sf::Text playerPos;
@@ -42,7 +42,7 @@ private:
 
     void initRenderTexture(); //Rename??
 
-    void initKeybinds();
+    void initKeybinds() override;
 
     void initShader();
 
@@ -56,14 +56,14 @@ public:
     GameState(sf::RenderWindow *window,
               std::map<std::string, int> *supportedKeys, std::stack<State *> *states, const sf::Font &commando);
 
-    virtual ~GameState();
+    ~GameState() override;
 
     //Functions
-    void updateInput(const float &dt);
+    void updateInput(const float &dt) override;
 
     void updateView();
 
-    void update(const float &dt);
+    void update(const float &dt) override;
 
     void render(sf::RenderTarget *target = nullptr);
 };
