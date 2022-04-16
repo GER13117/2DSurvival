@@ -40,9 +40,9 @@ public:
 
     virtual const sf::Vector2f &getPosition() const;
 
-    virtual void move(const float dir_x, const float dir_y, const float &dt, const std::vector<Tile *>& structures);
+    virtual void move(const float dir_x, const float dir_y, const float &dt);
 
-    virtual void update(const float &dt) = 0;
+    virtual void update(const float &dt, const std::vector<Tile *>& structures) = 0;
 
     virtual void render(sf::RenderTarget &target, bool show_hitbox) = 0;
 };

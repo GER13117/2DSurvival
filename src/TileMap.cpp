@@ -104,7 +104,7 @@ void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset) {
  */
 
 //TODO: CHANGE THESE NUMBERS ACCORDINGLY
-sf::IntRect TileMap::getTileRect(const std::string& terrain, float noise, float textureVarNoise) {
+sf::IntRect TileMap::getTileRect(const std::string &terrain, float noise, float textureVarNoise) {
     int tileType;
     if (noise < -0.500f) {
         tileType = 16; // dark blue: deep water //TODO: Add tile to sprite sheet
@@ -202,7 +202,7 @@ void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2i size) {
             blockExists = true;
     }
     if (!blockExists)
-        structures.push_back(new Tile(pos, this->textureSheet, {{0,0}, size}, 0.f));
+        structures.push_back(new Tile(pos, this->textureSheet, {{0, 0}, size}, 0.f));
 }
 
 /**

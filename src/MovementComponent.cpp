@@ -3,18 +3,17 @@
 //
 #include "include/MovementComponent.h"
 
-float MovementComponent::Q_rsqrt(float number)
-{
+float MovementComponent::Q_rsqrt(float number) {
     long i;
     float x2, y;
     const float threehalfs = 1.5F;
 
     x2 = number * 0.5F;
-    y  = number;
-    i  = * ( long * ) &y;                       // evil floating point bit level hacking
-    i  = 0x5f3759df - ( i >> 1 );               // what the fuck? 
-    y  = * ( float * ) &i;
-    y  = y * ( threehalfs - ( x2 * y * y ) );   // 1st iteration
+    y = number;
+    i = *(long *) &y;                           // evil floating point bit level hacking
+    i = 0x5f3759df - (i >> 1);                  // what the fuck?
+    y = *(float *) &i;
+    y = y * (threehalfs - (x2 * y * y));        // 1st iteration
 //	y  = y * ( threehalfs - ( x2 * y * y ) );   // 2nd iteration, this can be removed
 
     return y;
@@ -29,6 +28,10 @@ MovementComponent::~MovementComponent() {}
 
 const sf::Vector2f &MovementComponent::getVelocity() const {
     return this->velocity;
+}
+
+const sf::Vector2f &MovementComponent::getInputDir() const {
+    return this->inputDir;
 }
 
 //functions
@@ -66,16 +69,16 @@ bool MovementComponent::getState(const short unsigned state) const {
     return false;
 }
 
-void MovementComponent::move(const bool collision, const float dir_x, const float dir_y, const float &dt) {
-    if (collision) {
-        this->velocity = {0, 0}; //Isn't working: When collision is detected there is no way to back out of it. The Entity should be stopped and then moved back until there is no collision anymore
-    } else {
-        this->velocity.x += this->acceleration * dir_x * dt;
-        this->velocity.y += this->acceleration * dir_y * dt;
-    }
+void MovementComponent::move(const float dir_x, const float dir_y, const float &dt) {
+    this->inputDir = {dir_x, dir_y};
+    this->velocity.x += this->acceleration * dir_x * dt;
+    this->velocity.y += this->acceleration * dir_y * dt;
 }
 
-void MovementComponent::update(const float &dt) {
+void MovementComponent::update(const float &dt, const bool collision) {
+    if (collision)
+        this->velocity = {0, 0};
+
     if (this->velocity.x != 0.f && this->velocity.y != 0.f) {
         if (this->velocity.x > 0.f) {
             //maxVelocity-check

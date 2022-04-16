@@ -28,6 +28,7 @@ private:
     float deceleration;
     float maxVelocity{};
     sf::Vector2f velocity;
+    sf::Vector2f inputDir;
     float diagonalMaxV;
     static float Q_rsqrt(float number);
     //Initializers
@@ -37,14 +38,16 @@ public:
     virtual ~MovementComponent();
 
     //accessors
-    const sf::Vector2f &getVelocity() const;
+    [[nodiscard]] const sf::Vector2f &getVelocity() const;
+
+    [[nodiscard]] const sf::Vector2f &getInputDir() const;
 
     //functions
-    bool getState(short unsigned state) const;
+    [[nodiscard]] bool getState(short unsigned state) const;
 
-    void move(bool collision, float dir_x, float dir_y, const float &dt);
+    void move(float dir_x, float dir_y, const float &dt);
 
-    void update(const float &dt);
+    void update(const float &dt, bool collision);
 };
 
 #endif //INC_2DSURVIVAL_MOVEMENTCOMPONENT_H

@@ -14,9 +14,10 @@ PauseMenu::PauseMenu(sf::Vector2f pos, sf::Vector2f size) {
     this->canvasSize = size;
     this->mainShape.setSize(this->canvasSize);
     this->mainShape.setPosition(this->canvasPos);
-    this->mainShape.setFillColor({255, 0,0, 128});
+    this->mainShape.setFillColor({255, 0, 0, 128});
     this->initButtons();
 }
+
 PauseMenu::~PauseMenu() {
     auto it = this->buttons.begin();
     for (it = this->buttons.begin(); it != this->buttons.end(); ++it) {

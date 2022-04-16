@@ -11,7 +11,6 @@ class Player :
         public Entity {
 private:
     //Variables
-    NetworkComponent *networkComponent;
 
     //Initializers
     void initVariables();
@@ -24,7 +23,7 @@ public:
     virtual ~Player();
 
     //Functions
-    void update(const float &dt) override;
+    void update(const float &dt, const std::vector<Tile *>& structures) override;
 
     void render(sf::RenderTarget &target, bool show_hitbox) override;
 };

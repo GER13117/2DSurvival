@@ -28,7 +28,7 @@ public:
     virtual ~HitboxComponent();
 
     //functions
-    bool checkStructureIntersect(const std::vector<Tile *> &structures, sf::Vector2f velocity, const float dir_x, const float dir_y, const float& dt);
+    bool checkStructureIntersect(const std::vector<Tile *> &structures, const sf::Vector2f &velocity, const sf::Vector2f& dir, const float& dt);
 
     void update();
 

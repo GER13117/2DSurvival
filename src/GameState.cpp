@@ -111,16 +111,16 @@ GameState::~GameState() {
  */
 void GameState::updateInput(const float &dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT")))) {
-        this->player->move(-1.f, 0.f, dt, this->tileMap->structuresInScreen);
+        this->player->move(-1.f, 0.f, dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT")))) {
-        this->player->move(1.f, 0.f, dt, this->tileMap->structuresInScreen);
+        this->player->move(1.f, 0.f, dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) {
-        this->player->move(0.f, 1.f, dt, this->tileMap->structuresInScreen);
+        this->player->move(0.f, 1.f, dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))) {
-        this->player->move(0.f, -1.f, dt, this->tileMap->structuresInScreen);
+        this->player->move(0.f, -1.f, dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("PAUSE_MENU")))) {
         showPauseMenu = true; //Used to open the PauseMenu
@@ -153,7 +153,7 @@ void GameState::update(const float &dt) {
     this->updateMousePositions();
     this->updateInput(dt);
     this->tileMap->update(this->player->getPosition());
-    this->player->update(dt);
+    this->player->update(dt, this->tileMap->structuresInScreen);
     this->updateView();
     this->fps = 1.f / dt;
     this->fpsText.setString(std::to_string((int) fps));

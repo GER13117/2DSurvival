@@ -9,6 +9,7 @@
 #include "TileMap.h"
 #include "PauseMenu.h"
 #include "../../libs/threadpool/thread_pool.h"
+
 class GameState :
         public State {
 private:
@@ -53,7 +54,7 @@ private:
 
 public:
     GameState(sf::RenderWindow *window,
-              std::map<std::string, int> *supportedKeys, std::stack<State *> *states, const sf::Font& commando);
+              std::map<std::string, int> *supportedKeys, std::stack<State *> *states, const sf::Font &commando);
 
     virtual ~GameState();
 

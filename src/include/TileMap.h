@@ -26,7 +26,7 @@ private:
 
     void createTileMapStart();
 
-    sf::IntRect getTileRect(const std::string& terrain, float noise, float textureVarNoise);
+    sf::IntRect getTileRect(const std::string &terrain, float noise, float textureVarNoise);
 
     sf::IntRect getTileTerrain(float noise, float textureVariationNoise, float fTemperature, float fHumidity);
 

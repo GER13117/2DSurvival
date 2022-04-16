@@ -22,6 +22,7 @@ private:
 
 public:
     PauseMenu(sf::Vector2f pos, sf::Vector2f size);
+
     virtual ~PauseMenu();
 
     void renderButtons(sf::RenderTarget &target);

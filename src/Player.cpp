@@ -10,7 +10,6 @@ void Player::initVariables() {
 }
 
 void Player::initComponents() {
-    this->networkComponent = new NetworkComponent;
 }
 
 
@@ -42,8 +41,8 @@ Player::~Player() {}
  * updates the shown texture and position of the player
  * @param dt delta time
  */
-void Player::update(const float &dt) {
-    this->movementComponent->update(dt);
+void Player::update(const float &dt, const std::vector<Tile *> &structures) {
+    this->movementComponent->update(dt, this->hitboxComponent->checkStructureIntersect(structures, this->movementComponent->getVelocity(), this->movementComponent->getInputDir(), dt));
     if (this->movementComponent->getState(movement_states::MOVING_UP)) {
         this->animationComponent->play("WALK_UP", dt);
     } else if (this->movementComponent->getState(movement_states::MOVING_DOWN)) {

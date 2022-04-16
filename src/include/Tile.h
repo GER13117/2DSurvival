@@ -34,6 +34,7 @@ public:
 
     //Accessors
     const sf::Vector2f &getPosition();
+
     sf::FloatRect getGlobalBounds();
 
     //Functions

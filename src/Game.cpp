@@ -46,6 +46,7 @@ void Game::initWindow() {
     this->window->setFramerateLimit(framerateLimit);
     this->window->setVerticalSyncEnabled(verticalSyncEnabled);
 }
+
 /**
  * initializes the different keys (usefulness can be questioned, maybe?)
  */
@@ -66,6 +67,7 @@ void Game::initKeys() {
         std::cout << i.first << " " << i.second << std::endl;
     }*/
 }
+
 /**
  * initializes the first State shown to the user
  */

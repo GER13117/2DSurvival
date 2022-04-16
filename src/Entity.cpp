@@ -46,11 +46,8 @@ const sf::Vector2f &Entity::getPosition() const {
     return this->sprite.getPosition();
 }
 
-void Entity::move(const float dir_x, const float dir_y, const float &dt, const std::vector<Tile *>& structures) { //TODO: Fix Bug that you cant walk anymore
+void Entity::move(const float dir_x, const float dir_y, const float &dt) { //TODO: Fix Bug that you cant walk anymore
     if (this->movementComponent) {
-        this->movementComponent->move(
-                this->hitboxComponent->checkStructureIntersect(structures,this->movementComponent->getVelocity(), dir_x, dir_y, dt),
-                dir_x, dir_y, dt); //Set velocity
-        //this->movementComponent->move(false, - dir_x, - dir_y, dt);
+        this->movementComponent->move(dir_x, dir_y, dt); //Set velocity
     }
 }
