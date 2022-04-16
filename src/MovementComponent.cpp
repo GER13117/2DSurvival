@@ -22,7 +22,7 @@ float MovementComponent::Q_rsqrt(float number)
 
 MovementComponent::MovementComponent(sf::Sprite &sprite, float maxVelocity, float acceleration, float deceleration)
         : sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration) {
-    isqrt2 = Q_rsqrt(2.f);
+    diagonalMaxV = maxVelocity * Q_rsqrt(2.f);
 }
 
 MovementComponent::~MovementComponent() {}
@@ -79,8 +79,8 @@ void MovementComponent::update(const float &dt) {
     if (this->velocity.x != 0.f && this->velocity.y != 0.f) {
         if (this->velocity.x > 0.f) {
             //maxVelocity-check
-            if (this->velocity.x > maxVelocity * isqrt2) {
-                this->velocity.x = this->maxVelocity * isqrt2;
+            if (this->velocity.x > this->diagonalMaxV) {
+                this->velocity.x = this->diagonalMaxV;
             }
             //deceleration-check
             this->velocity.x -= deceleration * dt;
@@ -89,8 +89,8 @@ void MovementComponent::update(const float &dt) {
             }
         } else if (this->velocity.x < 0.f) {
             //maxVelocity-check
-            if (this->velocity.x < -maxVelocity * isqrt2) {
-                this->velocity.x = -this->maxVelocity * isqrt2;
+            if (this->velocity.x < -this->diagonalMaxV) {
+                this->velocity.x = -this->diagonalMaxV;
             }
             this->velocity.x += deceleration * dt;
             if (this->velocity.x > 0.f) {
@@ -99,8 +99,8 @@ void MovementComponent::update(const float &dt) {
         }
         if (this->velocity.y > 0.f) {
             //maxVelocity-check
-            if (this->velocity.y > maxVelocity * isqrt2) {
-                this->velocity.y = this->maxVelocity * isqrt2;
+            if (this->velocity.y > this->diagonalMaxV) {
+                this->velocity.y = this->diagonalMaxV;
             }
             //deceleration-check
             this->velocity.y -= deceleration * dt;
@@ -109,8 +109,8 @@ void MovementComponent::update(const float &dt) {
             }
         } else if (this->velocity.y < 0.f) {
             //maxVelocity-check
-            if (this->velocity.y < -maxVelocity * isqrt2) {
-                this->velocity.y = -this->maxVelocity * isqrt2;
+            if (this->velocity.y < -this->diagonalMaxV) {
+                this->velocity.y = -this->diagonalMaxV;
             }
             this->velocity.y += deceleration * dt;
             if (this->velocity.y > 0.f) {

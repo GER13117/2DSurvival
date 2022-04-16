@@ -28,7 +28,7 @@ private:
     float deceleration;
     float maxVelocity{};
     sf::Vector2f velocity;
-    float isqrt2;
+    float diagonalMaxV;
     static float Q_rsqrt(float number);
     //Initializers
 public:
