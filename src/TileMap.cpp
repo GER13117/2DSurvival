@@ -22,19 +22,19 @@ void TileMap::initTerrainNumbers() {
 }
 
 void TileMap::initNoise() {
-    this->geologicalScale = 800.f; //Scale for generating continents
-    this->grasScale = 70.f;
-    this->temperatureScale = 2000.f;
-    this->humidityScale = 2000.f;
-    this->offsetZ = 0.05f;
-    this->lacunarity = 1.99f;
-    this->persistance = 0.5f;
-    this->geologicalSimplex = new SimplexNoise(0.1f / geologicalScale, 0.5f, lacunarity,
+    this->geologicalScale = 800.F; //Scale for generating continents
+    this->grasScale = 70.F;
+    this->temperatureScale = 2000.F;
+    this->humidityScale = 2000.F;
+    this->offsetZ = 0.05F;
+    this->lacunarity = 1.99F;
+    this->persistance = 0.5F;
+    this->geologicalSimplex = new SimplexNoise(0.1F / geologicalScale, 0.5F, lacunarity,
                                                persistance); // Amplitude of 0.5 for the 1st octave : sum ~1.0f
-    this->grasSimplex = new SimplexNoise(0.1f / grasScale, 0.5f, lacunarity, persistance);
-    this->humidity = new SimplexNoise(0.1f / humidityScale, 0.5f, lacunarity, persistance);
-    this->temperature = new SimplexNoise(0.1f / temperatureScale, 2.f, lacunarity, persistance);
-    this->tileRotation = new SimplexNoise(0.1f / 0.0001f, 0.1f, lacunarity, persistance);
+    this->grasSimplex = new SimplexNoise(0.1F / grasScale, 0.5F, lacunarity, persistance);
+    this->humidity = new SimplexNoise(0.1F / humidityScale, 0.5F, lacunarity, persistance);
+    this->temperature = new SimplexNoise(0.1F / temperatureScale, 2.F, lacunarity, persistance);
+    this->tileRotation = new SimplexNoise(0.1F / 0.0001F, 0.1F, lacunarity, persistance);
 
     this->octaves = static_cast<int>(3 + std::log(geologicalScale)); // Estimate number of octaves needed for the scale
 }
@@ -78,7 +78,7 @@ TileMap::~TileMap() {
 
 }
 
-void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset) {
+void TileMap::findStructuresInScreenSpace(sf::Vector2i view_offset) {
     structuresInScreen.clear();
     for (auto i: structures) {
         if (i->getPosition().x > view_offset.x + maxTilesX * tileSizeX || i->getPosition().x < view_offset.x - maxTilesX * tileSizeX ||
@@ -87,6 +87,10 @@ void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset) {
         else
             structuresInScreen.push_back(i);
     }
+}
+
+std::vector<Tile *> TileMap::getStructuresInScreen() {
+    return this->structuresInScreen;
 }
 
 /*
@@ -106,43 +110,43 @@ void TileMap::getStructuresInScreenSpace(sf::Vector2i view_offset) {
 //TODO: CHANGE THESE NUMBERS ACCORDINGLY
 sf::IntRect TileMap::getTileRect(const std::string &terrain, float noise, float textureVarNoise) {
     int tileType;
-    if (noise < -0.500f) {
+    if (noise < -0.500F) {
         tileType = 16; // dark blue: deep water //TODO: Add tile to sprite sheet
-    } else if (noise < -0.20f) {
+    } else if (noise < -0.20F) {
         tileType = 15; // deep blue: water
-    } else if (noise < -0.10f) {
+    } else if (noise < -0.10F) {
         tileType = 14; // blue: shallow water
-    } else if (noise < 0.035f) {
+    } else if (noise < 0.035F) {
         tileType = 13; // Beach
-    } else if (noise < 0.8f) {
-        if (textureVarNoise < -0.2f)
+    } else if (noise < 0.8F) {
+        if (textureVarNoise < -0.2F)
             tileType = 0;
-        else if (textureVarNoise < -0.1f)
+        else if (textureVarNoise < -0.1F)
             tileType = 1;
-        else if (textureVarNoise < 0.0f)
+        else if (textureVarNoise < 0.0F)
             tileType = 2;
-        else if (textureVarNoise < 0.1f)
+        else if (textureVarNoise < 0.1F)
             tileType = 3;
-        else if (textureVarNoise < 0.2f)
+        else if (textureVarNoise < 0.2F)
             tileType = 4;
-        else if (textureVarNoise < 0.3f)
+        else if (textureVarNoise < 0.3F)
             tileType = 5;
-        else if (textureVarNoise < 0.4f)
+        else if (textureVarNoise < 0.4F)
             tileType = 6;
-        else if (textureVarNoise < 0.5f)
+        else if (textureVarNoise < 0.5F)
             tileType = 7;
-        else if (textureVarNoise < 0.6f)
+        else if (textureVarNoise < 0.6F)
             tileType = 8;
-        else if (textureVarNoise < 0.7f)
+        else if (textureVarNoise < 0.7F)
             tileType = 9;
-        else if (textureVarNoise < 0.8f)
+        else if (textureVarNoise < 0.8F)
             tileType = 10;
-        else if (textureVarNoise < 0.9f)
+        else if (textureVarNoise < 0.9F)
             tileType = 11;
         else
             tileType = 12;
     } else {
-        if (textureVarNoise < 0.f)
+        if (textureVarNoise < 0.F)
             tileType = 15;
         else
             tileType = 15;
@@ -152,34 +156,34 @@ sf::IntRect TileMap::getTileRect(const std::string &terrain, float noise, float 
 }
 
 sf::IntRect TileMap::getTileTerrain(float noise, float textureVariationNoise, float fTemperature, float fHumidity) {
-    if (fHumidity >= 0.5f) {
-        if (fTemperature > 0.5f) {
+    if (fHumidity >= 0.5F) {
+        if (fTemperature > 0.5F) {
             return getTileRect("RAINFOREST", noise, textureVariationNoise);
         } else {
             return getTileRect("SWAMP", noise, textureVariationNoise);
         }
-    } else if (fHumidity >= 0.f) {
-        if (fTemperature > 0.5f) {
+    } else if (fHumidity >= 0.F) {
+        if (fTemperature > 0.5F) {
             return getTileRect("SEASONAL_FOREST", noise, textureVariationNoise);
-        } else if (fTemperature > 0.f) {
+        } else if (fTemperature > 0.F) {
             return getTileRect("FOREST", noise, textureVariationNoise);
         } else {
             return getTileRect("TAIGA", noise, textureVariationNoise);
         }
-    } else if (fHumidity >= -0.5f) {
-        if (fTemperature > 0.5f) {
+    } else if (fHumidity >= -0.5F) {
+        if (fTemperature > 0.5F) {
             return getTileRect("SAVANNE", noise, textureVariationNoise);
-        } else if (fTemperature > 0.f) {
+        } else if (fTemperature > 0.F) {
             return getTileRect("WOODS", noise, textureVariationNoise);
-        } else if (fTemperature > -0.5f) {
+        } else if (fTemperature > -0.5F) {
             return getTileRect("TAIGA", noise, textureVariationNoise);
         } else {
             return getTileRect("TUNDRA", noise, textureVariationNoise);
         }
     } else {
-        if (fTemperature > 0.25f) {
+        if (fTemperature > 0.25F) {
             return getTileRect("DESERT", noise, textureVariationNoise);
-        } else if (fTemperature > -0.5f) {
+        } else if (fTemperature > -0.5F) {
             return getTileRect("GRAS_DESERT", noise, textureVariationNoise);
         } else {
             return getTileRect("TUNDRA", noise, textureVariationNoise);
@@ -202,7 +206,7 @@ void TileMap::createPlayerStructure(sf::Vector2f pos, sf::Vector2i size) {
             blockExists = true;
     }
     if (!blockExists)
-        structures.push_back(new Tile(pos, this->textureSheet, {{0, 0}, size}, 0.f));
+        structures.push_back(new Tile(pos, this->textureSheet, {{0, 0}, size}, 0.F));
 }
 
 /**
@@ -213,11 +217,11 @@ void TileMap::spawnTile(sf::Vector2f pos) {
     tiles.push_back(new Tile(pos, this->textureSheet,
                              getTileTerrain(
                                      this->geologicalSimplex->fractal(octaves, pos.x, pos.y) + offsetZ,
-                                     this->grasSimplex->fractal(octaves, pos.x + 9129834.f, pos.y + 1208012.f) +
+                                     this->grasSimplex->fractal(octaves, pos.x + 9129834.F, pos.y + 1208012.F) +
                                      offsetZ, //arbitrary number to  offset the continent-noise and tex-variation, as they are the same just on a different scale
                                      this->temperature->fractal(octaves, pos.x, pos.y),
                                      this->humidity->fractal(octaves, pos.x, pos.y)),
-                             (float) ((int) (((this->tileRotation->fractal(octaves, pos.x, pos.y) + 1) * 270) / 90)) * 90.f));
+                             (float) ((int) (((this->tileRotation->fractal(octaves, pos.x, pos.y) + 1) * 270) / 90)) * 90.F));
 }
 
 //TODO: maybe only update the map if the player is moving?
@@ -229,7 +233,7 @@ void TileMap::update(sf::Vector2f player_position) {
     offset.x = ((int) (player_position.x / (float) tileSizeX) * tileSizeX);
     offset.y = ((int) (player_position.y / (float) tileSizeY) * tileSizeY);
 
-    getStructuresInScreenSpace(offset);
+    findStructuresInScreenSpace(offset);
 
     for (it = tiles.begin(); it != tiles.end();) {
         if ((*it)->getPosition().x > offset.x + maxTilesX * tileSizeX) { //Rechts vom Monitor

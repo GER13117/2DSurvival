@@ -15,6 +15,8 @@ private:
     std::vector<Tile *> structures; //built by the player
     std::vector<Tile *>::iterator it;
 
+    std::vector<Tile *> structuresInScreen;
+
     sf::Texture &textureSheet;
 
     //inits and utilities
@@ -45,6 +47,9 @@ private:
     float lacunarity{};
     float persistance{};
     int octaves{};
+
+    void findStructuresInScreenSpace(sf::Vector2i view_offset);
+
     SimplexNoise *geologicalSimplex{};
     SimplexNoise *grasSimplex{};
     SimplexNoise *temperature{};
@@ -57,15 +62,13 @@ public:
 
     void createPlayerStructure(sf::Vector2f pos, sf::Vector2i size);
 
-    void getStructuresInScreenSpace(sf::Vector2i view_offset);
-
     void update(sf::Vector2f player_position);
 
     void render(sf::RenderTarget &target);
 
-    virtual ~TileMap();
+    std::vector<Tile *> getStructuresInScreen();
 
-    std::vector<Tile *> structuresInScreen;
+    virtual ~TileMap();
 };
 
 #endif //INC_2DSURVIVAL_TILEMAP_H
