@@ -30,8 +30,6 @@ private:
     sf::Vector2f velocity;
     float isqrt2;
     static float Q_rsqrt(float number);
-
-    float sgn(float num);
     //Initializers
 public:
     MovementComponent(sf::Sprite &sprite, float maxVelocity, float acceleration, float deceleration);

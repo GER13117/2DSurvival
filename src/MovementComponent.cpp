@@ -162,11 +162,3 @@ void MovementComponent::update(const float &dt) {
     //Final move
     this->sprite.move(this->velocity * dt); //uses velocity
 }
-
-float MovementComponent::sgn(float num) {
-    if (num > 0)
-        return 1;
-    else if (num < 0)
-        return -1;
-    return 0;
-}

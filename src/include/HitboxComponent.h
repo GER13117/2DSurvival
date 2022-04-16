@@ -19,6 +19,7 @@ class HitboxComponent {
 private:
     sf::Sprite &sprite;
     sf::RectangleShape hitBox;
+    sf::FloatRect nextPosition;
     float offsetX;
     float offsetY;
 public:
@@ -27,7 +28,7 @@ public:
     virtual ~HitboxComponent();
 
     //functions
-    bool checkStructureIntersect(const std::vector<Tile *>& structures);
+    bool checkStructureIntersect(const std::vector<Tile *> &structures, sf::Vector2f velocity, const float dir_x, const float dir_y, const float& dt);
 
     void update();
 

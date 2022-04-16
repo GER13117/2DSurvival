@@ -12,17 +12,32 @@ HitboxComponent::HitboxComponent(sf::Sprite &sprite,
     this->hitBox.setSize(sf::Vector2f(width, height));
     this->hitBox.setFillColor(sf::Color::Transparent);
     this->hitBox.setOutlineThickness(1.f);
-    this->hitBox.setOutlineColor(sf::Color::Magenta);
+    this->hitBox.setOutlineColor(sf::Color::Green);
+
+    this->nextPosition.height = height;
+    this->nextPosition.width = width;
 }
 
 HitboxComponent::~HitboxComponent() {
 }
 
-bool HitboxComponent::checkStructureIntersect(const std::vector<Tile *> &structures) {
+//TODO: Wie kann man an einer Wand entlang laufen, während man bspw. a und s drückt aber nicht langsamer wird
+bool
+HitboxComponent::checkStructureIntersect(const std::vector<Tile *> &structures, sf::Vector2f velocity, const float dir_x, const float dir_y, const float& dt) {
     bool intersects = false;
+    if (velocity.x == 0.f)
+        this->nextPosition.left = this->hitBox.getPosition().x + dir_x * 2;
+    else
+        this->nextPosition.left = this->hitBox.getPosition().x + velocity.x * dt;
+
+    if (velocity.y == 0.f)
+        this->nextPosition.top = this->hitBox.getPosition().y + dir_y * 2;
+    else
+        this->nextPosition.top = this->hitBox.getPosition().y + velocity.y * dt;
+
     for (auto i: structures) {
-        if (std::nullopt == this->hitBox.getGlobalBounds().findIntersection(i->getGlobalBounds())) {
-            this->hitBox.setOutlineColor(sf::Color::Magenta);
+        if (std::nullopt == this->nextPosition.findIntersection(i->getGlobalBounds())) {
+            this->hitBox.setOutlineColor(sf::Color::Green);
         } else {
             this->hitBox.setOutlineColor(sf::Color::Red);
             intersects = true;

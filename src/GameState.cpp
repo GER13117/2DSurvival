@@ -11,7 +11,7 @@ void GameState::initRenderTexture() {
 }
 
 void GameState::initView() {
-    float height = 1080;
+    float height = 900;
     this->view.setSize(this->window->getSize().x * height / this->window->getSize().y, height);
     this->view.setCenter(sf::Vector2f{0.f, 0.f});
     this->viewWindowRatio = height / this->window->getSize().y;
@@ -191,7 +191,7 @@ void GameState::render(sf::RenderTarget *target) {
 
     //Sachen die gemalt werden sollen
     this->tileMap->render(this->renderTexture);
-    this->player->render(this->renderTexture, false);
+    this->player->render(this->renderTexture, true);
 
     this->renderTexture.display();
 
