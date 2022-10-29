@@ -5,7 +5,6 @@
 #define INC_2DSURVIVAL_PLAYER_H
 
 #include "Entity.h"
-#include "NetworkComponent.h"
 
 class Player :
         public Entity {

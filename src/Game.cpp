@@ -29,7 +29,7 @@ void Game::initWindow() {
     unsigned anitaliasingLevel = 0;
     if (ifs.is_open()) {
         std::getline(ifs, title);
-        ifs >> windowBounds.width >> windowBounds.height;
+        ifs >> windowBounds.size.x >> windowBounds.size.y;
         ifs >> this->fullscreen;
         ifs >> framerateLimit;
         ifs >> verticalSyncEnabled;

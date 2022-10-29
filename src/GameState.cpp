@@ -4,7 +4,7 @@
 #include "include/GameState.h"
 
 void GameState::initRenderTexture() {
-    if (!renderTexture.create(this->window->getSize().x, this->window->getSize().y))
+    if (!renderTexture.create(this->window->getSize()))
         throw std::runtime_error("ERROR::GAMESTATE::INITRENDERTEXTURES::COULD NOT CREATE RENDERTEXTURE");
     this->renderSprite.setTexture(this->renderTexture.getTexture());
 
@@ -12,7 +12,7 @@ void GameState::initRenderTexture() {
 
 void GameState::initView() {
     float height = 900;
-    this->view.setSize((float) this->window->getSize().x * height / (float) this->window->getSize().y, height);
+    this->view.setSize({(float) this->window->getSize().x * height / (float) this->window->getSize().y, height});
     this->view.setCenter(sf::Vector2f{0.F, 0.F});
     this->viewWindowRatio = height / (float) this->window->getSize().y;
     std::cout << "x: " << window->getSize().x << " y:  " << window->getSize().y
